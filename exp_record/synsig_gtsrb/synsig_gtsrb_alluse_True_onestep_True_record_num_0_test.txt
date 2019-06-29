@@ -1,0 +1,5 @@
+Namespace(all_use=True, backbone='default', batch_interval=100, batch_size=128, checkpoint='checkpoint', checkpoint_dir='exp_record\\synsig_gtsrb\\checkpoint', cuda=True, ensemble_alpha=0.8, eval_only=False, image_size=32, lr=0.0002, max_epoch=200, mixup_beta=0.5, no_cuda=False, num_classes=43, num_k=4, one_step=True, optimizer='adam', rampup_length=10, resume_epoch=0, save_epoch_interval=20, save_model=False, seed=1, source='synsig', source_loader='mcd', supplementary_info='', target='gtsrb', target_loader='mcd', use_abs_diff=False, weight_consistency_upper=1.0, weight_discrepancy_upper=1.0)
+Test Epoch_target_testSet:1	Loss1:-0.033356, Loss2:-0.033098, Accuracy C1:0.8855, Accuracy C2:0.8801, Accuracy Ensemble:0.8871
+Test Epoch_source_testSet:1	Loss1:-0.055284, Loss2:-0.056062, Accuracy C1:0.9965, Accuracy C2:0.9955, Accuracy Ensemble:0.9960
+Test Epoch_target_testSet:2	Loss1:-0.036560, Loss2:-0.035871, Accuracy C1:0.8778, Accuracy C2:0.8818, Accuracy Ensemble:0.8921
+Test Epoch_source_testSet:2	Loss1:-0.059721, Loss2:-0.059685, Accuracy C1:0.9980, Accuracy C2:0.9980, Accuracy Ensemble:0.9980
