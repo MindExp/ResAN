@@ -242,8 +242,9 @@ class ResNet_C(nn.Module):
         x = self.dropout(x)
         if self.use_bottleneck and self.new_class:
             x = self.bottleneck(x)
-            x = self.relu(x)
-            x = self.dropout(x)
+            # consider to delete
+            # x = self.relu(x)
+            # x = self.dropout(x)
         y = self.fc(x)
         return y
 
@@ -409,7 +410,7 @@ def get_netF(base_network=None):
     return netF
 
 
-def get_netC(base_network=None, use_bottleneck=True, bottleneck_dim=256, new_class=False, class_num=31):
+def get_netC(base_network=None, use_bottleneck=True, bottleneck_dim=256, new_class=True, class_num=31):
     if base_network.__class__.__name__ == 'AlexNet_F':
         netC = AlexNet_C(base_network, use_bottleneck=use_bottleneck, bottleneck_dim=bottleneck_dim,
                          new_class=new_class, class_num=class_num)

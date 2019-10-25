@@ -23,30 +23,35 @@ from torch.utils.data import WeightedRandomSampler, DataLoader
 
 
 def weightRandomSampler():
+    """
+    1. 处理类别不平衡问题
+    2. 再采样池设计
+    :return:
+    """
     # Create dummy data with class imbalance 99 to 1
     numDataPoints = 1000
     data_dim = 5
     bs = 100
     data = torch.randn(numDataPoints, data_dim)
-    target = torch.cat((torch.zeros(int(numDataPoints * 0.99), dtype=torch.long),
+    label = torch.cat((torch.zeros(int(numDataPoints * 0.99), dtype=torch.long),
                         torch.ones(int(numDataPoints * 0.01), dtype=torch.long)))
 
     print('target train 0/1: {}/{}'.format(
-        (target == 0).sum(), (target == 1).sum()))
+        (label == 0).sum(), (label == 1).sum()))
 
     # Create subset indices
-    subset_idx = torch.cat((torch.arange(100), torch.arange(-5, 0)))
+    subset_idx = torch.cat((torch.arange(500), torch.arange(-5, 0)))
 
     # Compute samples weight (each sample should get its own weight)
     class_sample_count = torch.tensor(
-        [(target[subset_idx] == t).sum() for t in torch.unique(target, sorted=True)])
+        [(label[subset_idx] == t).sum() for t in torch.unique(label, sorted=True)])
     weight = 1. / class_sample_count.float()
-    samples_weight = torch.tensor([weight[t] for t in target[subset_idx]])
+    samples_weight = torch.tensor([weight[item_label] for item_label in label[subset_idx]])
 
     # Create sampler, dataset, loader
     sampler = WeightedRandomSampler(samples_weight, len(samples_weight))
     train_dataset = torch.utils.data.TensorDataset(
-        data[subset_idx], target[subset_idx])
+        data[subset_idx], label[subset_idx])
     train_loader = DataLoader(
         train_dataset, batch_size=bs, num_workers=1, sampler=sampler)
 

@@ -45,13 +45,13 @@ class _netC(nn.Module):
         return x
 
 
-def get_netF(config=None):
+def get_netF(backbone=None):
     netF = _netF()
 
     return netF
 
 
-def get_netC(config):
+def get_netC(backbone=None):
     netC = _netC()
 
     return netC

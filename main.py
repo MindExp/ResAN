@@ -50,10 +50,10 @@ parser.add_argument('--resume_epoch', type=int, default=0, metavar='N',
                     help='epoch to resume')
 parser.add_argument('--batch_interval', type=int, default=10, metavar='N',
                     help='batch interval to record')
-parser.add_argument('--save_epoch_interval', type=int, default=20, metavar='N',
-                    help='epoch interval to save model')
 parser.add_argument('--save_model', action='store_true', default=False,
                     help='save_model or not')
+parser.add_argument('--save_epoch_interval', type=int, default=20, metavar='N',
+                    help='epoch interval to save model')
 parser.add_argument('--seed', type=int, default=1, metavar='S',
                     help='random seed (default: 1)')
 parser.add_argument('--use_abs_diff', action='store_true', default=False,

@@ -43,18 +43,19 @@ def dense_to_one_hot(labels_dense):
 
 
 def init_record_directory(config):
-    svhn_mnist, mnist_usps, synsig_gtsrb, office_31 = \
-        ['svhn', 'mnist'], ['mnist', 'usps'], ['synsig', 'gtsrb'], ['A', 'W', 'D']
+    svhn_mnist, mnist_usps, synsig_gtsrb, office_31, officeHome = \
+        ['svhn', 'mnist'], ['mnist', 'usps'], ['synsig', 'gtsrb'], ['A', 'W', 'D'], ['A', 'C', 'P', 'R']
     record_directory = 'svhn_mnist' if config.source in svhn_mnist and config.target in svhn_mnist \
         else 'mnist_usps' if config.source in mnist_usps and config.target in mnist_usps \
         else 'synsig_gtsrb' if config.source in synsig_gtsrb and config.target in synsig_gtsrb \
-        else 'office_31' if config.source in office_31 and config.target in office_31 else None
+        else 'office_31' if config.source in office_31 and config.target in office_31\
+        else 'officeHome' if config.source in officeHome and config.target in officeHome else None
     record_directory = f'{record_directory}{"_all_use"}' if record_directory == 'mnist_usps' and config.all_use \
         else f'{record_directory}{"_not_all"}' if record_directory == 'mnist_usps' and not config.all_use \
         else record_directory
 
     if not record_directory:
-        raise ValueError('invalid transfer task, not in expected transfer domain!')
+        raise ValueError('invalid transfer setting, not in expected transfer domain!')
 
     record_directory = os.path.join('exp_record', record_directory)
     checkpoint_directory = os.path.join(record_directory, config.checkpoint)
@@ -137,7 +138,7 @@ class GaussianNoise(torch.nn.Module):
 
 
 def calculate_grl_coefficient(epoch_num, epoch_total=100.0, high=1.0, low=0.0, alpha=10.0):
-    coefficient = np.float(2.0 * (high - low) / (1.0 + np.exp(-alpha * epoch_num / (float(epoch_total) / 2)))
+    coefficient = np.float(2.0 * (high - low) / (1.0 + np.exp(-alpha * epoch_num / float(epoch_total)))
                            - (high - low) + low)
     return coefficient
 

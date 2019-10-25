@@ -8,7 +8,7 @@ from torch.autograd import Variable
 
 from datasets.utils import dataset_loader
 from models.init_model import InitModel
-from utils import util, temporal_ensemble, inconsistency_target_samper
+from utils import util, temporal_ensemble, inconsistency_target_sampler
 
 
 # Training settings
@@ -166,19 +166,19 @@ class Solver(object):
         self.netC2.train()
         torch.cuda.manual_seed(1)
 
-        coeff = util.calculate_grl_coefficient(epoch_num=self.epoch_num, epoch_total=self.epoch_total,
-                                               high=1.0, low=0.0, alpha=10.0)
+        grl_coeff = util.calculate_grl_coefficient(epoch_num=self.epoch_num, epoch_total=self.epoch_total,
+                                                   high=1.0, low=0.0, alpha=10.0)
 
         weight_consistency = temporal_ensemble.get_current_consistency_weight(
             self.weight_consistency_upper, epoch, self.rampup_length)
-        weight_consistency = torch.autograd.Variable(torch.FloatTensor([weight_consistency]).cuda(),
-                                                     requires_grad=False)
+        weight_consistency = torch.from_numpy(weight_consistency).cuda()
+        weight_consistency.requires_grad = False
         weight_discrepancy_resample = temporal_ensemble.get_current_consistency_weight(
             self.weight_discrepancy_upper, epoch, self.rampup_length)
-        weight_discrepancy_resample = torch.autograd.Variable(torch.FloatTensor([weight_discrepancy_resample]).cuda(),
-                                                              requires_grad=False)
-
-        dataloader_target_resample = inconsistency_target_samper.re_sample_inconsistency_target(
+        weight_discrepancy_resample = torch.from_numpy(weight_discrepancy_resample).cuda()
+        weight_discrepancy_resample.requires_grad = False
+        # TODO 研究点：重新设计 dataloader_target_resample， 采用样本 id 信息
+        dataloader_target_resample = inconsistency_target_sampler.re_sample_inconsistency_target(
             list(self.inconsistency_index_set), self.dataloader_target_train, self.batch_size)
 
         iteration_source, iteration_target, iteration_resample = \
@@ -186,7 +186,6 @@ class Solver(object):
         iteration_total = iteration_source if iteration_source > iteration_target else iteration_target
         iter_dataloader_source_train, iter_dataloader_target_train, iter_dataloader_target_resample = None, None, None
 
-        # fixme: attention for the shuffle parameter in target dataloader. shuffle=False IN target dataloader.
         for batch_idx in range(iteration_total):
             if batch_idx % iteration_source == 0:
                 iter_dataloader_source_train = iter(self.dataloader_source_train)
@@ -204,10 +203,12 @@ class Solver(object):
 
             img_s, img_t = img_s.cuda(), img_t.cuda()
             label_s = label_s.long().cuda()
-            if img_t.shape[0] < 128:
-                start, end = batch_idx % iteration_target * self.batch_size, batch_idx % iteration_target * self.batch_size + img_t.shape[0]
+            if img_t.shape[0] < self.batch_size:
+                start, end = batch_idx % iteration_target * self.batch_size, \
+                             batch_idx % iteration_target * self.batch_size + img_t.shape[0]
             else:
-                start, end = batch_idx % iteration_target * self.batch_size, (batch_idx % iteration_target + 1) * self.batch_size
+                start, end = batch_idx % iteration_target * self.batch_size, \
+                             (batch_idx % iteration_target + 1) * self.batch_size
             correction_output_t1 = self.correction_output_t1[start: end]
             correction_output_t2 = self.correction_output_t2[start: end]
 
@@ -220,18 +221,19 @@ class Solver(object):
             loss_source = loss_s1 + loss_s2
 
             feat_t = self.netF(img_t)
+            # TODO GRL方案选择 {method 1, method 2}
             output_t1 = self.netC1(feat_t, reverse=True, grl_coefficient=4.0)
             output_t2 = self.netC2(feat_t, reverse=True, grl_coefficient=4.0)
 
             inconsistency_index = torch.nonzero(
                 torch.ne(output_t1.data.max(1)[1], output_t2.data.max(1)[1])).view(-1)
+            inconsistency_index.requires_grad = False
             consistency_index = torch.nonzero(
                 torch.eq(output_t1.data.max(1)[1], output_t2.data.max(1)[1])).view(-1)
-            self.inconsistency_index_set.update({(batch_idx % iteration_target) * self.batch_size + i
-                                                 for i in inconsistency_index.cpu().numpy()})
-            self.inconsistency_index_set.difference_update({(batch_idx % iteration_target) * self.batch_size + i
-                                                            for i in consistency_index.cpu().numpy()})
-
+            consistency_index.requires_grad = False
+            self.inconsistency_index_set.update({start + i for i in inconsistency_index})
+            self.inconsistency_index_set.difference_update({start + i for i in consistency_index})
+            # TODO 研究点：自定义 discrepancy loss, e.g., symmetric_mse_loss.
             loss_discrepancy = util.loss_discrepancy(output_t1, output_t2)
 
             loss_consistency_output_t1 = temporal_ensemble.loss_softmax_mse(output_t1, correction_output_t1)
@@ -241,6 +243,7 @@ class Solver(object):
             if resample_consideration:
                 img_r = img_r.cuda()
                 feat_r = self.netF(img_r)
+                # TODO 研究点：再采样样本 grl_coefficient 待进一步研究
                 output_r1 = self.netC1(feat_r, reverse=True, grl_coefficient=4.0)
                 output_r2 = self.netC2(feat_r, reverse=True, grl_coefficient=4.0)
                 loss_discrepancy_resample = util.loss_discrepancy(output_r1, output_r2)
@@ -258,8 +261,9 @@ class Solver(object):
             self.reset_grad()
 
             if batch_idx % self.batch_interval == 0:
-                record_info = 'Train Epoch:{} [batch_index:{}]\tLoss1:{:.6f}\tLoss2:{:.6f}\tDiscrepancy:{:.6f}'.format(
-                    epoch + 1, batch_idx, loss_s1.data.item(), loss_s2.data.item(), loss_discrepancy.data.item())
+                record_info = 'Train Epoch:{} [batch_index:{}/{}]\tLoss1:{:.6f}\tLoss2:{:.6f}\tDiscrepancy:{:.6f}'.format(
+                    epoch + 1, batch_idx, iteration_total, loss_s1.data.item(), loss_s2.data.item(),
+                    loss_discrepancy.data.item())
                 train_info = '\tConsistency weight:{:.6f}\tConsistency loss_t1:{:.6f}\tConsistency loss_t2:{:.6f}' \
                              '\tDiscrepancy_Resample Weight:{:.6f}\tResample Discrepancy{:.6f}\tResample Pool Num:{}' \
                     .format(weight_consistency.data.item(),
