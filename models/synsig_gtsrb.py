@@ -20,6 +20,9 @@ class _netF(nn.Module):
         x = x.view(x.size(0), 6400)
         return x
 
+    def get_parameters(self):
+        return self.parameters()
+
 
 class _netC(nn.Module):
     def __init__(self):
@@ -37,6 +40,9 @@ class _netC(nn.Module):
         x = F.dropout(x, training=self.training)
         x = self.fc3(x)
         return x
+
+    def get_parameters(self):
+        return self.parameters()
 
 
 def get_netF(backbone=None):

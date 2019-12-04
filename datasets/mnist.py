@@ -6,7 +6,7 @@ from scipy.io import loadmat
 from datasets.utils.unaligned_data_loader import UnalignedDataLoader
 import os
 
-file_path_datasets_root = 'D:\Exp_HZH\dataset'
+file_path_datasets_root = 'E:\Projects\dataset'
 file_path_mnist_mcd = os.path.join(file_path_datasets_root, 'mnist\mnist_data.mat')
 file_path_mnist_train_gta = os.path.join(file_path_datasets_root, 'E:\Projects\dataset\mnist\\trainset')
 file_path_mnist_test_gta = os.path.join(file_path_datasets_root, 'E:\Projects\dataset\mnist\\testset')
@@ -38,6 +38,7 @@ def get_loader_mcd(config):
     return dataloader_trainset, dataloader_testset
 
 
+# TODO 自定义返回 id 信息 ImageFolder, def __getitem__(self, index):
 def load_mnist_gta(config):
     file_path_trainset = file_path_mnist_train_gta
     file_path_testset = file_path_mnist_test_gta

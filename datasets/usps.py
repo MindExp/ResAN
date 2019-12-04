@@ -87,7 +87,7 @@ class USPS_COGAN(torch.utils.data.Dataset):
         image_name, label = self.mapping[index]
         image_path = os.path.join(self.directory_image, image_name)
         image = self.transform(Image.open(image_path).convert('RGB'))
-        return image, label
+        return index, image, label
 
 
 def load_usps_cogan(config):

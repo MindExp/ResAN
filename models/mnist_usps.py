@@ -16,9 +16,11 @@ class _netF(nn.Module):
         x = torch.mean(x, 1).view(x.size()[0], 1, x.size()[2], x.size()[3])
         x = F.max_pool2d(F.relu(self.bn1(self.conv1(x))), stride=2, kernel_size=2, dilation=(1, 1))
         x = F.max_pool2d(F.relu(self.bn2(self.conv2(x))), stride=2, kernel_size=2, dilation=(1, 1))
-        # print(x.size())
         x = x.view(x.size(0), 48 * 4 * 4)
         return x
+
+    def get_parameters(self):
+        return self.parameters()
 
 
 class _netC(nn.Module):
@@ -43,6 +45,9 @@ class _netC(nn.Module):
         x = F.dropout(x, training=self.training, p=self.prob)
         x = self.fc3(x)
         return x
+
+    def get_parameters(self):
+        return self.parameters()
 
 
 def get_netF(backbone=None):

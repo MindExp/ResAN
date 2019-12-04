@@ -1,213 +1,401 @@
-Namespace(all_use=False, backbone='default', batch_interval=10, batch_size=128, checkpoint='checkpoint', checkpoint_dir='exp_record\\mnist_usps_not_all\\checkpoint', cuda=True, ensemble_alpha=0.8, eval_only=False, image_size=32, lr=0.001, max_epoch=200, mixup_beta=0.5, no_cuda=False, num_classes=10, num_k=4, one_step=True, optimizer='adam', rampup_length=10, resume_epoch=0, save_epoch_interval=20, save_model=False, seed=1, source='usps', source_loader='mcd', supplementary_info='', target='mnist', target_loader='mcd', use_abs_diff=False, weight_consistency_upper=1.0, weight_discrepancy_upper=1.0)
-Test Epoch_target_testSet:1	Loss1:-0.001186, Loss2:-0.002107, Accuracy C1:0.4905, Accuracy C2:0.3674, Accuracy Ensemble:0.4540
-Test Epoch_source_testSet:1	Loss1:-0.002061, Loss2:-0.003322, Accuracy C1:0.6027, Accuracy C2:0.4962, Accuracy Ensemble:0.5581
-Test Epoch_target_testSet:2	Loss1:-0.003712, Loss2:-0.004736, Accuracy C1:0.5462, Accuracy C2:0.4947, Accuracy Ensemble:0.5388
-Test Epoch_source_testSet:2	Loss1:-0.006183, Loss2:-0.007790, Accuracy C1:0.6962, Accuracy C2:0.6468, Accuracy Ensemble:0.6968
-Test Epoch_target_testSet:3	Loss1:-0.005569, Loss2:-0.006373, Accuracy C1:0.5892, Accuracy C2:0.5910, Accuracy Ensemble:0.5992
-Test Epoch_source_testSet:3	Loss1:-0.008686, Loss2:-0.009884, Accuracy C1:0.7935, Accuracy C2:0.7887, Accuracy Ensemble:0.8038
-Test Epoch_target_testSet:4	Loss1:-0.007516, Loss2:-0.008428, Accuracy C1:0.6369, Accuracy C2:0.6341, Accuracy Ensemble:0.6386
-Test Epoch_source_testSet:4	Loss1:-0.011529, Loss2:-0.012442, Accuracy C1:0.8339, Accuracy C2:0.8323, Accuracy Ensemble:0.8473
-Test Epoch_target_testSet:5	Loss1:-0.009930, Loss2:-0.010731, Accuracy C1:0.6734, Accuracy C2:0.6598, Accuracy Ensemble:0.6714
-Test Epoch_source_testSet:5	Loss1:-0.014571, Loss2:-0.015023, Accuracy C1:0.8753, Accuracy C2:0.8511, Accuracy Ensemble:0.8731
-Test Epoch_target_testSet:6	Loss1:-0.011879, Loss2:-0.012451, Accuracy C1:0.7300, Accuracy C2:0.7158, Accuracy Ensemble:0.7307
-Test Epoch_source_testSet:6	Loss1:-0.016581, Loss2:-0.016773, Accuracy C1:0.9065, Accuracy C2:0.8957, Accuracy Ensemble:0.9081
-Test Epoch_target_testSet:7	Loss1:-0.014027, Loss2:-0.014731, Accuracy C1:0.7586, Accuracy C2:0.7407, Accuracy Ensemble:0.7532
-Test Epoch_source_testSet:7	Loss1:-0.018711, Loss2:-0.018938, Accuracy C1:0.9296, Accuracy C2:0.9220, Accuracy Ensemble:0.9296
-Test Epoch_target_testSet:8	Loss1:-0.015644, Loss2:-0.016786, Accuracy C1:0.7877, Accuracy C2:0.7792, Accuracy Ensemble:0.7875
-Test Epoch_source_testSet:8	Loss1:-0.020111, Loss2:-0.020456, Accuracy C1:0.9452, Accuracy C2:0.9409, Accuracy Ensemble:0.9457
-Test Epoch_target_testSet:9	Loss1:-0.017539, Loss2:-0.018549, Accuracy C1:0.8156, Accuracy C2:0.8133, Accuracy Ensemble:0.8180
-Test Epoch_source_testSet:9	Loss1:-0.022298, Loss2:-0.022499, Accuracy C1:0.9478, Accuracy C2:0.9473, Accuracy Ensemble:0.9511
-Test Epoch_target_testSet:10	Loss1:-0.019209, Loss2:-0.020287, Accuracy C1:0.8355, Accuracy C2:0.8397, Accuracy Ensemble:0.8417
-Test Epoch_source_testSet:10	Loss1:-0.023353, Loss2:-0.023972, Accuracy C1:0.9511, Accuracy C2:0.9527, Accuracy Ensemble:0.9543
-Test Epoch_target_testSet:11	Loss1:-0.020513, Loss2:-0.021831, Accuracy C1:0.8479, Accuracy C2:0.8539, Accuracy Ensemble:0.8534
-Test Epoch_source_testSet:11	Loss1:-0.024019, Loss2:-0.024645, Accuracy C1:0.9570, Accuracy C2:0.9548, Accuracy Ensemble:0.9565
-Test Epoch_target_testSet:12	Loss1:-0.021745, Loss2:-0.023524, Accuracy C1:0.8509, Accuracy C2:0.8589, Accuracy Ensemble:0.8592
-Test Epoch_source_testSet:12	Loss1:-0.025858, Loss2:-0.026678, Accuracy C1:0.9575, Accuracy C2:0.9522, Accuracy Ensemble:0.9565
-Test Epoch_target_testSet:13	Loss1:-0.023677, Loss2:-0.024906, Accuracy C1:0.8638, Accuracy C2:0.8733, Accuracy Ensemble:0.8701
-Test Epoch_source_testSet:13	Loss1:-0.026962, Loss2:-0.027551, Accuracy C1:0.9532, Accuracy C2:0.9489, Accuracy Ensemble:0.9532
-Test Epoch_target_testSet:14	Loss1:-0.024607, Loss2:-0.025829, Accuracy C1:0.8656, Accuracy C2:0.8665, Accuracy Ensemble:0.8716
-Test Epoch_source_testSet:14	Loss1:-0.027967, Loss2:-0.028245, Accuracy C1:0.9565, Accuracy C2:0.9516, Accuracy Ensemble:0.9538
-Test Epoch_target_testSet:15	Loss1:-0.025085, Loss2:-0.026976, Accuracy C1:0.8736, Accuracy C2:0.8808, Accuracy Ensemble:0.8812
-Test Epoch_source_testSet:15	Loss1:-0.028083, Loss2:-0.028577, Accuracy C1:0.9608, Accuracy C2:0.9548, Accuracy Ensemble:0.9586
-Test Epoch_target_testSet:16	Loss1:-0.026264, Loss2:-0.028086, Accuracy C1:0.8782, Accuracy C2:0.8850, Accuracy Ensemble:0.8886
-Test Epoch_source_testSet:16	Loss1:-0.028303, Loss2:-0.028287, Accuracy C1:0.9516, Accuracy C2:0.9468, Accuracy Ensemble:0.9522
-Test Epoch_target_testSet:17	Loss1:-0.027944, Loss2:-0.029264, Accuracy C1:0.8865, Accuracy C2:0.8933, Accuracy Ensemble:0.8950
-Test Epoch_source_testSet:17	Loss1:-0.030167, Loss2:-0.030445, Accuracy C1:0.9586, Accuracy C2:0.9570, Accuracy Ensemble:0.9597
-Test Epoch_target_testSet:18	Loss1:-0.027757, Loss2:-0.030517, Accuracy C1:0.8869, Accuracy C2:0.8855, Accuracy Ensemble:0.8957
-Test Epoch_source_testSet:18	Loss1:-0.030125, Loss2:-0.031831, Accuracy C1:0.9634, Accuracy C2:0.9624, Accuracy Ensemble:0.9667
-Test Epoch_target_testSet:19	Loss1:-0.029097, Loss2:-0.031598, Accuracy C1:0.8984, Accuracy C2:0.9061, Accuracy Ensemble:0.9082
-Test Epoch_source_testSet:19	Loss1:-0.031480, Loss2:-0.032997, Accuracy C1:0.9602, Accuracy C2:0.9634, Accuracy Ensemble:0.9645
-Test Epoch_target_testSet:20	Loss1:-0.029641, Loss2:-0.031866, Accuracy C1:0.8994, Accuracy C2:0.9119, Accuracy Ensemble:0.9112
-Test Epoch_source_testSet:20	Loss1:-0.031405, Loss2:-0.032385, Accuracy C1:0.9608, Accuracy C2:0.9548, Accuracy Ensemble:0.9581
-Test Epoch_target_testSet:21	Loss1:-0.029619, Loss2:-0.032169, Accuracy C1:0.8936, Accuracy C2:0.9094, Accuracy Ensemble:0.9059
-Test Epoch_source_testSet:21	Loss1:-0.032772, Loss2:-0.034105, Accuracy C1:0.9618, Accuracy C2:0.9570, Accuracy Ensemble:0.9602
-Test Epoch_target_testSet:22	Loss1:-0.030211, Loss2:-0.032380, Accuracy C1:0.8945, Accuracy C2:0.9133, Accuracy Ensemble:0.9075
-Test Epoch_source_testSet:22	Loss1:-0.032323, Loss2:-0.034126, Accuracy C1:0.9597, Accuracy C2:0.9634, Accuracy Ensemble:0.9640
-Test Epoch_target_testSet:23	Loss1:-0.031357, Loss2:-0.033962, Accuracy C1:0.8958, Accuracy C2:0.9128, Accuracy Ensemble:0.9088
-Test Epoch_source_testSet:23	Loss1:-0.033578, Loss2:-0.034926, Accuracy C1:0.9677, Accuracy C2:0.9634, Accuracy Ensemble:0.9672
-Test Epoch_target_testSet:24	Loss1:-0.030870, Loss2:-0.033988, Accuracy C1:0.8946, Accuracy C2:0.9132, Accuracy Ensemble:0.9082
-Test Epoch_source_testSet:24	Loss1:-0.032939, Loss2:-0.034887, Accuracy C1:0.9683, Accuracy C2:0.9640, Accuracy Ensemble:0.9672
-Test Epoch_target_testSet:25	Loss1:-0.032158, Loss2:-0.035136, Accuracy C1:0.9010, Accuracy C2:0.9171, Accuracy Ensemble:0.9144
-Test Epoch_source_testSet:25	Loss1:-0.034438, Loss2:-0.035813, Accuracy C1:0.9645, Accuracy C2:0.9624, Accuracy Ensemble:0.9624
-Test Epoch_target_testSet:26	Loss1:-0.033465, Loss2:-0.035407, Accuracy C1:0.9016, Accuracy C2:0.9109, Accuracy Ensemble:0.9114
-Test Epoch_source_testSet:26	Loss1:-0.035250, Loss2:-0.035674, Accuracy C1:0.9618, Accuracy C2:0.9640, Accuracy Ensemble:0.9613
-Test Epoch_target_testSet:27	Loss1:-0.033179, Loss2:-0.035541, Accuracy C1:0.9030, Accuracy C2:0.9177, Accuracy Ensemble:0.9169
-Test Epoch_source_testSet:27	Loss1:-0.033853, Loss2:-0.034755, Accuracy C1:0.9645, Accuracy C2:0.9629, Accuracy Ensemble:0.9677
-Test Epoch_target_testSet:28	Loss1:-0.033830, Loss2:-0.036517, Accuracy C1:0.9067, Accuracy C2:0.9255, Accuracy Ensemble:0.9224
-Test Epoch_source_testSet:28	Loss1:-0.034573, Loss2:-0.035454, Accuracy C1:0.9624, Accuracy C2:0.9640, Accuracy Ensemble:0.9618
-Test Epoch_target_testSet:29	Loss1:-0.034504, Loss2:-0.036563, Accuracy C1:0.9089, Accuracy C2:0.9217, Accuracy Ensemble:0.9204
-Test Epoch_source_testSet:29	Loss1:-0.034938, Loss2:-0.035481, Accuracy C1:0.9624, Accuracy C2:0.9624, Accuracy Ensemble:0.9613
-Test Epoch_target_testSet:30	Loss1:-0.034717, Loss2:-0.037325, Accuracy C1:0.9056, Accuracy C2:0.9166, Accuracy Ensemble:0.9179
-Test Epoch_source_testSet:30	Loss1:-0.035596, Loss2:-0.036932, Accuracy C1:0.9667, Accuracy C2:0.9688, Accuracy Ensemble:0.9699
-Test Epoch_target_testSet:31	Loss1:-0.034358, Loss2:-0.036805, Accuracy C1:0.9064, Accuracy C2:0.9228, Accuracy Ensemble:0.9167
-Test Epoch_source_testSet:31	Loss1:-0.035028, Loss2:-0.036608, Accuracy C1:0.9591, Accuracy C2:0.9688, Accuracy Ensemble:0.9688
-Test Epoch_target_testSet:32	Loss1:-0.035949, Loss2:-0.037717, Accuracy C1:0.9087, Accuracy C2:0.9255, Accuracy Ensemble:0.9227
-Test Epoch_source_testSet:32	Loss1:-0.036652, Loss2:-0.036517, Accuracy C1:0.9656, Accuracy C2:0.9699, Accuracy Ensemble:0.9688
-Test Epoch_target_testSet:33	Loss1:-0.035079, Loss2:-0.036872, Accuracy C1:0.9032, Accuracy C2:0.9181, Accuracy Ensemble:0.9200
-Test Epoch_source_testSet:33	Loss1:-0.033687, Loss2:-0.034124, Accuracy C1:0.9435, Accuracy C2:0.9489, Accuracy Ensemble:0.9511
-Test Epoch_target_testSet:34	Loss1:-0.037207, Loss2:-0.038771, Accuracy C1:0.9070, Accuracy C2:0.9210, Accuracy Ensemble:0.9188
-Test Epoch_source_testSet:34	Loss1:-0.037845, Loss2:-0.037949, Accuracy C1:0.9565, Accuracy C2:0.9661, Accuracy Ensemble:0.9651
-Test Epoch_target_testSet:35	Loss1:-0.035958, Loss2:-0.038829, Accuracy C1:0.8995, Accuracy C2:0.9188, Accuracy Ensemble:0.9156
-Test Epoch_source_testSet:35	Loss1:-0.036712, Loss2:-0.037312, Accuracy C1:0.9570, Accuracy C2:0.9586, Accuracy Ensemble:0.9586
-Test Epoch_target_testSet:36	Loss1:-0.036314, Loss2:-0.038711, Accuracy C1:0.9056, Accuracy C2:0.9273, Accuracy Ensemble:0.9213
-Test Epoch_source_testSet:36	Loss1:-0.035898, Loss2:-0.035511, Accuracy C1:0.9586, Accuracy C2:0.9597, Accuracy Ensemble:0.9613
-Test Epoch_target_testSet:37	Loss1:-0.037520, Loss2:-0.039131, Accuracy C1:0.9151, Accuracy C2:0.9219, Accuracy Ensemble:0.9223
-Test Epoch_source_testSet:37	Loss1:-0.036436, Loss2:-0.036926, Accuracy C1:0.9575, Accuracy C2:0.9672, Accuracy Ensemble:0.9640
-Test Epoch_target_testSet:38	Loss1:-0.038047, Loss2:-0.038302, Accuracy C1:0.9077, Accuracy C2:0.9122, Accuracy Ensemble:0.9151
-Test Epoch_source_testSet:38	Loss1:-0.038645, Loss2:-0.037086, Accuracy C1:0.9554, Accuracy C2:0.9688, Accuracy Ensemble:0.9661
-Test Epoch_target_testSet:39	Loss1:-0.036671, Loss2:-0.038546, Accuracy C1:0.8975, Accuracy C2:0.9127, Accuracy Ensemble:0.9100
-Test Epoch_source_testSet:39	Loss1:-0.037602, Loss2:-0.037064, Accuracy C1:0.9527, Accuracy C2:0.9511, Accuracy Ensemble:0.9570
-Test Epoch_target_testSet:40	Loss1:-0.035573, Loss2:-0.037956, Accuracy C1:0.8822, Accuracy C2:0.9040, Accuracy Ensemble:0.9031
-Test Epoch_source_testSet:40	Loss1:-0.037882, Loss2:-0.038232, Accuracy C1:0.9387, Accuracy C2:0.9516, Accuracy Ensemble:0.9468
-Test Epoch_target_testSet:41	Loss1:-0.037126, Loss2:-0.040087, Accuracy C1:0.8881, Accuracy C2:0.9115, Accuracy Ensemble:0.9093
-Test Epoch_source_testSet:41	Loss1:-0.038230, Loss2:-0.038783, Accuracy C1:0.9532, Accuracy C2:0.9618, Accuracy Ensemble:0.9586
-Test Epoch_target_testSet:42	Loss1:-0.037182, Loss2:-0.039724, Accuracy C1:0.9016, Accuracy C2:0.9136, Accuracy Ensemble:0.9164
-Test Epoch_source_testSet:42	Loss1:-0.036012, Loss2:-0.036644, Accuracy C1:0.9532, Accuracy C2:0.9640, Accuracy Ensemble:0.9586
-Test Epoch_target_testSet:43	Loss1:-0.038299, Loss2:-0.041206, Accuracy C1:0.9150, Accuracy C2:0.9307, Accuracy Ensemble:0.9289
-Test Epoch_source_testSet:43	Loss1:-0.036501, Loss2:-0.037262, Accuracy C1:0.9597, Accuracy C2:0.9634, Accuracy Ensemble:0.9613
-Test Epoch_target_testSet:44	Loss1:-0.037196, Loss2:-0.040249, Accuracy C1:0.9076, Accuracy C2:0.9195, Accuracy Ensemble:0.9222
-Test Epoch_source_testSet:44	Loss1:-0.033045, Loss2:-0.034069, Accuracy C1:0.9296, Accuracy C2:0.9333, Accuracy Ensemble:0.9344
-Test Epoch_target_testSet:45	Loss1:-0.039644, Loss2:-0.042273, Accuracy C1:0.9100, Accuracy C2:0.9187, Accuracy Ensemble:0.9222
-Test Epoch_source_testSet:45	Loss1:-0.038415, Loss2:-0.038892, Accuracy C1:0.9575, Accuracy C2:0.9543, Accuracy Ensemble:0.9597
-Test Epoch_target_testSet:46	Loss1:-0.039762, Loss2:-0.042492, Accuracy C1:0.9101, Accuracy C2:0.9283, Accuracy Ensemble:0.9272
-Test Epoch_source_testSet:46	Loss1:-0.038020, Loss2:-0.036635, Accuracy C1:0.9597, Accuracy C2:0.9435, Accuracy Ensemble:0.9581
-Test Epoch_target_testSet:47	Loss1:-0.040519, Loss2:-0.042916, Accuracy C1:0.9174, Accuracy C2:0.9443, Accuracy Ensemble:0.9388
-Test Epoch_source_testSet:47	Loss1:-0.035520, Loss2:-0.034001, Accuracy C1:0.9409, Accuracy C2:0.9204, Accuracy Ensemble:0.9371
-Test Epoch_target_testSet:48	Loss1:-0.040267, Loss2:-0.042915, Accuracy C1:0.9143, Accuracy C2:0.9429, Accuracy Ensemble:0.9347
-Test Epoch_source_testSet:48	Loss1:-0.036310, Loss2:-0.035393, Accuracy C1:0.9629, Accuracy C2:0.9522, Accuracy Ensemble:0.9634
-Test Epoch_target_testSet:49	Loss1:-0.040354, Loss2:-0.043852, Accuracy C1:0.9185, Accuracy C2:0.9412, Accuracy Ensemble:0.9365
-Test Epoch_source_testSet:49	Loss1:-0.036183, Loss2:-0.036491, Accuracy C1:0.9554, Accuracy C2:0.9591, Accuracy Ensemble:0.9586
-Test Epoch_target_testSet:50	Loss1:-0.040504, Loss2:-0.043827, Accuracy C1:0.9249, Accuracy C2:0.9486, Accuracy Ensemble:0.9426
-Test Epoch_source_testSet:50	Loss1:-0.035729, Loss2:-0.035970, Accuracy C1:0.9586, Accuracy C2:0.9597, Accuracy Ensemble:0.9602
-Test Epoch_target_testSet:51	Loss1:-0.041922, Loss2:-0.043646, Accuracy C1:0.9257, Accuracy C2:0.9370, Accuracy Ensemble:0.9371
-Test Epoch_source_testSet:51	Loss1:-0.037950, Loss2:-0.036566, Accuracy C1:0.9618, Accuracy C2:0.9720, Accuracy Ensemble:0.9694
-Test Epoch_target_testSet:52	Loss1:-0.042114, Loss2:-0.044670, Accuracy C1:0.9217, Accuracy C2:0.9352, Accuracy Ensemble:0.9347
-Test Epoch_source_testSet:52	Loss1:-0.038794, Loss2:-0.038182, Accuracy C1:0.9624, Accuracy C2:0.9688, Accuracy Ensemble:0.9667
-Test Epoch_target_testSet:53	Loss1:-0.041108, Loss2:-0.044083, Accuracy C1:0.9162, Accuracy C2:0.9297, Accuracy Ensemble:0.9273
-Test Epoch_source_testSet:53	Loss1:-0.039174, Loss2:-0.039023, Accuracy C1:0.9710, Accuracy C2:0.9731, Accuracy Ensemble:0.9758
-Test Epoch_target_testSet:54	Loss1:-0.041621, Loss2:-0.044526, Accuracy C1:0.9147, Accuracy C2:0.9329, Accuracy Ensemble:0.9287
-Test Epoch_source_testSet:54	Loss1:-0.039488, Loss2:-0.039464, Accuracy C1:0.9624, Accuracy C2:0.9710, Accuracy Ensemble:0.9694
-Test Epoch_target_testSet:55	Loss1:-0.042458, Loss2:-0.047165, Accuracy C1:0.9097, Accuracy C2:0.9397, Accuracy Ensemble:0.9335
-Test Epoch_source_testSet:55	Loss1:-0.039776, Loss2:-0.040794, Accuracy C1:0.9522, Accuracy C2:0.9640, Accuracy Ensemble:0.9613
-Test Epoch_target_testSet:56	Loss1:-0.039595, Loss2:-0.044542, Accuracy C1:0.8949, Accuracy C2:0.9233, Accuracy Ensemble:0.9189
-Test Epoch_source_testSet:56	Loss1:-0.038378, Loss2:-0.039876, Accuracy C1:0.9688, Accuracy C2:0.9715, Accuracy Ensemble:0.9710
-Test Epoch_target_testSet:57	Loss1:-0.041747, Loss2:-0.045976, Accuracy C1:0.9084, Accuracy C2:0.9375, Accuracy Ensemble:0.9314
-Test Epoch_source_testSet:57	Loss1:-0.038277, Loss2:-0.039236, Accuracy C1:0.9634, Accuracy C2:0.9677, Accuracy Ensemble:0.9640
-Test Epoch_target_testSet:58	Loss1:-0.042364, Loss2:-0.045683, Accuracy C1:0.9200, Accuracy C2:0.9377, Accuracy Ensemble:0.9355
-Test Epoch_source_testSet:58	Loss1:-0.038974, Loss2:-0.038984, Accuracy C1:0.9683, Accuracy C2:0.9645, Accuracy Ensemble:0.9667
-Test Epoch_target_testSet:59	Loss1:-0.042104, Loss2:-0.045497, Accuracy C1:0.9088, Accuracy C2:0.9309, Accuracy Ensemble:0.9265
-Test Epoch_source_testSet:59	Loss1:-0.039310, Loss2:-0.038963, Accuracy C1:0.9672, Accuracy C2:0.9640, Accuracy Ensemble:0.9688
-Test Epoch_target_testSet:60	Loss1:-0.042745, Loss2:-0.045133, Accuracy C1:0.9135, Accuracy C2:0.9305, Accuracy Ensemble:0.9286
-Test Epoch_source_testSet:60	Loss1:-0.038745, Loss2:-0.037998, Accuracy C1:0.9527, Accuracy C2:0.9516, Accuracy Ensemble:0.9554
-Test Epoch_target_testSet:61	Loss1:-0.043304, Loss2:-0.046013, Accuracy C1:0.9184, Accuracy C2:0.9355, Accuracy Ensemble:0.9330
-Test Epoch_source_testSet:61	Loss1:-0.039011, Loss2:-0.038098, Accuracy C1:0.9651, Accuracy C2:0.9618, Accuracy Ensemble:0.9645
-Test Epoch_target_testSet:62	Loss1:-0.042879, Loss2:-0.046867, Accuracy C1:0.9160, Accuracy C2:0.9393, Accuracy Ensemble:0.9321
-Test Epoch_source_testSet:62	Loss1:-0.038873, Loss2:-0.039185, Accuracy C1:0.9613, Accuracy C2:0.9608, Accuracy Ensemble:0.9656
-Test Epoch_target_testSet:63	Loss1:-0.043101, Loss2:-0.046491, Accuracy C1:0.9106, Accuracy C2:0.9326, Accuracy Ensemble:0.9304
-Test Epoch_source_testSet:63	Loss1:-0.040669, Loss2:-0.040391, Accuracy C1:0.9661, Accuracy C2:0.9677, Accuracy Ensemble:0.9688
-Test Epoch_target_testSet:64	Loss1:-0.043433, Loss2:-0.046758, Accuracy C1:0.9237, Accuracy C2:0.9441, Accuracy Ensemble:0.9396
-Test Epoch_source_testSet:64	Loss1:-0.039245, Loss2:-0.038847, Accuracy C1:0.9651, Accuracy C2:0.9629, Accuracy Ensemble:0.9656
-Test Epoch_target_testSet:65	Loss1:-0.044556, Loss2:-0.047947, Accuracy C1:0.9290, Accuracy C2:0.9459, Accuracy Ensemble:0.9414
-Test Epoch_source_testSet:65	Loss1:-0.040012, Loss2:-0.039492, Accuracy C1:0.9683, Accuracy C2:0.9618, Accuracy Ensemble:0.9656
-Test Epoch_target_testSet:66	Loss1:-0.045261, Loss2:-0.047628, Accuracy C1:0.9306, Accuracy C2:0.9490, Accuracy Ensemble:0.9444
-Test Epoch_source_testSet:66	Loss1:-0.040326, Loss2:-0.039185, Accuracy C1:0.9677, Accuracy C2:0.9618, Accuracy Ensemble:0.9694
-Test Epoch_target_testSet:67	Loss1:-0.043570, Loss2:-0.047725, Accuracy C1:0.9123, Accuracy C2:0.9206, Accuracy Ensemble:0.9211
-Test Epoch_source_testSet:67	Loss1:-0.040143, Loss2:-0.039958, Accuracy C1:0.9677, Accuracy C2:0.9656, Accuracy Ensemble:0.9699
-Test Epoch_target_testSet:68	Loss1:-0.042157, Loss2:-0.046458, Accuracy C1:0.9097, Accuracy C2:0.9314, Accuracy Ensemble:0.9245
-Test Epoch_source_testSet:68	Loss1:-0.038000, Loss2:-0.038475, Accuracy C1:0.9608, Accuracy C2:0.9683, Accuracy Ensemble:0.9672
-Test Epoch_target_testSet:69	Loss1:-0.044145, Loss2:-0.048282, Accuracy C1:0.9133, Accuracy C2:0.9344, Accuracy Ensemble:0.9297
-Test Epoch_source_testSet:69	Loss1:-0.039339, Loss2:-0.039295, Accuracy C1:0.9656, Accuracy C2:0.9651, Accuracy Ensemble:0.9710
-Test Epoch_target_testSet:70	Loss1:-0.042714, Loss2:-0.046756, Accuracy C1:0.9160, Accuracy C2:0.9391, Accuracy Ensemble:0.9337
-Test Epoch_source_testSet:70	Loss1:-0.037684, Loss2:-0.037987, Accuracy C1:0.9742, Accuracy C2:0.9704, Accuracy Ensemble:0.9731
-Test Epoch_target_testSet:71	Loss1:-0.043509, Loss2:-0.047050, Accuracy C1:0.9194, Accuracy C2:0.9450, Accuracy Ensemble:0.9379
-Test Epoch_source_testSet:71	Loss1:-0.038053, Loss2:-0.038452, Accuracy C1:0.9720, Accuracy C2:0.9753, Accuracy Ensemble:0.9758
-Test Epoch_target_testSet:72	Loss1:-0.044251, Loss2:-0.048863, Accuracy C1:0.9194, Accuracy C2:0.9443, Accuracy Ensemble:0.9369
-Test Epoch_source_testSet:72	Loss1:-0.038633, Loss2:-0.039670, Accuracy C1:0.9737, Accuracy C2:0.9699, Accuracy Ensemble:0.9737
-Test Epoch_target_testSet:73	Loss1:-0.043822, Loss2:-0.048726, Accuracy C1:0.9172, Accuracy C2:0.9437, Accuracy Ensemble:0.9362
-Test Epoch_source_testSet:73	Loss1:-0.039104, Loss2:-0.040069, Accuracy C1:0.9742, Accuracy C2:0.9624, Accuracy Ensemble:0.9704
-Test Epoch_target_testSet:74	Loss1:-0.043424, Loss2:-0.048757, Accuracy C1:0.9129, Accuracy C2:0.9410, Accuracy Ensemble:0.9321
-Test Epoch_source_testSet:74	Loss1:-0.039084, Loss2:-0.039833, Accuracy C1:0.9737, Accuracy C2:0.9640, Accuracy Ensemble:0.9688
-Test Epoch_target_testSet:75	Loss1:-0.044715, Loss2:-0.049137, Accuracy C1:0.9165, Accuracy C2:0.9467, Accuracy Ensemble:0.9370
-Test Epoch_source_testSet:75	Loss1:-0.039210, Loss2:-0.039341, Accuracy C1:0.9726, Accuracy C2:0.9624, Accuracy Ensemble:0.9715
-Test Epoch_target_testSet:76	Loss1:-0.045019, Loss2:-0.049400, Accuracy C1:0.9130, Accuracy C2:0.9388, Accuracy Ensemble:0.9330
-Test Epoch_source_testSet:76	Loss1:-0.038931, Loss2:-0.038514, Accuracy C1:0.9694, Accuracy C2:0.9640, Accuracy Ensemble:0.9704
-Test Epoch_target_testSet:77	Loss1:-0.045041, Loss2:-0.049453, Accuracy C1:0.9121, Accuracy C2:0.9409, Accuracy Ensemble:0.9333
-Test Epoch_source_testSet:77	Loss1:-0.039769, Loss2:-0.040391, Accuracy C1:0.9694, Accuracy C2:0.9672, Accuracy Ensemble:0.9694
-Test Epoch_target_testSet:78	Loss1:-0.046294, Loss2:-0.050870, Accuracy C1:0.9185, Accuracy C2:0.9391, Accuracy Ensemble:0.9352
-Test Epoch_source_testSet:78	Loss1:-0.041090, Loss2:-0.041406, Accuracy C1:0.9720, Accuracy C2:0.9667, Accuracy Ensemble:0.9720
-Test Epoch_target_testSet:79	Loss1:-0.047021, Loss2:-0.050116, Accuracy C1:0.9189, Accuracy C2:0.9387, Accuracy Ensemble:0.9343
-Test Epoch_source_testSet:79	Loss1:-0.040819, Loss2:-0.040333, Accuracy C1:0.9661, Accuracy C2:0.9640, Accuracy Ensemble:0.9677
-Test Epoch_target_testSet:80	Loss1:-0.046133, Loss2:-0.050692, Accuracy C1:0.9250, Accuracy C2:0.9443, Accuracy Ensemble:0.9388
-Test Epoch_source_testSet:80	Loss1:-0.040286, Loss2:-0.041023, Accuracy C1:0.9699, Accuracy C2:0.9704, Accuracy Ensemble:0.9694
-Test Epoch_target_testSet:81	Loss1:-0.046481, Loss2:-0.050759, Accuracy C1:0.9227, Accuracy C2:0.9443, Accuracy Ensemble:0.9387
-Test Epoch_source_testSet:81	Loss1:-0.040357, Loss2:-0.040703, Accuracy C1:0.9753, Accuracy C2:0.9704, Accuracy Ensemble:0.9731
-Test Epoch_target_testSet:82	Loss1:-0.046923, Loss2:-0.050839, Accuracy C1:0.9158, Accuracy C2:0.9415, Accuracy Ensemble:0.9338
-Test Epoch_source_testSet:82	Loss1:-0.041277, Loss2:-0.041935, Accuracy C1:0.9699, Accuracy C2:0.9747, Accuracy Ensemble:0.9720
-Test Epoch_target_testSet:83	Loss1:-0.044881, Loss2:-0.049820, Accuracy C1:0.8811, Accuracy C2:0.9103, Accuracy Ensemble:0.9047
-Test Epoch_source_testSet:83	Loss1:-0.043543, Loss2:-0.044344, Accuracy C1:0.9618, Accuracy C2:0.9624, Accuracy Ensemble:0.9651
-Test Epoch_target_testSet:84	Loss1:-0.044238, Loss2:-0.048378, Accuracy C1:0.8973, Accuracy C2:0.9206, Accuracy Ensemble:0.9142
-Test Epoch_source_testSet:84	Loss1:-0.042046, Loss2:-0.042588, Accuracy C1:0.9565, Accuracy C2:0.9473, Accuracy Ensemble:0.9538
-Test Epoch_target_testSet:85	Loss1:-0.044324, Loss2:-0.048226, Accuracy C1:0.9023, Accuracy C2:0.9232, Accuracy Ensemble:0.9173
-Test Epoch_source_testSet:85	Loss1:-0.039807, Loss2:-0.040638, Accuracy C1:0.9516, Accuracy C2:0.9409, Accuracy Ensemble:0.9516
-Test Epoch_target_testSet:86	Loss1:-0.044558, Loss2:-0.048836, Accuracy C1:0.9082, Accuracy C2:0.9307, Accuracy Ensemble:0.9242
-Test Epoch_source_testSet:86	Loss1:-0.039940, Loss2:-0.041434, Accuracy C1:0.9602, Accuracy C2:0.9511, Accuracy Ensemble:0.9575
-Test Epoch_target_testSet:87	Loss1:-0.044814, Loss2:-0.050280, Accuracy C1:0.9056, Accuracy C2:0.9270, Accuracy Ensemble:0.9247
-Test Epoch_source_testSet:87	Loss1:-0.038614, Loss2:-0.040920, Accuracy C1:0.9559, Accuracy C2:0.9430, Accuracy Ensemble:0.9559
-Test Epoch_target_testSet:88	Loss1:-0.045872, Loss2:-0.050059, Accuracy C1:0.9070, Accuracy C2:0.9330, Accuracy Ensemble:0.9244
-Test Epoch_source_testSet:88	Loss1:-0.040933, Loss2:-0.042491, Accuracy C1:0.9694, Accuracy C2:0.9656, Accuracy Ensemble:0.9715
-Test Epoch_target_testSet:89	Loss1:-0.046685, Loss2:-0.050317, Accuracy C1:0.9119, Accuracy C2:0.9364, Accuracy Ensemble:0.9314
-Test Epoch_source_testSet:89	Loss1:-0.041123, Loss2:-0.041665, Accuracy C1:0.9672, Accuracy C2:0.9613, Accuracy Ensemble:0.9667
-Test Epoch_target_testSet:90	Loss1:-0.046278, Loss2:-0.051144, Accuracy C1:0.9092, Accuracy C2:0.9402, Accuracy Ensemble:0.9331
-Test Epoch_source_testSet:90	Loss1:-0.040278, Loss2:-0.041755, Accuracy C1:0.9683, Accuracy C2:0.9581, Accuracy Ensemble:0.9667
-Test Epoch_target_testSet:91	Loss1:-0.045932, Loss2:-0.049915, Accuracy C1:0.9047, Accuracy C2:0.9354, Accuracy Ensemble:0.9275
-Test Epoch_source_testSet:91	Loss1:-0.041543, Loss2:-0.042767, Accuracy C1:0.9672, Accuracy C2:0.9586, Accuracy Ensemble:0.9661
-Test Epoch_target_testSet:92	Loss1:-0.046137, Loss2:-0.050421, Accuracy C1:0.9102, Accuracy C2:0.9355, Accuracy Ensemble:0.9287
-Test Epoch_source_testSet:92	Loss1:-0.041033, Loss2:-0.042573, Accuracy C1:0.9538, Accuracy C2:0.9618, Accuracy Ensemble:0.9613
-Test Epoch_target_testSet:93	Loss1:-0.046108, Loss2:-0.050156, Accuracy C1:0.9101, Accuracy C2:0.9334, Accuracy Ensemble:0.9271
-Test Epoch_source_testSet:93	Loss1:-0.041133, Loss2:-0.042727, Accuracy C1:0.9392, Accuracy C2:0.9559, Accuracy Ensemble:0.9516
-Test Epoch_target_testSet:94	Loss1:-0.045980, Loss2:-0.050844, Accuracy C1:0.9075, Accuracy C2:0.9384, Accuracy Ensemble:0.9256
-Test Epoch_source_testSet:94	Loss1:-0.042553, Loss2:-0.043629, Accuracy C1:0.9570, Accuracy C2:0.9640, Accuracy Ensemble:0.9640
-Test Epoch_target_testSet:95	Loss1:-0.043089, Loss2:-0.047993, Accuracy C1:0.8964, Accuracy C2:0.9270, Accuracy Ensemble:0.9168
-Test Epoch_source_testSet:95	Loss1:-0.040736, Loss2:-0.042518, Accuracy C1:0.9011, Accuracy C2:0.9333, Accuracy Ensemble:0.9269
-Test Epoch_target_testSet:96	Loss1:-0.045122, Loss2:-0.049147, Accuracy C1:0.9023, Accuracy C2:0.9325, Accuracy Ensemble:0.9244
-Test Epoch_source_testSet:96	Loss1:-0.039451, Loss2:-0.040435, Accuracy C1:0.8828, Accuracy C2:0.9387, Accuracy Ensemble:0.9199
-Test Epoch_target_testSet:97	Loss1:-0.045513, Loss2:-0.051456, Accuracy C1:0.9085, Accuracy C2:0.9398, Accuracy Ensemble:0.9330
-Test Epoch_source_testSet:97	Loss1:-0.039896, Loss2:-0.042268, Accuracy C1:0.9462, Accuracy C2:0.9575, Accuracy Ensemble:0.9570
-Test Epoch_target_testSet:98	Loss1:-0.046220, Loss2:-0.051645, Accuracy C1:0.9116, Accuracy C2:0.9414, Accuracy Ensemble:0.9357
-Test Epoch_source_testSet:98	Loss1:-0.039621, Loss2:-0.041111, Accuracy C1:0.9446, Accuracy C2:0.9538, Accuracy Ensemble:0.9554
-Test Epoch_target_testSet:99	Loss1:-0.045271, Loss2:-0.049763, Accuracy C1:0.9105, Accuracy C2:0.9384, Accuracy Ensemble:0.9323
-Test Epoch_source_testSet:99	Loss1:-0.038637, Loss2:-0.039439, Accuracy C1:0.9688, Accuracy C2:0.9683, Accuracy Ensemble:0.9720
-Test Epoch_target_testSet:100	Loss1:-0.046375, Loss2:-0.050348, Accuracy C1:0.9148, Accuracy C2:0.9379, Accuracy Ensemble:0.9342
-Test Epoch_source_testSet:100	Loss1:-0.039656, Loss2:-0.039624, Accuracy C1:0.9613, Accuracy C2:0.9618, Accuracy Ensemble:0.9651
-Test Epoch_target_testSet:101	Loss1:-0.046178, Loss2:-0.050618, Accuracy C1:0.9082, Accuracy C2:0.9331, Accuracy Ensemble:0.9288
-Test Epoch_source_testSet:101	Loss1:-0.039125, Loss2:-0.039866, Accuracy C1:0.9602, Accuracy C2:0.9656, Accuracy Ensemble:0.9672
-Test Epoch_target_testSet:102	Loss1:-0.046926, Loss2:-0.050784, Accuracy C1:0.9044, Accuracy C2:0.9328, Accuracy Ensemble:0.9266
-Test Epoch_source_testSet:102	Loss1:-0.039766, Loss2:-0.040140, Accuracy C1:0.9683, Accuracy C2:0.9688, Accuracy Ensemble:0.9731
-Test Epoch_target_testSet:103	Loss1:-0.047072, Loss2:-0.051819, Accuracy C1:0.9181, Accuracy C2:0.9382, Accuracy Ensemble:0.9352
-Test Epoch_source_testSet:103	Loss1:-0.039957, Loss2:-0.041652, Accuracy C1:0.9699, Accuracy C2:0.9747, Accuracy Ensemble:0.9747
-Test Epoch_target_testSet:104	Loss1:-0.047953, Loss2:-0.051677, Accuracy C1:0.9158, Accuracy C2:0.9301, Accuracy Ensemble:0.9309
-Test Epoch_source_testSet:104	Loss1:-0.040132, Loss2:-0.041038, Accuracy C1:0.9602, Accuracy C2:0.9645, Accuracy Ensemble:0.9661
-Test Epoch_target_testSet:105	Loss1:-0.047853, Loss2:-0.051169, Accuracy C1:0.9176, Accuracy C2:0.9359, Accuracy Ensemble:0.9352
-Test Epoch_source_testSet:105	Loss1:-0.040760, Loss2:-0.041086, Accuracy C1:0.9581, Accuracy C2:0.9559, Accuracy Ensemble:0.9629
-Test Epoch_target_testSet:106	Loss1:-0.048068, Loss2:-0.051958, Accuracy C1:0.9160, Accuracy C2:0.9293, Accuracy Ensemble:0.9292
-Test Epoch_source_testSet:106	Loss1:-0.041849, Loss2:-0.042832, Accuracy C1:0.9651, Accuracy C2:0.9559, Accuracy Ensemble:0.9651
+Namespace(all_use=False, backbone='default', batch_interval=10, batch_size=128, checkpoint='checkpoint', checkpoint_dir='exp_record\\mnist_usps_not_all\\checkpoint', cuda=True, ensemble_alpha=0.8, eval_only=False, grl_coefficient_upper=1.0, image_size=32, lr=0.0002, max_epoch=200, mixup_beta=0.5, no_cuda=False, num_classes=10, num_k=4, one_step=True, optimizer='adam', rampup_length=30, resume_epoch=0, save_epoch_interval=20, save_model=True, seed=1, source='usps', source_loader='mcd', supplementary_info='solver_fixed.py', target='mnist', target_loader='mcd', use_abs_diff=False, weight_consistency=0.0, weight_consistency_upper=1.0, weight_discrepancy_upper=0.0)
+Test Epoch_target_testSet:1	Loss1:-0.001391, Loss2:-0.001353, Current Best Accuracy:0.3834, Accuracy C1:0.3566, Accuracy C2:0.2881, Accuracy Ensemble:0.3834
+Test Epoch_source_testSet:1	Loss1:-0.001705, Loss2:-0.001849, Current Best Accuracy:0.5323, Accuracy C1:0.4435, Accuracy C2:0.3839, Accuracy Ensemble:0.5323
+Test Epoch_target_testSet:2	Loss1:-0.002889, Loss2:-0.002718, Current Best Accuracy:0.4967, Accuracy C1:0.4849, Accuracy C2:0.4120, Accuracy Ensemble:0.4967
+Test Epoch_source_testSet:2	Loss1:-0.003870, Loss2:-0.003827, Current Best Accuracy:0.6527, Accuracy C1:0.5871, Accuracy C2:0.6151, Accuracy Ensemble:0.6527
+Test Epoch_target_testSet:3	Loss1:-0.003671, Loss2:-0.003573, Current Best Accuracy:0.5348, Accuracy C1:0.5235, Accuracy C2:0.4878, Accuracy Ensemble:0.5348
+Test Epoch_source_testSet:3	Loss1:-0.004942, Loss2:-0.005059, Current Best Accuracy:0.6952, Accuracy C1:0.6597, Accuracy C2:0.6737, Accuracy Ensemble:0.6952
+Test Epoch_target_testSet:4	Loss1:-0.004764, Loss2:-0.004576, Current Best Accuracy:0.5550, Accuracy C1:0.5437, Accuracy C2:0.5284, Accuracy Ensemble:0.5550
+Test Epoch_source_testSet:4	Loss1:-0.006530, Loss2:-0.006634, Current Best Accuracy:0.6978, Accuracy C1:0.6699, Accuracy C2:0.7005, Accuracy Ensemble:0.6978
+Test Epoch_target_testSet:5	Loss1:-0.005511, Loss2:-0.005347, Current Best Accuracy:0.5731, Accuracy C1:0.5696, Accuracy C2:0.5519, Accuracy Ensemble:0.5731
+Test Epoch_source_testSet:5	Loss1:-0.007675, Loss2:-0.007832, Current Best Accuracy:0.7355, Accuracy C1:0.7134, Accuracy C2:0.7355, Accuracy Ensemble:0.7355
+Test Epoch_target_testSet:6	Loss1:-0.006468, Loss2:-0.006331, Current Best Accuracy:0.5747, Accuracy C1:0.5781, Accuracy C2:0.5567, Accuracy Ensemble:0.5747
+Test Epoch_source_testSet:6	Loss1:-0.008928, Loss2:-0.009236, Current Best Accuracy:0.7500, Accuracy C1:0.7253, Accuracy C2:0.7532, Accuracy Ensemble:0.7500
+Test Epoch_target_testSet:7	Loss1:-0.007279, Loss2:-0.007095, Current Best Accuracy:0.5921, Accuracy C1:0.5963, Accuracy C2:0.5784, Accuracy Ensemble:0.5921
+Test Epoch_source_testSet:7	Loss1:-0.009862, Loss2:-0.010227, Current Best Accuracy:0.7914, Accuracy C1:0.7710, Accuracy C2:0.7844, Accuracy Ensemble:0.7914
+Test Epoch_target_testSet:8	Loss1:-0.008077, Loss2:-0.007966, Current Best Accuracy:0.6018, Accuracy C1:0.6041, Accuracy C2:0.5920, Accuracy Ensemble:0.6018
+Test Epoch_source_testSet:8	Loss1:-0.010989, Loss2:-0.011591, Current Best Accuracy:0.7935, Accuracy C1:0.7812, Accuracy C2:0.7973, Accuracy Ensemble:0.7935
+Test Epoch_target_testSet:9	Loss1:-0.008903, Loss2:-0.008790, Current Best Accuracy:0.6112, Accuracy C1:0.6215, Accuracy C2:0.6022, Accuracy Ensemble:0.6112
+Test Epoch_source_testSet:9	Loss1:-0.011974, Loss2:-0.012567, Current Best Accuracy:0.8108, Accuracy C1:0.8027, Accuracy C2:0.8108, Accuracy Ensemble:0.8108
+Test Epoch_target_testSet:10	Loss1:-0.009494, Loss2:-0.009400, Current Best Accuracy:0.6236, Accuracy C1:0.6295, Accuracy C2:0.6126, Accuracy Ensemble:0.6236
+Test Epoch_source_testSet:10	Loss1:-0.012746, Loss2:-0.013345, Current Best Accuracy:0.8253, Accuracy C1:0.8210, Accuracy C2:0.8258, Accuracy Ensemble:0.8253
+Test Epoch_target_testSet:11	Loss1:-0.010151, Loss2:-0.010229, Current Best Accuracy:0.6367, Accuracy C1:0.6434, Accuracy C2:0.6222, Accuracy Ensemble:0.6367
+Test Epoch_source_testSet:11	Loss1:-0.013682, Loss2:-0.014549, Current Best Accuracy:0.8376, Accuracy C1:0.8290, Accuracy C2:0.8409, Accuracy Ensemble:0.8376
+Test Epoch_target_testSet:12	Loss1:-0.010755, Loss2:-0.010749, Current Best Accuracy:0.6493, Accuracy C1:0.6590, Accuracy C2:0.6305, Accuracy Ensemble:0.6493
+Test Epoch_source_testSet:12	Loss1:-0.014225, Loss2:-0.015064, Current Best Accuracy:0.8516, Accuracy C1:0.8441, Accuracy C2:0.8505, Accuracy Ensemble:0.8516
+Test Epoch_target_testSet:13	Loss1:-0.011464, Loss2:-0.011493, Current Best Accuracy:0.6551, Accuracy C1:0.6664, Accuracy C2:0.6353, Accuracy Ensemble:0.6551
+Test Epoch_source_testSet:13	Loss1:-0.015128, Loss2:-0.016045, Current Best Accuracy:0.8640, Accuracy C1:0.8597, Accuracy C2:0.8591, Accuracy Ensemble:0.8640
+Test Epoch_target_testSet:14	Loss1:-0.012136, Loss2:-0.012222, Current Best Accuracy:0.6603, Accuracy C1:0.6729, Accuracy C2:0.6430, Accuracy Ensemble:0.6603
+Test Epoch_source_testSet:14	Loss1:-0.015804, Loss2:-0.016947, Current Best Accuracy:0.8731, Accuracy C1:0.8656, Accuracy C2:0.8710, Accuracy Ensemble:0.8731
+Test Epoch_target_testSet:15	Loss1:-0.012620, Loss2:-0.012807, Current Best Accuracy:0.6742, Accuracy C1:0.6861, Accuracy C2:0.6572, Accuracy Ensemble:0.6742
+Test Epoch_source_testSet:15	Loss1:-0.016174, Loss2:-0.017446, Current Best Accuracy:0.8828, Accuracy C1:0.8753, Accuracy C2:0.8790, Accuracy Ensemble:0.8828
+Test Epoch_target_testSet:16	Loss1:-0.013426, Loss2:-0.013408, Current Best Accuracy:0.6796, Accuracy C1:0.6923, Accuracy C2:0.6649, Accuracy Ensemble:0.6796
+Test Epoch_source_testSet:16	Loss1:-0.017386, Loss2:-0.018398, Current Best Accuracy:0.8871, Accuracy C1:0.8849, Accuracy C2:0.8796, Accuracy Ensemble:0.8871
+Test Epoch_target_testSet:17	Loss1:-0.014170, Loss2:-0.014170, Current Best Accuracy:0.6876, Accuracy C1:0.6993, Accuracy C2:0.6720, Accuracy Ensemble:0.6876
+Test Epoch_source_testSet:17	Loss1:-0.018224, Loss2:-0.019254, Current Best Accuracy:0.8978, Accuracy C1:0.8973, Accuracy C2:0.8892, Accuracy Ensemble:0.8978
+Test Epoch_target_testSet:18	Loss1:-0.014665, Loss2:-0.014493, Current Best Accuracy:0.6997, Accuracy C1:0.7090, Accuracy C2:0.6826, Accuracy Ensemble:0.6997
+Test Epoch_source_testSet:18	Loss1:-0.018665, Loss2:-0.019630, Current Best Accuracy:0.8978, Accuracy C1:0.9011, Accuracy C2:0.8892, Accuracy Ensemble:0.8978
+Test Epoch_target_testSet:19	Loss1:-0.015069, Loss2:-0.015054, Current Best Accuracy:0.7025, Accuracy C1:0.7081, Accuracy C2:0.6888, Accuracy Ensemble:0.7025
+Test Epoch_source_testSet:19	Loss1:-0.019393, Loss2:-0.020471, Current Best Accuracy:0.9043, Accuracy C1:0.9005, Accuracy C2:0.8984, Accuracy Ensemble:0.9043
+Test Epoch_target_testSet:20	Loss1:-0.015930, Loss2:-0.015691, Current Best Accuracy:0.7140, Accuracy C1:0.7185, Accuracy C2:0.6993, Accuracy Ensemble:0.7140
+Test Epoch_source_testSet:20	Loss1:-0.020175, Loss2:-0.020933, Current Best Accuracy:0.9086, Accuracy C1:0.9118, Accuracy C2:0.9054, Accuracy Ensemble:0.9086
+Test Epoch_target_testSet:21	Loss1:-0.016597, Loss2:-0.016364, Current Best Accuracy:0.7140, Accuracy C1:0.7164, Accuracy C2:0.6967, Accuracy Ensemble:0.7110
+Test Epoch_source_testSet:21	Loss1:-0.021291, Loss2:-0.022003, Current Best Accuracy:0.9118, Accuracy C1:0.9124, Accuracy C2:0.9054, Accuracy Ensemble:0.9118
+Test Epoch_target_testSet:22	Loss1:-0.016811, Loss2:-0.016807, Current Best Accuracy:0.7264, Accuracy C1:0.7299, Accuracy C2:0.7144, Accuracy Ensemble:0.7264
+Test Epoch_source_testSet:22	Loss1:-0.021116, Loss2:-0.022055, Current Best Accuracy:0.9134, Accuracy C1:0.9140, Accuracy C2:0.9048, Accuracy Ensemble:0.9134
+Test Epoch_target_testSet:23	Loss1:-0.017593, Loss2:-0.017612, Current Best Accuracy:0.7289, Accuracy C1:0.7363, Accuracy C2:0.7158, Accuracy Ensemble:0.7289
+Test Epoch_source_testSet:23	Loss1:-0.022185, Loss2:-0.023186, Current Best Accuracy:0.9134, Accuracy C1:0.9124, Accuracy C2:0.9032, Accuracy Ensemble:0.9091
+Test Epoch_target_testSet:24	Loss1:-0.017879, Loss2:-0.017713, Current Best Accuracy:0.7454, Accuracy C1:0.7541, Accuracy C2:0.7283, Accuracy Ensemble:0.7454
+Test Epoch_source_testSet:24	Loss1:-0.022037, Loss2:-0.023060, Current Best Accuracy:0.9151, Accuracy C1:0.9151, Accuracy C2:0.9070, Accuracy Ensemble:0.9151
+Test Epoch_target_testSet:25	Loss1:-0.018496, Loss2:-0.018317, Current Best Accuracy:0.7497, Accuracy C1:0.7561, Accuracy C2:0.7364, Accuracy Ensemble:0.7497
+Test Epoch_source_testSet:25	Loss1:-0.022557, Loss2:-0.023476, Current Best Accuracy:0.9151, Accuracy C1:0.9194, Accuracy C2:0.9043, Accuracy Ensemble:0.9113
+Test Epoch_target_testSet:26	Loss1:-0.019078, Loss2:-0.018797, Current Best Accuracy:0.7497, Accuracy C1:0.7550, Accuracy C2:0.7338, Accuracy Ensemble:0.7466
+Test Epoch_source_testSet:26	Loss1:-0.023155, Loss2:-0.023874, Current Best Accuracy:0.9151, Accuracy C1:0.9140, Accuracy C2:0.8984, Accuracy Ensemble:0.9070
+Test Epoch_target_testSet:27	Loss1:-0.019448, Loss2:-0.019290, Current Best Accuracy:0.7545, Accuracy C1:0.7639, Accuracy C2:0.7402, Accuracy Ensemble:0.7545
+Test Epoch_source_testSet:27	Loss1:-0.023757, Loss2:-0.024646, Current Best Accuracy:0.9151, Accuracy C1:0.9183, Accuracy C2:0.9059, Accuracy Ensemble:0.9118
+Test Epoch_target_testSet:28	Loss1:-0.020129, Loss2:-0.019933, Current Best Accuracy:0.7567, Accuracy C1:0.7669, Accuracy C2:0.7400, Accuracy Ensemble:0.7567
+Test Epoch_source_testSet:28	Loss1:-0.024597, Loss2:-0.025265, Current Best Accuracy:0.9151, Accuracy C1:0.9156, Accuracy C2:0.9032, Accuracy Ensemble:0.9086
+Test Epoch_target_testSet:29	Loss1:-0.020632, Loss2:-0.020128, Current Best Accuracy:0.7567, Accuracy C1:0.7577, Accuracy C2:0.7339, Accuracy Ensemble:0.7513
+Test Epoch_source_testSet:29	Loss1:-0.025231, Loss2:-0.025645, Current Best Accuracy:0.9151, Accuracy C1:0.9156, Accuracy C2:0.8968, Accuracy Ensemble:0.9065
+Test Epoch_target_testSet:30	Loss1:-0.020647, Loss2:-0.020444, Current Best Accuracy:0.7649, Accuracy C1:0.7695, Accuracy C2:0.7519, Accuracy Ensemble:0.7649
+Test Epoch_source_testSet:30	Loss1:-0.025096, Loss2:-0.025549, Current Best Accuracy:0.9151, Accuracy C1:0.9161, Accuracy C2:0.8995, Accuracy Ensemble:0.9081
+Test Epoch_target_testSet:31	Loss1:-0.021209, Loss2:-0.020853, Current Best Accuracy:0.7776, Accuracy C1:0.7891, Accuracy C2:0.7585, Accuracy Ensemble:0.7776
+Test Epoch_source_testSet:31	Loss1:-0.025253, Loss2:-0.025825, Current Best Accuracy:0.9151, Accuracy C1:0.9091, Accuracy C2:0.8919, Accuracy Ensemble:0.9011
+Test Epoch_target_testSet:32	Loss1:-0.021968, Loss2:-0.021699, Current Best Accuracy:0.7792, Accuracy C1:0.7862, Accuracy C2:0.7636, Accuracy Ensemble:0.7792
+Test Epoch_source_testSet:32	Loss1:-0.026276, Loss2:-0.026889, Current Best Accuracy:0.9151, Accuracy C1:0.9188, Accuracy C2:0.9027, Accuracy Ensemble:0.9113
+Test Epoch_target_testSet:33	Loss1:-0.022715, Loss2:-0.022030, Current Best Accuracy:0.7885, Accuracy C1:0.7966, Accuracy C2:0.7722, Accuracy Ensemble:0.7885
+Test Epoch_source_testSet:33	Loss1:-0.026921, Loss2:-0.026870, Current Best Accuracy:0.9151, Accuracy C1:0.9167, Accuracy C2:0.9016, Accuracy Ensemble:0.9108
+Test Epoch_target_testSet:34	Loss1:-0.022669, Loss2:-0.022496, Current Best Accuracy:0.7885, Accuracy C1:0.7952, Accuracy C2:0.7714, Accuracy Ensemble:0.7866
+Test Epoch_source_testSet:34	Loss1:-0.027137, Loss2:-0.027596, Current Best Accuracy:0.9151, Accuracy C1:0.9086, Accuracy C2:0.9011, Accuracy Ensemble:0.9054
+Test Epoch_target_testSet:35	Loss1:-0.023445, Loss2:-0.022762, Current Best Accuracy:0.7885, Accuracy C1:0.7931, Accuracy C2:0.7648, Accuracy Ensemble:0.7825
+Test Epoch_source_testSet:35	Loss1:-0.027421, Loss2:-0.027605, Current Best Accuracy:0.9151, Accuracy C1:0.9108, Accuracy C2:0.9032, Accuracy Ensemble:0.9081
+Test Epoch_target_testSet:36	Loss1:-0.023774, Loss2:-0.023365, Current Best Accuracy:0.7916, Accuracy C1:0.8040, Accuracy C2:0.7770, Accuracy Ensemble:0.7916
+Test Epoch_source_testSet:36	Loss1:-0.027441, Loss2:-0.027664, Current Best Accuracy:0.9151, Accuracy C1:0.9032, Accuracy C2:0.8925, Accuracy Ensemble:0.9000
+Test Epoch_target_testSet:37	Loss1:-0.023859, Loss2:-0.023536, Current Best Accuracy:0.7955, Accuracy C1:0.8050, Accuracy C2:0.7825, Accuracy Ensemble:0.7955
+Test Epoch_source_testSet:37	Loss1:-0.027565, Loss2:-0.028013, Current Best Accuracy:0.9151, Accuracy C1:0.9022, Accuracy C2:0.8866, Accuracy Ensemble:0.8941
+Test Epoch_target_testSet:38	Loss1:-0.024269, Loss2:-0.023898, Current Best Accuracy:0.8054, Accuracy C1:0.8157, Accuracy C2:0.7927, Accuracy Ensemble:0.8054
+Test Epoch_source_testSet:38	Loss1:-0.028533, Loss2:-0.028865, Current Best Accuracy:0.9204, Accuracy C1:0.9220, Accuracy C2:0.9183, Accuracy Ensemble:0.9204
+Test Epoch_target_testSet:39	Loss1:-0.024786, Loss2:-0.024188, Current Best Accuracy:0.8054, Accuracy C1:0.8142, Accuracy C2:0.7838, Accuracy Ensemble:0.8022
+Test Epoch_source_testSet:39	Loss1:-0.029652, Loss2:-0.029583, Current Best Accuracy:0.9204, Accuracy C1:0.9188, Accuracy C2:0.9086, Accuracy Ensemble:0.9129
+Test Epoch_target_testSet:40	Loss1:-0.024798, Loss2:-0.024527, Current Best Accuracy:0.8054, Accuracy C1:0.8120, Accuracy C2:0.7906, Accuracy Ensemble:0.8029
+Test Epoch_source_testSet:40	Loss1:-0.028719, Loss2:-0.028984, Current Best Accuracy:0.9204, Accuracy C1:0.9102, Accuracy C2:0.9000, Accuracy Ensemble:0.9048
+Test Epoch_target_testSet:41	Loss1:-0.025257, Loss2:-0.024764, Current Best Accuracy:0.8110, Accuracy C1:0.8223, Accuracy C2:0.7990, Accuracy Ensemble:0.8110
+Test Epoch_source_testSet:41	Loss1:-0.029216, Loss2:-0.029165, Current Best Accuracy:0.9204, Accuracy C1:0.9113, Accuracy C2:0.9011, Accuracy Ensemble:0.9048
+Test Epoch_target_testSet:42	Loss1:-0.026246, Loss2:-0.025624, Current Best Accuracy:0.8285, Accuracy C1:0.8326, Accuracy C2:0.8158, Accuracy Ensemble:0.8285
+Test Epoch_source_testSet:42	Loss1:-0.030135, Loss2:-0.029933, Current Best Accuracy:0.9204, Accuracy C1:0.9210, Accuracy C2:0.9059, Accuracy Ensemble:0.9102
+Test Epoch_target_testSet:43	Loss1:-0.026253, Loss2:-0.025772, Current Best Accuracy:0.8285, Accuracy C1:0.8274, Accuracy C2:0.8038, Accuracy Ensemble:0.8158
+Test Epoch_source_testSet:43	Loss1:-0.030227, Loss2:-0.030262, Current Best Accuracy:0.9204, Accuracy C1:0.9167, Accuracy C2:0.9059, Accuracy Ensemble:0.9108
+Test Epoch_target_testSet:44	Loss1:-0.027064, Loss2:-0.026380, Current Best Accuracy:0.8285, Accuracy C1:0.8297, Accuracy C2:0.8087, Accuracy Ensemble:0.8195
+Test Epoch_source_testSet:44	Loss1:-0.030921, Loss2:-0.030853, Current Best Accuracy:0.9204, Accuracy C1:0.9118, Accuracy C2:0.9048, Accuracy Ensemble:0.9102
+Test Epoch_target_testSet:45	Loss1:-0.026897, Loss2:-0.026331, Current Best Accuracy:0.8343, Accuracy C1:0.8408, Accuracy C2:0.8221, Accuracy Ensemble:0.8343
+Test Epoch_source_testSet:45	Loss1:-0.030335, Loss2:-0.030232, Current Best Accuracy:0.9204, Accuracy C1:0.9108, Accuracy C2:0.9081, Accuracy Ensemble:0.9097
+Test Epoch_target_testSet:46	Loss1:-0.027564, Loss2:-0.026735, Current Best Accuracy:0.8343, Accuracy C1:0.8336, Accuracy C2:0.8173, Accuracy Ensemble:0.8264
+Test Epoch_source_testSet:46	Loss1:-0.031716, Loss2:-0.031388, Current Best Accuracy:0.9220, Accuracy C1:0.9237, Accuracy C2:0.9177, Accuracy Ensemble:0.9220
+Test Epoch_target_testSet:47	Loss1:-0.027282, Loss2:-0.027122, Current Best Accuracy:0.8424, Accuracy C1:0.8482, Accuracy C2:0.8323, Accuracy Ensemble:0.8424
+Test Epoch_source_testSet:47	Loss1:-0.030975, Loss2:-0.031444, Current Best Accuracy:0.9220, Accuracy C1:0.9097, Accuracy C2:0.9048, Accuracy Ensemble:0.9065
+Test Epoch_target_testSet:48	Loss1:-0.028071, Loss2:-0.027622, Current Best Accuracy:0.8424, Accuracy C1:0.8446, Accuracy C2:0.8247, Accuracy Ensemble:0.8373
+Test Epoch_source_testSet:48	Loss1:-0.032780, Loss2:-0.033125, Current Best Accuracy:0.9290, Accuracy C1:0.9312, Accuracy C2:0.9269, Accuracy Ensemble:0.9290
+Test Epoch_target_testSet:49	Loss1:-0.028508, Loss2:-0.027917, Current Best Accuracy:0.8424, Accuracy C1:0.8451, Accuracy C2:0.8270, Accuracy Ensemble:0.8382
+Test Epoch_source_testSet:49	Loss1:-0.032239, Loss2:-0.032399, Current Best Accuracy:0.9290, Accuracy C1:0.9220, Accuracy C2:0.9156, Accuracy Ensemble:0.9199
+Test Epoch_target_testSet:50	Loss1:-0.028392, Loss2:-0.027909, Current Best Accuracy:0.8440, Accuracy C1:0.8509, Accuracy C2:0.8308, Accuracy Ensemble:0.8440
+Test Epoch_source_testSet:50	Loss1:-0.032719, Loss2:-0.032991, Current Best Accuracy:0.9290, Accuracy C1:0.9285, Accuracy C2:0.9210, Accuracy Ensemble:0.9242
+Test Epoch_target_testSet:51	Loss1:-0.029193, Loss2:-0.028612, Current Best Accuracy:0.8492, Accuracy C1:0.8549, Accuracy C2:0.8396, Accuracy Ensemble:0.8492
+Test Epoch_source_testSet:51	Loss1:-0.032867, Loss2:-0.032798, Current Best Accuracy:0.9290, Accuracy C1:0.9237, Accuracy C2:0.9156, Accuracy Ensemble:0.9172
+Test Epoch_target_testSet:52	Loss1:-0.029470, Loss2:-0.029222, Current Best Accuracy:0.8492, Accuracy C1:0.8562, Accuracy C2:0.8361, Accuracy Ensemble:0.8485
+Test Epoch_source_testSet:52	Loss1:-0.033593, Loss2:-0.033920, Current Best Accuracy:0.9290, Accuracy C1:0.9269, Accuracy C2:0.9237, Accuracy Ensemble:0.9263
+Test Epoch_target_testSet:53	Loss1:-0.030103, Loss2:-0.029913, Current Best Accuracy:0.8541, Accuracy C1:0.8607, Accuracy C2:0.8415, Accuracy Ensemble:0.8541
+Test Epoch_source_testSet:53	Loss1:-0.034043, Loss2:-0.034296, Current Best Accuracy:0.9290, Accuracy C1:0.9269, Accuracy C2:0.9242, Accuracy Ensemble:0.9274
+Test Epoch_target_testSet:54	Loss1:-0.030657, Loss2:-0.029750, Current Best Accuracy:0.8605, Accuracy C1:0.8674, Accuracy C2:0.8518, Accuracy Ensemble:0.8605
+Test Epoch_source_testSet:54	Loss1:-0.034751, Loss2:-0.034115, Current Best Accuracy:0.9290, Accuracy C1:0.9306, Accuracy C2:0.9306, Accuracy Ensemble:0.9285
+Test Epoch_target_testSet:55	Loss1:-0.030321, Loss2:-0.029656, Current Best Accuracy:0.8607, Accuracy C1:0.8696, Accuracy C2:0.8527, Accuracy Ensemble:0.8607
+Test Epoch_source_testSet:55	Loss1:-0.033711, Loss2:-0.033595, Current Best Accuracy:0.9290, Accuracy C1:0.9247, Accuracy C2:0.9188, Accuracy Ensemble:0.9210
+Test Epoch_target_testSet:56	Loss1:-0.030773, Loss2:-0.030383, Current Best Accuracy:0.8629, Accuracy C1:0.8696, Accuracy C2:0.8482, Accuracy Ensemble:0.8629
+Test Epoch_source_testSet:56	Loss1:-0.034005, Loss2:-0.034441, Current Best Accuracy:0.9290, Accuracy C1:0.9280, Accuracy C2:0.9296, Accuracy Ensemble:0.9290
+Test Epoch_target_testSet:57	Loss1:-0.030574, Loss2:-0.030389, Current Best Accuracy:0.8629, Accuracy C1:0.8644, Accuracy C2:0.8523, Accuracy Ensemble:0.8614
+Test Epoch_source_testSet:57	Loss1:-0.034102, Loss2:-0.034486, Current Best Accuracy:0.9290, Accuracy C1:0.9226, Accuracy C2:0.9258, Accuracy Ensemble:0.9247
+Test Epoch_target_testSet:58	Loss1:-0.031481, Loss2:-0.030631, Current Best Accuracy:0.8629, Accuracy C1:0.8586, Accuracy C2:0.8426, Accuracy Ensemble:0.8549
+Test Epoch_source_testSet:58	Loss1:-0.035005, Loss2:-0.034942, Current Best Accuracy:0.9301, Accuracy C1:0.9317, Accuracy C2:0.9306, Accuracy Ensemble:0.9301
+Test Epoch_target_testSet:59	Loss1:-0.031879, Loss2:-0.031556, Current Best Accuracy:0.8648, Accuracy C1:0.8697, Accuracy C2:0.8543, Accuracy Ensemble:0.8648
+Test Epoch_source_testSet:59	Loss1:-0.035096, Loss2:-0.035916, Current Best Accuracy:0.9301, Accuracy C1:0.9231, Accuracy C2:0.9274, Accuracy Ensemble:0.9253
+Test Epoch_target_testSet:60	Loss1:-0.031725, Loss2:-0.031421, Current Best Accuracy:0.8656, Accuracy C1:0.8722, Accuracy C2:0.8551, Accuracy Ensemble:0.8656
+Test Epoch_source_testSet:60	Loss1:-0.034743, Loss2:-0.035396, Current Best Accuracy:0.9301, Accuracy C1:0.9172, Accuracy C2:0.9215, Accuracy Ensemble:0.9194
+Test Epoch_target_testSet:61	Loss1:-0.032272, Loss2:-0.031570, Current Best Accuracy:0.8678, Accuracy C1:0.8734, Accuracy C2:0.8579, Accuracy Ensemble:0.8678
+Test Epoch_source_testSet:61	Loss1:-0.035932, Loss2:-0.036182, Current Best Accuracy:0.9344, Accuracy C1:0.9339, Accuracy C2:0.9328, Accuracy Ensemble:0.9344
+Test Epoch_target_testSet:62	Loss1:-0.031960, Loss2:-0.031777, Current Best Accuracy:0.8723, Accuracy C1:0.8761, Accuracy C2:0.8615, Accuracy Ensemble:0.8723
+Test Epoch_source_testSet:62	Loss1:-0.035414, Loss2:-0.035997, Current Best Accuracy:0.9344, Accuracy C1:0.9258, Accuracy C2:0.9306, Accuracy Ensemble:0.9280
+Test Epoch_target_testSet:63	Loss1:-0.032938, Loss2:-0.032266, Current Best Accuracy:0.8723, Accuracy C1:0.8749, Accuracy C2:0.8566, Accuracy Ensemble:0.8692
+Test Epoch_source_testSet:63	Loss1:-0.036251, Loss2:-0.036319, Current Best Accuracy:0.9344, Accuracy C1:0.9258, Accuracy C2:0.9237, Accuracy Ensemble:0.9237
+Test Epoch_target_testSet:64	Loss1:-0.032625, Loss2:-0.032256, Current Best Accuracy:0.8723, Accuracy C1:0.8748, Accuracy C2:0.8556, Accuracy Ensemble:0.8681
+Test Epoch_source_testSet:64	Loss1:-0.035817, Loss2:-0.036316, Current Best Accuracy:0.9344, Accuracy C1:0.9220, Accuracy C2:0.9242, Accuracy Ensemble:0.9258
+Test Epoch_target_testSet:65	Loss1:-0.033420, Loss2:-0.033208, Current Best Accuracy:0.8743, Accuracy C1:0.8798, Accuracy C2:0.8629, Accuracy Ensemble:0.8743
+Test Epoch_source_testSet:65	Loss1:-0.037057, Loss2:-0.037256, Current Best Accuracy:0.9344, Accuracy C1:0.9290, Accuracy C2:0.9263, Accuracy Ensemble:0.9290
+Test Epoch_target_testSet:66	Loss1:-0.032905, Loss2:-0.032904, Current Best Accuracy:0.8762, Accuracy C1:0.8804, Accuracy C2:0.8659, Accuracy Ensemble:0.8762
+Test Epoch_source_testSet:66	Loss1:-0.036991, Loss2:-0.037275, Current Best Accuracy:0.9344, Accuracy C1:0.9355, Accuracy C2:0.9253, Accuracy Ensemble:0.9317
+Test Epoch_target_testSet:67	Loss1:-0.034065, Loss2:-0.033837, Current Best Accuracy:0.8762, Accuracy C1:0.8787, Accuracy C2:0.8657, Accuracy Ensemble:0.8760
+Test Epoch_source_testSet:67	Loss1:-0.037425, Loss2:-0.037283, Current Best Accuracy:0.9344, Accuracy C1:0.9328, Accuracy C2:0.9285, Accuracy Ensemble:0.9296
+Test Epoch_target_testSet:68	Loss1:-0.034091, Loss2:-0.033649, Current Best Accuracy:0.8762, Accuracy C1:0.8791, Accuracy C2:0.8618, Accuracy Ensemble:0.8734
+Test Epoch_source_testSet:68	Loss1:-0.038371, Loss2:-0.038214, Current Best Accuracy:0.9387, Accuracy C1:0.9409, Accuracy C2:0.9387, Accuracy Ensemble:0.9387
+Test Epoch_target_testSet:69	Loss1:-0.035027, Loss2:-0.034883, Current Best Accuracy:0.8870, Accuracy C1:0.8915, Accuracy C2:0.8763, Accuracy Ensemble:0.8870
+Test Epoch_source_testSet:69	Loss1:-0.038615, Loss2:-0.038345, Current Best Accuracy:0.9387, Accuracy C1:0.9333, Accuracy C2:0.9274, Accuracy Ensemble:0.9323
+Test Epoch_target_testSet:70	Loss1:-0.035138, Loss2:-0.034940, Current Best Accuracy:0.8870, Accuracy C1:0.8910, Accuracy C2:0.8776, Accuracy Ensemble:0.8867
+Test Epoch_source_testSet:70	Loss1:-0.038704, Loss2:-0.038450, Current Best Accuracy:0.9387, Accuracy C1:0.9290, Accuracy C2:0.9274, Accuracy Ensemble:0.9312
+Test Epoch_target_testSet:71	Loss1:-0.034696, Loss2:-0.034422, Current Best Accuracy:0.8870, Accuracy C1:0.8837, Accuracy C2:0.8694, Accuracy Ensemble:0.8801
+Test Epoch_source_testSet:71	Loss1:-0.038574, Loss2:-0.038478, Current Best Accuracy:0.9387, Accuracy C1:0.9344, Accuracy C2:0.9328, Accuracy Ensemble:0.9328
+Test Epoch_target_testSet:72	Loss1:-0.035782, Loss2:-0.035130, Current Best Accuracy:0.8870, Accuracy C1:0.8925, Accuracy C2:0.8736, Accuracy Ensemble:0.8841
+Test Epoch_source_testSet:72	Loss1:-0.038889, Loss2:-0.038787, Current Best Accuracy:0.9387, Accuracy C1:0.9333, Accuracy C2:0.9312, Accuracy Ensemble:0.9328
+Test Epoch_target_testSet:73	Loss1:-0.035290, Loss2:-0.035030, Current Best Accuracy:0.8870, Accuracy C1:0.8918, Accuracy C2:0.8789, Accuracy Ensemble:0.8869
+Test Epoch_source_testSet:73	Loss1:-0.039117, Loss2:-0.038803, Current Best Accuracy:0.9441, Accuracy C1:0.9387, Accuracy C2:0.9430, Accuracy Ensemble:0.9441
+Test Epoch_target_testSet:74	Loss1:-0.034327, Loss2:-0.034232, Current Best Accuracy:0.8870, Accuracy C1:0.8854, Accuracy C2:0.8771, Accuracy Ensemble:0.8847
+Test Epoch_source_testSet:74	Loss1:-0.038806, Loss2:-0.038330, Current Best Accuracy:0.9441, Accuracy C1:0.9409, Accuracy C2:0.9414, Accuracy Ensemble:0.9425
+Test Epoch_target_testSet:75	Loss1:-0.035452, Loss2:-0.035577, Current Best Accuracy:0.8887, Accuracy C1:0.8913, Accuracy C2:0.8830, Accuracy Ensemble:0.8887
+Test Epoch_source_testSet:75	Loss1:-0.038818, Loss2:-0.038770, Current Best Accuracy:0.9441, Accuracy C1:0.9258, Accuracy C2:0.9280, Accuracy Ensemble:0.9301
+Test Epoch_target_testSet:76	Loss1:-0.035960, Loss2:-0.034962, Current Best Accuracy:0.8887, Accuracy C1:0.8875, Accuracy C2:0.8754, Accuracy Ensemble:0.8848
+Test Epoch_source_testSet:76	Loss1:-0.039833, Loss2:-0.038670, Current Best Accuracy:0.9441, Accuracy C1:0.9419, Accuracy C2:0.9403, Accuracy Ensemble:0.9414
+Test Epoch_target_testSet:77	Loss1:-0.035877, Loss2:-0.035436, Current Best Accuracy:0.8897, Accuracy C1:0.8936, Accuracy C2:0.8808, Accuracy Ensemble:0.8897
+Test Epoch_source_testSet:77	Loss1:-0.039451, Loss2:-0.038909, Current Best Accuracy:0.9441, Accuracy C1:0.9403, Accuracy C2:0.9409, Accuracy Ensemble:0.9425
+Test Epoch_target_testSet:78	Loss1:-0.035951, Loss2:-0.036138, Current Best Accuracy:0.8930, Accuracy C1:0.8966, Accuracy C2:0.8826, Accuracy Ensemble:0.8930
+Test Epoch_source_testSet:78	Loss1:-0.039854, Loss2:-0.039860, Current Best Accuracy:0.9441, Accuracy C1:0.9398, Accuracy C2:0.9425, Accuracy Ensemble:0.9430
+Test Epoch_target_testSet:79	Loss1:-0.036494, Loss2:-0.036885, Current Best Accuracy:0.8930, Accuracy C1:0.8878, Accuracy C2:0.8792, Accuracy Ensemble:0.8852
+Test Epoch_source_testSet:79	Loss1:-0.039651, Loss2:-0.039852, Current Best Accuracy:0.9441, Accuracy C1:0.9376, Accuracy C2:0.9355, Accuracy Ensemble:0.9366
+Test Epoch_target_testSet:80	Loss1:-0.037095, Loss2:-0.036444, Current Best Accuracy:0.8930, Accuracy C1:0.8847, Accuracy C2:0.8798, Accuracy Ensemble:0.8840
+Test Epoch_source_testSet:80	Loss1:-0.040792, Loss2:-0.039862, Current Best Accuracy:0.9441, Accuracy C1:0.9392, Accuracy C2:0.9403, Accuracy Ensemble:0.9419
+Test Epoch_target_testSet:81	Loss1:-0.037068, Loss2:-0.037032, Current Best Accuracy:0.8953, Accuracy C1:0.8981, Accuracy C2:0.8906, Accuracy Ensemble:0.8953
+Test Epoch_source_testSet:81	Loss1:-0.040631, Loss2:-0.040458, Current Best Accuracy:0.9441, Accuracy C1:0.9392, Accuracy C2:0.9414, Accuracy Ensemble:0.9419
+Test Epoch_target_testSet:82	Loss1:-0.037646, Loss2:-0.037009, Current Best Accuracy:0.8971, Accuracy C1:0.8994, Accuracy C2:0.8911, Accuracy Ensemble:0.8971
+Test Epoch_source_testSet:82	Loss1:-0.040135, Loss2:-0.039498, Current Best Accuracy:0.9441, Accuracy C1:0.9301, Accuracy C2:0.9290, Accuracy Ensemble:0.9306
+Test Epoch_target_testSet:83	Loss1:-0.037228, Loss2:-0.037756, Current Best Accuracy:0.8996, Accuracy C1:0.9014, Accuracy C2:0.8952, Accuracy Ensemble:0.8996
+Test Epoch_source_testSet:83	Loss1:-0.040914, Loss2:-0.041342, Current Best Accuracy:0.9511, Accuracy C1:0.9511, Accuracy C2:0.9511, Accuracy Ensemble:0.9511
+Test Epoch_target_testSet:84	Loss1:-0.037608, Loss2:-0.037459, Current Best Accuracy:0.8996, Accuracy C1:0.8980, Accuracy C2:0.8920, Accuracy Ensemble:0.8961
+Test Epoch_source_testSet:84	Loss1:-0.041508, Loss2:-0.041194, Current Best Accuracy:0.9511, Accuracy C1:0.9495, Accuracy C2:0.9505, Accuracy Ensemble:0.9484
+Test Epoch_target_testSet:85	Loss1:-0.038521, Loss2:-0.038383, Current Best Accuracy:0.8996, Accuracy C1:0.8987, Accuracy C2:0.8949, Accuracy Ensemble:0.8981
+Test Epoch_source_testSet:85	Loss1:-0.041864, Loss2:-0.041590, Current Best Accuracy:0.9511, Accuracy C1:0.9376, Accuracy C2:0.9452, Accuracy Ensemble:0.9430
+Test Epoch_target_testSet:86	Loss1:-0.037652, Loss2:-0.037284, Current Best Accuracy:0.8996, Accuracy C1:0.8993, Accuracy C2:0.8921, Accuracy Ensemble:0.8963
+Test Epoch_source_testSet:86	Loss1:-0.041438, Loss2:-0.041159, Current Best Accuracy:0.9511, Accuracy C1:0.9425, Accuracy C2:0.9457, Accuracy Ensemble:0.9462
+Test Epoch_target_testSet:87	Loss1:-0.037911, Loss2:-0.037908, Current Best Accuracy:0.8996, Accuracy C1:0.8998, Accuracy C2:0.8949, Accuracy Ensemble:0.8980
+Test Epoch_source_testSet:87	Loss1:-0.041180, Loss2:-0.041347, Current Best Accuracy:0.9511, Accuracy C1:0.9366, Accuracy C2:0.9452, Accuracy Ensemble:0.9419
+Test Epoch_target_testSet:88	Loss1:-0.038647, Loss2:-0.038464, Current Best Accuracy:0.9005, Accuracy C1:0.9022, Accuracy C2:0.8959, Accuracy Ensemble:0.9005
+Test Epoch_source_testSet:88	Loss1:-0.042135, Loss2:-0.041903, Current Best Accuracy:0.9511, Accuracy C1:0.9473, Accuracy C2:0.9505, Accuracy Ensemble:0.9495
+Test Epoch_target_testSet:89	Loss1:-0.038654, Loss2:-0.039221, Current Best Accuracy:0.9005, Accuracy C1:0.8993, Accuracy C2:0.8936, Accuracy Ensemble:0.8984
+Test Epoch_source_testSet:89	Loss1:-0.041837, Loss2:-0.042814, Current Best Accuracy:0.9511, Accuracy C1:0.9425, Accuracy C2:0.9457, Accuracy Ensemble:0.9435
+Test Epoch_target_testSet:90	Loss1:-0.038591, Loss2:-0.038589, Current Best Accuracy:0.9005, Accuracy C1:0.9001, Accuracy C2:0.8912, Accuracy Ensemble:0.8975
+Test Epoch_source_testSet:90	Loss1:-0.042036, Loss2:-0.042408, Current Best Accuracy:0.9511, Accuracy C1:0.9532, Accuracy C2:0.9538, Accuracy Ensemble:0.9511
+Test Epoch_target_testSet:91	Loss1:-0.039411, Loss2:-0.039245, Current Best Accuracy:0.9005, Accuracy C1:0.8971, Accuracy C2:0.8917, Accuracy Ensemble:0.8953
+Test Epoch_source_testSet:91	Loss1:-0.042195, Loss2:-0.042284, Current Best Accuracy:0.9511, Accuracy C1:0.9446, Accuracy C2:0.9435, Accuracy Ensemble:0.9430
+Test Epoch_target_testSet:92	Loss1:-0.038925, Loss2:-0.038412, Current Best Accuracy:0.9005, Accuracy C1:0.8957, Accuracy C2:0.8923, Accuracy Ensemble:0.8947
+Test Epoch_source_testSet:92	Loss1:-0.042508, Loss2:-0.041719, Current Best Accuracy:0.9511, Accuracy C1:0.9462, Accuracy C2:0.9457, Accuracy Ensemble:0.9478
+Test Epoch_target_testSet:93	Loss1:-0.039519, Loss2:-0.039100, Current Best Accuracy:0.9005, Accuracy C1:0.8995, Accuracy C2:0.8957, Accuracy Ensemble:0.8991
+Test Epoch_source_testSet:93	Loss1:-0.042553, Loss2:-0.041872, Current Best Accuracy:0.9511, Accuracy C1:0.9457, Accuracy C2:0.9468, Accuracy Ensemble:0.9452
+Test Epoch_target_testSet:94	Loss1:-0.040474, Loss2:-0.039549, Current Best Accuracy:0.9043, Accuracy C1:0.9052, Accuracy C2:0.9007, Accuracy Ensemble:0.9043
+Test Epoch_source_testSet:94	Loss1:-0.042980, Loss2:-0.041617, Current Best Accuracy:0.9511, Accuracy C1:0.9409, Accuracy C2:0.9387, Accuracy Ensemble:0.9403
+Test Epoch_target_testSet:95	Loss1:-0.040572, Loss2:-0.040389, Current Best Accuracy:0.9043, Accuracy C1:0.9054, Accuracy C2:0.8968, Accuracy Ensemble:0.9036
+Test Epoch_source_testSet:95	Loss1:-0.042867, Loss2:-0.042734, Current Best Accuracy:0.9511, Accuracy C1:0.9382, Accuracy C2:0.9478, Accuracy Ensemble:0.9430
+Test Epoch_target_testSet:96	Loss1:-0.039265, Loss2:-0.039352, Current Best Accuracy:0.9043, Accuracy C1:0.8998, Accuracy C2:0.8928, Accuracy Ensemble:0.8988
+Test Epoch_source_testSet:96	Loss1:-0.042879, Loss2:-0.042859, Current Best Accuracy:0.9527, Accuracy C1:0.9473, Accuracy C2:0.9543, Accuracy Ensemble:0.9527
+Test Epoch_target_testSet:97	Loss1:-0.039860, Loss2:-0.039491, Current Best Accuracy:0.9043, Accuracy C1:0.9032, Accuracy C2:0.8953, Accuracy Ensemble:0.9018
+Test Epoch_source_testSet:97	Loss1:-0.043025, Loss2:-0.042753, Current Best Accuracy:0.9527, Accuracy C1:0.9446, Accuracy C2:0.9500, Accuracy Ensemble:0.9500
+Test Epoch_target_testSet:98	Loss1:-0.040701, Loss2:-0.040442, Current Best Accuracy:0.9043, Accuracy C1:0.9064, Accuracy C2:0.8962, Accuracy Ensemble:0.9034
+Test Epoch_source_testSet:98	Loss1:-0.044185, Loss2:-0.043594, Current Best Accuracy:0.9527, Accuracy C1:0.9473, Accuracy C2:0.9516, Accuracy Ensemble:0.9500
+Test Epoch_target_testSet:99	Loss1:-0.040205, Loss2:-0.039476, Current Best Accuracy:0.9043, Accuracy C1:0.9054, Accuracy C2:0.8975, Accuracy Ensemble:0.9039
+Test Epoch_source_testSet:99	Loss1:-0.044584, Loss2:-0.043485, Current Best Accuracy:0.9527, Accuracy C1:0.9522, Accuracy C2:0.9505, Accuracy Ensemble:0.9516
+Test Epoch_target_testSet:100	Loss1:-0.040328, Loss2:-0.039698, Current Best Accuracy:0.9049, Accuracy C1:0.9066, Accuracy C2:0.8976, Accuracy Ensemble:0.9049
+Test Epoch_source_testSet:100	Loss1:-0.044443, Loss2:-0.043428, Current Best Accuracy:0.9527, Accuracy C1:0.9452, Accuracy C2:0.9489, Accuracy Ensemble:0.9473
+Test Epoch_target_testSet:101	Loss1:-0.040686, Loss2:-0.040015, Current Best Accuracy:0.9049, Accuracy C1:0.9039, Accuracy C2:0.8948, Accuracy Ensemble:0.9006
+Test Epoch_source_testSet:101	Loss1:-0.044421, Loss2:-0.043361, Current Best Accuracy:0.9532, Accuracy C1:0.9505, Accuracy C2:0.9522, Accuracy Ensemble:0.9532
+Test Epoch_target_testSet:102	Loss1:-0.040351, Loss2:-0.040133, Current Best Accuracy:0.9049, Accuracy C1:0.8994, Accuracy C2:0.8924, Accuracy Ensemble:0.8967
+Test Epoch_source_testSet:102	Loss1:-0.044758, Loss2:-0.043965, Current Best Accuracy:0.9532, Accuracy C1:0.9516, Accuracy C2:0.9516, Accuracy Ensemble:0.9527
+Test Epoch_target_testSet:103	Loss1:-0.040939, Loss2:-0.040730, Current Best Accuracy:0.9049, Accuracy C1:0.9046, Accuracy C2:0.8972, Accuracy Ensemble:0.9031
+Test Epoch_source_testSet:103	Loss1:-0.044235, Loss2:-0.043851, Current Best Accuracy:0.9532, Accuracy C1:0.9478, Accuracy C2:0.9468, Accuracy Ensemble:0.9462
+Test Epoch_target_testSet:104	Loss1:-0.041408, Loss2:-0.041099, Current Best Accuracy:0.9079, Accuracy C1:0.9082, Accuracy C2:0.9014, Accuracy Ensemble:0.9079
+Test Epoch_source_testSet:104	Loss1:-0.044312, Loss2:-0.043739, Current Best Accuracy:0.9532, Accuracy C1:0.9527, Accuracy C2:0.9462, Accuracy Ensemble:0.9495
+Test Epoch_target_testSet:105	Loss1:-0.041866, Loss2:-0.041600, Current Best Accuracy:0.9079, Accuracy C1:0.8980, Accuracy C2:0.8908, Accuracy Ensemble:0.8951
+Test Epoch_source_testSet:105	Loss1:-0.045663, Loss2:-0.045308, Current Best Accuracy:0.9538, Accuracy C1:0.9532, Accuracy C2:0.9543, Accuracy Ensemble:0.9538
+Test Epoch_target_testSet:106	Loss1:-0.041883, Loss2:-0.041655, Current Best Accuracy:0.9079, Accuracy C1:0.9120, Accuracy C2:0.8994, Accuracy Ensemble:0.9063
+Test Epoch_source_testSet:106	Loss1:-0.044647, Loss2:-0.044460, Current Best Accuracy:0.9538, Accuracy C1:0.9468, Accuracy C2:0.9457, Accuracy Ensemble:0.9457
+Test Epoch_target_testSet:107	Loss1:-0.041394, Loss2:-0.041135, Current Best Accuracy:0.9102, Accuracy C1:0.9122, Accuracy C2:0.9031, Accuracy Ensemble:0.9102
+Test Epoch_source_testSet:107	Loss1:-0.043727, Loss2:-0.042876, Current Best Accuracy:0.9538, Accuracy C1:0.9452, Accuracy C2:0.9430, Accuracy Ensemble:0.9441
+Test Epoch_target_testSet:108	Loss1:-0.042206, Loss2:-0.041977, Current Best Accuracy:0.9102, Accuracy C1:0.8996, Accuracy C2:0.8951, Accuracy Ensemble:0.9006
+Test Epoch_source_testSet:108	Loss1:-0.046651, Loss2:-0.045517, Current Best Accuracy:0.9591, Accuracy C1:0.9602, Accuracy C2:0.9565, Accuracy Ensemble:0.9591
+Test Epoch_target_testSet:109	Loss1:-0.042143, Loss2:-0.041886, Current Best Accuracy:0.9102, Accuracy C1:0.8956, Accuracy C2:0.8893, Accuracy Ensemble:0.8952
+Test Epoch_source_testSet:109	Loss1:-0.046706, Loss2:-0.045701, Current Best Accuracy:0.9591, Accuracy C1:0.9559, Accuracy C2:0.9538, Accuracy Ensemble:0.9543
+Test Epoch_target_testSet:110	Loss1:-0.040784, Loss2:-0.040728, Current Best Accuracy:0.9102, Accuracy C1:0.8986, Accuracy C2:0.8885, Accuracy Ensemble:0.8953
+Test Epoch_source_testSet:110	Loss1:-0.044809, Loss2:-0.044108, Current Best Accuracy:0.9591, Accuracy C1:0.9489, Accuracy C2:0.9462, Accuracy Ensemble:0.9462
+Test Epoch_target_testSet:111	Loss1:-0.041289, Loss2:-0.041198, Current Best Accuracy:0.9102, Accuracy C1:0.9013, Accuracy C2:0.8910, Accuracy Ensemble:0.8962
+Test Epoch_source_testSet:111	Loss1:-0.045533, Loss2:-0.044506, Current Best Accuracy:0.9591, Accuracy C1:0.9538, Accuracy C2:0.9543, Accuracy Ensemble:0.9554
+Test Epoch_target_testSet:112	Loss1:-0.042063, Loss2:-0.041282, Current Best Accuracy:0.9102, Accuracy C1:0.9041, Accuracy C2:0.8963, Accuracy Ensemble:0.9013
+Test Epoch_source_testSet:112	Loss1:-0.046075, Loss2:-0.044253, Current Best Accuracy:0.9591, Accuracy C1:0.9522, Accuracy C2:0.9527, Accuracy Ensemble:0.9543
+Test Epoch_target_testSet:113	Loss1:-0.043163, Loss2:-0.042938, Current Best Accuracy:0.9102, Accuracy C1:0.9091, Accuracy C2:0.9021, Accuracy Ensemble:0.9059
+Test Epoch_source_testSet:113	Loss1:-0.046305, Loss2:-0.045135, Current Best Accuracy:0.9591, Accuracy C1:0.9495, Accuracy C2:0.9527, Accuracy Ensemble:0.9532
+Test Epoch_target_testSet:114	Loss1:-0.041880, Loss2:-0.041879, Current Best Accuracy:0.9102, Accuracy C1:0.9011, Accuracy C2:0.8935, Accuracy Ensemble:0.8982
+Test Epoch_source_testSet:114	Loss1:-0.045552, Loss2:-0.044682, Current Best Accuracy:0.9591, Accuracy C1:0.9543, Accuracy C2:0.9527, Accuracy Ensemble:0.9538
+Test Epoch_target_testSet:115	Loss1:-0.042920, Loss2:-0.042846, Current Best Accuracy:0.9102, Accuracy C1:0.9087, Accuracy C2:0.9046, Accuracy Ensemble:0.9089
+Test Epoch_source_testSet:115	Loss1:-0.045525, Loss2:-0.044514, Current Best Accuracy:0.9591, Accuracy C1:0.9505, Accuracy C2:0.9489, Accuracy Ensemble:0.9532
+Test Epoch_target_testSet:116	Loss1:-0.042947, Loss2:-0.043205, Current Best Accuracy:0.9102, Accuracy C1:0.9070, Accuracy C2:0.9041, Accuracy Ensemble:0.9087
+Test Epoch_source_testSet:116	Loss1:-0.046580, Loss2:-0.045902, Current Best Accuracy:0.9591, Accuracy C1:0.9500, Accuracy C2:0.9527, Accuracy Ensemble:0.9516
+Test Epoch_target_testSet:117	Loss1:-0.043113, Loss2:-0.042611, Current Best Accuracy:0.9102, Accuracy C1:0.9031, Accuracy C2:0.9032, Accuracy Ensemble:0.9044
+Test Epoch_source_testSet:117	Loss1:-0.046534, Loss2:-0.045266, Current Best Accuracy:0.9591, Accuracy C1:0.9430, Accuracy C2:0.9484, Accuracy Ensemble:0.9462
+Test Epoch_target_testSet:118	Loss1:-0.042311, Loss2:-0.042053, Current Best Accuracy:0.9102, Accuracy C1:0.8957, Accuracy C2:0.8947, Accuracy Ensemble:0.8970
+Test Epoch_source_testSet:118	Loss1:-0.046762, Loss2:-0.045594, Current Best Accuracy:0.9591, Accuracy C1:0.9473, Accuracy C2:0.9516, Accuracy Ensemble:0.9495
+Test Epoch_target_testSet:119	Loss1:-0.041243, Loss2:-0.041964, Current Best Accuracy:0.9102, Accuracy C1:0.8952, Accuracy C2:0.8950, Accuracy Ensemble:0.8959
+Test Epoch_source_testSet:119	Loss1:-0.046404, Loss2:-0.046105, Current Best Accuracy:0.9591, Accuracy C1:0.9527, Accuracy C2:0.9559, Accuracy Ensemble:0.9548
+Test Epoch_target_testSet:120	Loss1:-0.042477, Loss2:-0.042312, Current Best Accuracy:0.9102, Accuracy C1:0.8975, Accuracy C2:0.8952, Accuracy Ensemble:0.8988
+Test Epoch_source_testSet:120	Loss1:-0.047672, Loss2:-0.046539, Current Best Accuracy:0.9591, Accuracy C1:0.9554, Accuracy C2:0.9597, Accuracy Ensemble:0.9570
+Test Epoch_target_testSet:121	Loss1:-0.042859, Loss2:-0.043021, Current Best Accuracy:0.9102, Accuracy C1:0.9064, Accuracy C2:0.8995, Accuracy Ensemble:0.9045
+Test Epoch_source_testSet:121	Loss1:-0.047285, Loss2:-0.046469, Current Best Accuracy:0.9591, Accuracy C1:0.9538, Accuracy C2:0.9565, Accuracy Ensemble:0.9516
+Test Epoch_target_testSet:122	Loss1:-0.042620, Loss2:-0.042694, Current Best Accuracy:0.9102, Accuracy C1:0.9099, Accuracy C2:0.9021, Accuracy Ensemble:0.9076
+Test Epoch_source_testSet:122	Loss1:-0.046695, Loss2:-0.045981, Current Best Accuracy:0.9591, Accuracy C1:0.9570, Accuracy C2:0.9602, Accuracy Ensemble:0.9581
+Test Epoch_target_testSet:123	Loss1:-0.043728, Loss2:-0.043024, Current Best Accuracy:0.9110, Accuracy C1:0.9104, Accuracy C2:0.9081, Accuracy Ensemble:0.9110
+Test Epoch_source_testSet:123	Loss1:-0.047385, Loss2:-0.045656, Current Best Accuracy:0.9591, Accuracy C1:0.9457, Accuracy C2:0.9473, Accuracy Ensemble:0.9446
+Test Epoch_target_testSet:124	Loss1:-0.043162, Loss2:-0.043277, Current Best Accuracy:0.9110, Accuracy C1:0.9067, Accuracy C2:0.9015, Accuracy Ensemble:0.9048
+Test Epoch_source_testSet:124	Loss1:-0.047195, Loss2:-0.046586, Current Best Accuracy:0.9591, Accuracy C1:0.9575, Accuracy C2:0.9608, Accuracy Ensemble:0.9570
+Test Epoch_target_testSet:125	Loss1:-0.043626, Loss2:-0.043635, Current Best Accuracy:0.9110, Accuracy C1:0.9087, Accuracy C2:0.9030, Accuracy Ensemble:0.9072
+Test Epoch_source_testSet:125	Loss1:-0.047635, Loss2:-0.047030, Current Best Accuracy:0.9591, Accuracy C1:0.9532, Accuracy C2:0.9575, Accuracy Ensemble:0.9565
+Test Epoch_target_testSet:126	Loss1:-0.044070, Loss2:-0.044136, Current Best Accuracy:0.9110, Accuracy C1:0.9079, Accuracy C2:0.9043, Accuracy Ensemble:0.9074
+Test Epoch_source_testSet:126	Loss1:-0.048087, Loss2:-0.047406, Current Best Accuracy:0.9624, Accuracy C1:0.9608, Accuracy C2:0.9629, Accuracy Ensemble:0.9624
+Test Epoch_target_testSet:127	Loss1:-0.044299, Loss2:-0.044191, Current Best Accuracy:0.9110, Accuracy C1:0.9105, Accuracy C2:0.9091, Accuracy Ensemble:0.9108
+Test Epoch_source_testSet:127	Loss1:-0.047186, Loss2:-0.046181, Current Best Accuracy:0.9624, Accuracy C1:0.9478, Accuracy C2:0.9516, Accuracy Ensemble:0.9516
+Test Epoch_target_testSet:128	Loss1:-0.043383, Loss2:-0.043595, Current Best Accuracy:0.9110, Accuracy C1:0.9113, Accuracy C2:0.9057, Accuracy Ensemble:0.9095
+Test Epoch_source_testSet:128	Loss1:-0.046937, Loss2:-0.046452, Current Best Accuracy:0.9624, Accuracy C1:0.9532, Accuracy C2:0.9554, Accuracy Ensemble:0.9548
+Test Epoch_target_testSet:129	Loss1:-0.044421, Loss2:-0.044435, Current Best Accuracy:0.9110, Accuracy C1:0.9096, Accuracy C2:0.9047, Accuracy Ensemble:0.9070
+Test Epoch_source_testSet:129	Loss1:-0.048325, Loss2:-0.047283, Current Best Accuracy:0.9624, Accuracy C1:0.9591, Accuracy C2:0.9640, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:130	Loss1:-0.044561, Loss2:-0.044367, Current Best Accuracy:0.9110, Accuracy C1:0.9060, Accuracy C2:0.9028, Accuracy Ensemble:0.9054
+Test Epoch_source_testSet:130	Loss1:-0.048475, Loss2:-0.047441, Current Best Accuracy:0.9624, Accuracy C1:0.9559, Accuracy C2:0.9538, Accuracy Ensemble:0.9538
+Test Epoch_target_testSet:131	Loss1:-0.044333, Loss2:-0.044294, Current Best Accuracy:0.9110, Accuracy C1:0.9096, Accuracy C2:0.9046, Accuracy Ensemble:0.9092
+Test Epoch_source_testSet:131	Loss1:-0.048211, Loss2:-0.047472, Current Best Accuracy:0.9624, Accuracy C1:0.9527, Accuracy C2:0.9522, Accuracy Ensemble:0.9538
+Test Epoch_target_testSet:132	Loss1:-0.045171, Loss2:-0.044380, Current Best Accuracy:0.9110, Accuracy C1:0.9098, Accuracy C2:0.9013, Accuracy Ensemble:0.9067
+Test Epoch_source_testSet:132	Loss1:-0.049465, Loss2:-0.048209, Current Best Accuracy:0.9624, Accuracy C1:0.9586, Accuracy C2:0.9645, Accuracy Ensemble:0.9613
+Test Epoch_target_testSet:133	Loss1:-0.045098, Loss2:-0.045100, Current Best Accuracy:0.9121, Accuracy C1:0.9140, Accuracy C2:0.9055, Accuracy Ensemble:0.9121
+Test Epoch_source_testSet:133	Loss1:-0.048613, Loss2:-0.048382, Current Best Accuracy:0.9624, Accuracy C1:0.9505, Accuracy C2:0.9570, Accuracy Ensemble:0.9543
+Test Epoch_target_testSet:134	Loss1:-0.045527, Loss2:-0.044777, Current Best Accuracy:0.9121, Accuracy C1:0.9157, Accuracy C2:0.9038, Accuracy Ensemble:0.9101
+Test Epoch_source_testSet:134	Loss1:-0.049447, Loss2:-0.048530, Current Best Accuracy:0.9634, Accuracy C1:0.9591, Accuracy C2:0.9661, Accuracy Ensemble:0.9634
+Test Epoch_target_testSet:135	Loss1:-0.045589, Loss2:-0.045026, Current Best Accuracy:0.9121, Accuracy C1:0.9102, Accuracy C2:0.9036, Accuracy Ensemble:0.9091
+Test Epoch_source_testSet:135	Loss1:-0.049786, Loss2:-0.049208, Current Best Accuracy:0.9634, Accuracy C1:0.9575, Accuracy C2:0.9602, Accuracy Ensemble:0.9591
+Test Epoch_target_testSet:136	Loss1:-0.045125, Loss2:-0.045023, Current Best Accuracy:0.9140, Accuracy C1:0.9151, Accuracy C2:0.9078, Accuracy Ensemble:0.9140
+Test Epoch_source_testSet:136	Loss1:-0.048922, Loss2:-0.048717, Current Best Accuracy:0.9634, Accuracy C1:0.9602, Accuracy C2:0.9624, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:137	Loss1:-0.045728, Loss2:-0.045091, Current Best Accuracy:0.9147, Accuracy C1:0.9160, Accuracy C2:0.9097, Accuracy Ensemble:0.9147
+Test Epoch_source_testSet:137	Loss1:-0.049766, Loss2:-0.048811, Current Best Accuracy:0.9634, Accuracy C1:0.9602, Accuracy C2:0.9624, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:138	Loss1:-0.045358, Loss2:-0.044331, Current Best Accuracy:0.9147, Accuracy C1:0.9136, Accuracy C2:0.9046, Accuracy Ensemble:0.9105
+Test Epoch_source_testSet:138	Loss1:-0.049778, Loss2:-0.048394, Current Best Accuracy:0.9634, Accuracy C1:0.9570, Accuracy C2:0.9591, Accuracy Ensemble:0.9586
+Test Epoch_target_testSet:139	Loss1:-0.045502, Loss2:-0.044952, Current Best Accuracy:0.9147, Accuracy C1:0.9133, Accuracy C2:0.9064, Accuracy Ensemble:0.9107
+Test Epoch_source_testSet:139	Loss1:-0.049300, Loss2:-0.048484, Current Best Accuracy:0.9634, Accuracy C1:0.9500, Accuracy C2:0.9511, Accuracy Ensemble:0.9495
+Test Epoch_target_testSet:140	Loss1:-0.044326, Loss2:-0.044525, Current Best Accuracy:0.9147, Accuracy C1:0.9088, Accuracy C2:0.9022, Accuracy Ensemble:0.9072
+Test Epoch_source_testSet:140	Loss1:-0.048835, Loss2:-0.048859, Current Best Accuracy:0.9634, Accuracy C1:0.9452, Accuracy C2:0.9505, Accuracy Ensemble:0.9500
+Test Epoch_target_testSet:141	Loss1:-0.045308, Loss2:-0.045311, Current Best Accuracy:0.9147, Accuracy C1:0.9095, Accuracy C2:0.9025, Accuracy Ensemble:0.9083
+Test Epoch_source_testSet:141	Loss1:-0.048400, Loss2:-0.048509, Current Best Accuracy:0.9634, Accuracy C1:0.9478, Accuracy C2:0.9532, Accuracy Ensemble:0.9495
+Test Epoch_target_testSet:142	Loss1:-0.044402, Loss2:-0.044454, Current Best Accuracy:0.9147, Accuracy C1:0.8971, Accuracy C2:0.8931, Accuracy Ensemble:0.8966
+Test Epoch_source_testSet:142	Loss1:-0.049978, Loss2:-0.049999, Current Best Accuracy:0.9661, Accuracy C1:0.9624, Accuracy C2:0.9688, Accuracy Ensemble:0.9661
+Test Epoch_target_testSet:143	Loss1:-0.044812, Loss2:-0.045087, Current Best Accuracy:0.9147, Accuracy C1:0.9016, Accuracy C2:0.9002, Accuracy Ensemble:0.9023
+Test Epoch_source_testSet:143	Loss1:-0.049906, Loss2:-0.049414, Current Best Accuracy:0.9661, Accuracy C1:0.9586, Accuracy C2:0.9656, Accuracy Ensemble:0.9634
+Test Epoch_target_testSet:144	Loss1:-0.045368, Loss2:-0.045229, Current Best Accuracy:0.9147, Accuracy C1:0.9076, Accuracy C2:0.9052, Accuracy Ensemble:0.9083
+Test Epoch_source_testSet:144	Loss1:-0.049962, Loss2:-0.049182, Current Best Accuracy:0.9661, Accuracy C1:0.9602, Accuracy C2:0.9634, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:145	Loss1:-0.045173, Loss2:-0.045132, Current Best Accuracy:0.9147, Accuracy C1:0.9084, Accuracy C2:0.9057, Accuracy Ensemble:0.9086
+Test Epoch_source_testSet:145	Loss1:-0.050125, Loss2:-0.049452, Current Best Accuracy:0.9661, Accuracy C1:0.9624, Accuracy C2:0.9645, Accuracy Ensemble:0.9640
+Test Epoch_target_testSet:146	Loss1:-0.045872, Loss2:-0.045737, Current Best Accuracy:0.9147, Accuracy C1:0.9118, Accuracy C2:0.9070, Accuracy Ensemble:0.9110
+Test Epoch_source_testSet:146	Loss1:-0.050450, Loss2:-0.049879, Current Best Accuracy:0.9661, Accuracy C1:0.9613, Accuracy C2:0.9651, Accuracy Ensemble:0.9634
+Test Epoch_target_testSet:147	Loss1:-0.046050, Loss2:-0.045829, Current Best Accuracy:0.9147, Accuracy C1:0.9111, Accuracy C2:0.9091, Accuracy Ensemble:0.9117
+Test Epoch_source_testSet:147	Loss1:-0.050307, Loss2:-0.049250, Current Best Accuracy:0.9661, Accuracy C1:0.9618, Accuracy C2:0.9608, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:148	Loss1:-0.046491, Loss2:-0.045914, Current Best Accuracy:0.9147, Accuracy C1:0.9123, Accuracy C2:0.9091, Accuracy Ensemble:0.9118
+Test Epoch_source_testSet:148	Loss1:-0.050710, Loss2:-0.049405, Current Best Accuracy:0.9661, Accuracy C1:0.9591, Accuracy C2:0.9608, Accuracy Ensemble:0.9608
+Test Epoch_target_testSet:149	Loss1:-0.046049, Loss2:-0.045553, Current Best Accuracy:0.9147, Accuracy C1:0.9115, Accuracy C2:0.9096, Accuracy Ensemble:0.9128
+Test Epoch_source_testSet:149	Loss1:-0.050009, Loss2:-0.048715, Current Best Accuracy:0.9661, Accuracy C1:0.9543, Accuracy C2:0.9597, Accuracy Ensemble:0.9575
+Test Epoch_target_testSet:150	Loss1:-0.046676, Loss2:-0.046604, Current Best Accuracy:0.9147, Accuracy C1:0.9088, Accuracy C2:0.9051, Accuracy Ensemble:0.9086
+Test Epoch_source_testSet:150	Loss1:-0.050788, Loss2:-0.050455, Current Best Accuracy:0.9661, Accuracy C1:0.9565, Accuracy C2:0.9651, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:151	Loss1:-0.046707, Loss2:-0.046219, Current Best Accuracy:0.9147, Accuracy C1:0.9073, Accuracy C2:0.9047, Accuracy Ensemble:0.9077
+Test Epoch_source_testSet:151	Loss1:-0.050678, Loss2:-0.049816, Current Best Accuracy:0.9661, Accuracy C1:0.9484, Accuracy C2:0.9554, Accuracy Ensemble:0.9543
+Test Epoch_target_testSet:152	Loss1:-0.047178, Loss2:-0.046654, Current Best Accuracy:0.9147, Accuracy C1:0.9135, Accuracy C2:0.9101, Accuracy Ensemble:0.9134
+Test Epoch_source_testSet:152	Loss1:-0.051012, Loss2:-0.049179, Current Best Accuracy:0.9661, Accuracy C1:0.9586, Accuracy C2:0.9608, Accuracy Ensemble:0.9629
+Test Epoch_target_testSet:153	Loss1:-0.046200, Loss2:-0.046293, Current Best Accuracy:0.9147, Accuracy C1:0.9139, Accuracy C2:0.9123, Accuracy Ensemble:0.9146
+Test Epoch_source_testSet:153	Loss1:-0.049457, Loss2:-0.048618, Current Best Accuracy:0.9661, Accuracy C1:0.9527, Accuracy C2:0.9538, Accuracy Ensemble:0.9527
+Test Epoch_target_testSet:154	Loss1:-0.046482, Loss2:-0.046776, Current Best Accuracy:0.9147, Accuracy C1:0.9086, Accuracy C2:0.9065, Accuracy Ensemble:0.9094
+Test Epoch_source_testSet:154	Loss1:-0.051381, Loss2:-0.050758, Current Best Accuracy:0.9661, Accuracy C1:0.9624, Accuracy C2:0.9640, Accuracy Ensemble:0.9629
+Test Epoch_target_testSet:155	Loss1:-0.046234, Loss2:-0.046437, Current Best Accuracy:0.9147, Accuracy C1:0.9085, Accuracy C2:0.9094, Accuracy Ensemble:0.9102
+Test Epoch_source_testSet:155	Loss1:-0.051328, Loss2:-0.050583, Current Best Accuracy:0.9661, Accuracy C1:0.9634, Accuracy C2:0.9683, Accuracy Ensemble:0.9656
+Test Epoch_target_testSet:156	Loss1:-0.045907, Loss2:-0.045182, Current Best Accuracy:0.9147, Accuracy C1:0.9016, Accuracy C2:0.9014, Accuracy Ensemble:0.9025
+Test Epoch_source_testSet:156	Loss1:-0.050332, Loss2:-0.048174, Current Best Accuracy:0.9661, Accuracy C1:0.9586, Accuracy C2:0.9575, Accuracy Ensemble:0.9597
+Test Epoch_target_testSet:157	Loss1:-0.045626, Loss2:-0.046903, Current Best Accuracy:0.9147, Accuracy C1:0.8976, Accuracy C2:0.8973, Accuracy Ensemble:0.8999
+Test Epoch_source_testSet:157	Loss1:-0.050431, Loss2:-0.050877, Current Best Accuracy:0.9661, Accuracy C1:0.9651, Accuracy C2:0.9618, Accuracy Ensemble:0.9645
+Test Epoch_target_testSet:158	Loss1:-0.045945, Loss2:-0.046185, Current Best Accuracy:0.9147, Accuracy C1:0.9028, Accuracy C2:0.9018, Accuracy Ensemble:0.9040
+Test Epoch_source_testSet:158	Loss1:-0.050814, Loss2:-0.049723, Current Best Accuracy:0.9661, Accuracy C1:0.9624, Accuracy C2:0.9608, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:159	Loss1:-0.046035, Loss2:-0.046209, Current Best Accuracy:0.9147, Accuracy C1:0.9024, Accuracy C2:0.9001, Accuracy Ensemble:0.9033
+Test Epoch_source_testSet:159	Loss1:-0.051596, Loss2:-0.050614, Current Best Accuracy:0.9661, Accuracy C1:0.9608, Accuracy C2:0.9581, Accuracy Ensemble:0.9597
+Test Epoch_target_testSet:160	Loss1:-0.046242, Loss2:-0.046480, Current Best Accuracy:0.9147, Accuracy C1:0.9031, Accuracy C2:0.9007, Accuracy Ensemble:0.9038
+Test Epoch_source_testSet:160	Loss1:-0.051856, Loss2:-0.050892, Current Best Accuracy:0.9661, Accuracy C1:0.9640, Accuracy C2:0.9629, Accuracy Ensemble:0.9629
+Test Epoch_target_testSet:161	Loss1:-0.046277, Loss2:-0.046618, Current Best Accuracy:0.9147, Accuracy C1:0.8967, Accuracy C2:0.8930, Accuracy Ensemble:0.8972
+Test Epoch_source_testSet:161	Loss1:-0.051938, Loss2:-0.051573, Current Best Accuracy:0.9677, Accuracy C1:0.9683, Accuracy C2:0.9694, Accuracy Ensemble:0.9677
+Test Epoch_target_testSet:162	Loss1:-0.046693, Loss2:-0.046728, Current Best Accuracy:0.9147, Accuracy C1:0.8998, Accuracy C2:0.8966, Accuracy Ensemble:0.9007
+Test Epoch_source_testSet:162	Loss1:-0.051242, Loss2:-0.050257, Current Best Accuracy:0.9677, Accuracy C1:0.9602, Accuracy C2:0.9624, Accuracy Ensemble:0.9624
+Test Epoch_target_testSet:163	Loss1:-0.046235, Loss2:-0.047297, Current Best Accuracy:0.9147, Accuracy C1:0.9022, Accuracy C2:0.9001, Accuracy Ensemble:0.9037
+Test Epoch_source_testSet:163	Loss1:-0.050408, Loss2:-0.050778, Current Best Accuracy:0.9677, Accuracy C1:0.9608, Accuracy C2:0.9613, Accuracy Ensemble:0.9629
+Test Epoch_target_testSet:164	Loss1:-0.046492, Loss2:-0.046857, Current Best Accuracy:0.9147, Accuracy C1:0.9122, Accuracy C2:0.9070, Accuracy Ensemble:0.9117
+Test Epoch_source_testSet:164	Loss1:-0.051097, Loss2:-0.050728, Current Best Accuracy:0.9677, Accuracy C1:0.9575, Accuracy C2:0.9581, Accuracy Ensemble:0.9575
+Test Epoch_target_testSet:165	Loss1:-0.046920, Loss2:-0.047009, Current Best Accuracy:0.9147, Accuracy C1:0.9104, Accuracy C2:0.9078, Accuracy Ensemble:0.9098
+Test Epoch_source_testSet:165	Loss1:-0.051708, Loss2:-0.050989, Current Best Accuracy:0.9677, Accuracy C1:0.9645, Accuracy C2:0.9634, Accuracy Ensemble:0.9661
+Test Epoch_target_testSet:166	Loss1:-0.047114, Loss2:-0.047385, Current Best Accuracy:0.9147, Accuracy C1:0.9086, Accuracy C2:0.9019, Accuracy Ensemble:0.9064
+Test Epoch_source_testSet:166	Loss1:-0.052023, Loss2:-0.051702, Current Best Accuracy:0.9677, Accuracy C1:0.9645, Accuracy C2:0.9683, Accuracy Ensemble:0.9677
+Test Epoch_target_testSet:167	Loss1:-0.047465, Loss2:-0.047491, Current Best Accuracy:0.9147, Accuracy C1:0.9079, Accuracy C2:0.9035, Accuracy Ensemble:0.9084
+Test Epoch_source_testSet:167	Loss1:-0.052254, Loss2:-0.051718, Current Best Accuracy:0.9677, Accuracy C1:0.9597, Accuracy C2:0.9613, Accuracy Ensemble:0.9608
+Test Epoch_target_testSet:168	Loss1:-0.046323, Loss2:-0.047160, Current Best Accuracy:0.9147, Accuracy C1:0.8985, Accuracy C2:0.9002, Accuracy Ensemble:0.9010
+Test Epoch_source_testSet:168	Loss1:-0.051182, Loss2:-0.051537, Current Best Accuracy:0.9677, Accuracy C1:0.9559, Accuracy C2:0.9608, Accuracy Ensemble:0.9591
+Test Epoch_target_testSet:169	Loss1:-0.046950, Loss2:-0.047087, Current Best Accuracy:0.9147, Accuracy C1:0.9078, Accuracy C2:0.9098, Accuracy Ensemble:0.9093
+Test Epoch_source_testSet:169	Loss1:-0.051746, Loss2:-0.051459, Current Best Accuracy:0.9677, Accuracy C1:0.9613, Accuracy C2:0.9656, Accuracy Ensemble:0.9651
+Test Epoch_target_testSet:170	Loss1:-0.047784, Loss2:-0.047978, Current Best Accuracy:0.9147, Accuracy C1:0.9038, Accuracy C2:0.9045, Accuracy Ensemble:0.9047
+Test Epoch_source_testSet:170	Loss1:-0.052213, Loss2:-0.051903, Current Best Accuracy:0.9677, Accuracy C1:0.9624, Accuracy C2:0.9661, Accuracy Ensemble:0.9629
+Test Epoch_target_testSet:171	Loss1:-0.048103, Loss2:-0.048068, Current Best Accuracy:0.9147, Accuracy C1:0.9070, Accuracy C2:0.9083, Accuracy Ensemble:0.9097
+Test Epoch_source_testSet:171	Loss1:-0.051735, Loss2:-0.050877, Current Best Accuracy:0.9677, Accuracy C1:0.9640, Accuracy C2:0.9645, Accuracy Ensemble:0.9661
+Test Epoch_target_testSet:172	Loss1:-0.047727, Loss2:-0.048253, Current Best Accuracy:0.9147, Accuracy C1:0.9101, Accuracy C2:0.9135, Accuracy Ensemble:0.9130
+Test Epoch_source_testSet:172	Loss1:-0.051002, Loss2:-0.050576, Current Best Accuracy:0.9677, Accuracy C1:0.9602, Accuracy C2:0.9608, Accuracy Ensemble:0.9634
+Test Epoch_target_testSet:173	Loss1:-0.047611, Loss2:-0.048178, Current Best Accuracy:0.9147, Accuracy C1:0.9019, Accuracy C2:0.9064, Accuracy Ensemble:0.9065
+Test Epoch_source_testSet:173	Loss1:-0.052283, Loss2:-0.052236, Current Best Accuracy:0.9699, Accuracy C1:0.9661, Accuracy C2:0.9694, Accuracy Ensemble:0.9699
+Test Epoch_target_testSet:174	Loss1:-0.048553, Loss2:-0.048676, Current Best Accuracy:0.9147, Accuracy C1:0.9045, Accuracy C2:0.9085, Accuracy Ensemble:0.9069
+Test Epoch_source_testSet:174	Loss1:-0.053132, Loss2:-0.052611, Current Best Accuracy:0.9699, Accuracy C1:0.9651, Accuracy C2:0.9661, Accuracy Ensemble:0.9672
+Test Epoch_target_testSet:175	Loss1:-0.047797, Loss2:-0.047892, Current Best Accuracy:0.9147, Accuracy C1:0.9033, Accuracy C2:0.9075, Accuracy Ensemble:0.9079
+Test Epoch_source_testSet:175	Loss1:-0.051337, Loss2:-0.050452, Current Best Accuracy:0.9699, Accuracy C1:0.9629, Accuracy C2:0.9608, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:176	Loss1:-0.048066, Loss2:-0.049445, Current Best Accuracy:0.9147, Accuracy C1:0.9033, Accuracy C2:0.9128, Accuracy Ensemble:0.9083
+Test Epoch_source_testSet:176	Loss1:-0.051709, Loss2:-0.052130, Current Best Accuracy:0.9699, Accuracy C1:0.9565, Accuracy C2:0.9581, Accuracy Ensemble:0.9559
+Test Epoch_target_testSet:177	Loss1:-0.048070, Loss2:-0.048645, Current Best Accuracy:0.9147, Accuracy C1:0.9043, Accuracy C2:0.9075, Accuracy Ensemble:0.9083
+Test Epoch_source_testSet:177	Loss1:-0.052228, Loss2:-0.052400, Current Best Accuracy:0.9699, Accuracy C1:0.9640, Accuracy C2:0.9694, Accuracy Ensemble:0.9661
+Test Epoch_target_testSet:178	Loss1:-0.047520, Loss2:-0.048151, Current Best Accuracy:0.9147, Accuracy C1:0.9003, Accuracy C2:0.9073, Accuracy Ensemble:0.9064
+Test Epoch_source_testSet:178	Loss1:-0.052082, Loss2:-0.051929, Current Best Accuracy:0.9699, Accuracy C1:0.9618, Accuracy C2:0.9667, Accuracy Ensemble:0.9656
+Test Epoch_target_testSet:179	Loss1:-0.047825, Loss2:-0.048650, Current Best Accuracy:0.9147, Accuracy C1:0.9050, Accuracy C2:0.9094, Accuracy Ensemble:0.9097
+Test Epoch_source_testSet:179	Loss1:-0.052395, Loss2:-0.052334, Current Best Accuracy:0.9699, Accuracy C1:0.9640, Accuracy C2:0.9688, Accuracy Ensemble:0.9667
+Test Epoch_target_testSet:180	Loss1:-0.048588, Loss2:-0.048946, Current Best Accuracy:0.9147, Accuracy C1:0.9055, Accuracy C2:0.9080, Accuracy Ensemble:0.9084
+Test Epoch_source_testSet:180	Loss1:-0.053578, Loss2:-0.052904, Current Best Accuracy:0.9720, Accuracy C1:0.9683, Accuracy C2:0.9699, Accuracy Ensemble:0.9720
+Test Epoch_target_testSet:181	Loss1:-0.048353, Loss2:-0.048994, Current Best Accuracy:0.9147, Accuracy C1:0.9046, Accuracy C2:0.9125, Accuracy Ensemble:0.9103
+Test Epoch_source_testSet:181	Loss1:-0.053244, Loss2:-0.052367, Current Best Accuracy:0.9720, Accuracy C1:0.9608, Accuracy C2:0.9634, Accuracy Ensemble:0.9634
+Test Epoch_target_testSet:182	Loss1:-0.048149, Loss2:-0.048595, Current Best Accuracy:0.9147, Accuracy C1:0.9025, Accuracy C2:0.9087, Accuracy Ensemble:0.9078
+Test Epoch_source_testSet:182	Loss1:-0.052890, Loss2:-0.052060, Current Best Accuracy:0.9720, Accuracy C1:0.9656, Accuracy C2:0.9677, Accuracy Ensemble:0.9661
+Test Epoch_target_testSet:183	Loss1:-0.047752, Loss2:-0.048436, Current Best Accuracy:0.9147, Accuracy C1:0.9010, Accuracy C2:0.9071, Accuracy Ensemble:0.9063
+Test Epoch_source_testSet:183	Loss1:-0.052879, Loss2:-0.052425, Current Best Accuracy:0.9720, Accuracy C1:0.9704, Accuracy C2:0.9720, Accuracy Ensemble:0.9720
+Test Epoch_target_testSet:184	Loss1:-0.049551, Loss2:-0.050422, Current Best Accuracy:0.9160, Accuracy C1:0.9111, Accuracy C2:0.9196, Accuracy Ensemble:0.9160
+Test Epoch_source_testSet:184	Loss1:-0.053295, Loss2:-0.052548, Current Best Accuracy:0.9720, Accuracy C1:0.9613, Accuracy C2:0.9634, Accuracy Ensemble:0.9645
+Test Epoch_target_testSet:185	Loss1:-0.048461, Loss2:-0.049603, Current Best Accuracy:0.9160, Accuracy C1:0.9118, Accuracy C2:0.9213, Accuracy Ensemble:0.9159
+Test Epoch_source_testSet:185	Loss1:-0.053228, Loss2:-0.052549, Current Best Accuracy:0.9720, Accuracy C1:0.9634, Accuracy C2:0.9613, Accuracy Ensemble:0.9651
+Test Epoch_target_testSet:186	Loss1:-0.048354, Loss2:-0.049571, Current Best Accuracy:0.9162, Accuracy C1:0.9107, Accuracy C2:0.9206, Accuracy Ensemble:0.9162
+Test Epoch_source_testSet:186	Loss1:-0.052621, Loss2:-0.051701, Current Best Accuracy:0.9720, Accuracy C1:0.9618, Accuracy C2:0.9656, Accuracy Ensemble:0.9651
+Test Epoch_target_testSet:187	Loss1:-0.048719, Loss2:-0.049206, Current Best Accuracy:0.9162, Accuracy C1:0.9081, Accuracy C2:0.9155, Accuracy Ensemble:0.9145
+Test Epoch_source_testSet:187	Loss1:-0.052601, Loss2:-0.051163, Current Best Accuracy:0.9720, Accuracy C1:0.9624, Accuracy C2:0.9602, Accuracy Ensemble:0.9624
+Test Epoch_target_testSet:188	Loss1:-0.048254, Loss2:-0.049835, Current Best Accuracy:0.9162, Accuracy C1:0.9029, Accuracy C2:0.9142, Accuracy Ensemble:0.9107
+Test Epoch_source_testSet:188	Loss1:-0.053038, Loss2:-0.052583, Current Best Accuracy:0.9720, Accuracy C1:0.9629, Accuracy C2:0.9629, Accuracy Ensemble:0.9651
+Test Epoch_target_testSet:189	Loss1:-0.049124, Loss2:-0.049460, Current Best Accuracy:0.9162, Accuracy C1:0.9025, Accuracy C2:0.9109, Accuracy Ensemble:0.9094
+Test Epoch_source_testSet:189	Loss1:-0.053742, Loss2:-0.052517, Current Best Accuracy:0.9720, Accuracy C1:0.9651, Accuracy C2:0.9613, Accuracy Ensemble:0.9645
+Test Epoch_target_testSet:190	Loss1:-0.048425, Loss2:-0.049066, Current Best Accuracy:0.9163, Accuracy C1:0.9135, Accuracy C2:0.9148, Accuracy Ensemble:0.9163
+Test Epoch_source_testSet:190	Loss1:-0.053372, Loss2:-0.053286, Current Best Accuracy:0.9720, Accuracy C1:0.9618, Accuracy C2:0.9608, Accuracy Ensemble:0.9618
+Test Epoch_target_testSet:191	Loss1:-0.049306, Loss2:-0.049646, Current Best Accuracy:0.9186, Accuracy C1:0.9146, Accuracy C2:0.9167, Accuracy Ensemble:0.9186
+Test Epoch_source_testSet:191	Loss1:-0.053124, Loss2:-0.052542, Current Best Accuracy:0.9720, Accuracy C1:0.9624, Accuracy C2:0.9624, Accuracy Ensemble:0.9645
+Test Epoch_target_testSet:192	Loss1:-0.049036, Loss2:-0.049173, Current Best Accuracy:0.9186, Accuracy C1:0.9118, Accuracy C2:0.9125, Accuracy Ensemble:0.9134
+Test Epoch_source_testSet:192	Loss1:-0.053643, Loss2:-0.052629, Current Best Accuracy:0.9720, Accuracy C1:0.9688, Accuracy C2:0.9661, Accuracy Ensemble:0.9688
+Test Epoch_target_testSet:193	Loss1:-0.047901, Loss2:-0.048742, Current Best Accuracy:0.9186, Accuracy C1:0.9035, Accuracy C2:0.9045, Accuracy Ensemble:0.9060
+Test Epoch_source_testSet:193	Loss1:-0.052301, Loss2:-0.052010, Current Best Accuracy:0.9720, Accuracy C1:0.9640, Accuracy C2:0.9629, Accuracy Ensemble:0.9656
+Test Epoch_target_testSet:194	Loss1:-0.049400, Loss2:-0.049112, Current Best Accuracy:0.9186, Accuracy C1:0.9142, Accuracy C2:0.9146, Accuracy Ensemble:0.9150
+Test Epoch_source_testSet:194	Loss1:-0.052022, Loss2:-0.051001, Current Best Accuracy:0.9720, Accuracy C1:0.9586, Accuracy C2:0.9613, Accuracy Ensemble:0.9608
+Test Epoch_target_testSet:195	Loss1:-0.050208, Loss2:-0.050161, Current Best Accuracy:0.9186, Accuracy C1:0.9110, Accuracy C2:0.9107, Accuracy Ensemble:0.9121
+Test Epoch_source_testSet:195	Loss1:-0.053571, Loss2:-0.052853, Current Best Accuracy:0.9720, Accuracy C1:0.9618, Accuracy C2:0.9694, Accuracy Ensemble:0.9672
+Test Epoch_target_testSet:196	Loss1:-0.049756, Loss2:-0.049499, Current Best Accuracy:0.9186, Accuracy C1:0.9080, Accuracy C2:0.9065, Accuracy Ensemble:0.9098
+Test Epoch_source_testSet:196	Loss1:-0.053364, Loss2:-0.052351, Current Best Accuracy:0.9720, Accuracy C1:0.9559, Accuracy C2:0.9559, Accuracy Ensemble:0.9575
+Test Epoch_target_testSet:197	Loss1:-0.049140, Loss2:-0.049258, Current Best Accuracy:0.9186, Accuracy C1:0.9058, Accuracy C2:0.9076, Accuracy Ensemble:0.9094
+Test Epoch_source_testSet:197	Loss1:-0.053100, Loss2:-0.052171, Current Best Accuracy:0.9720, Accuracy C1:0.9651, Accuracy C2:0.9677, Accuracy Ensemble:0.9688
+Test Epoch_target_testSet:198	Loss1:-0.049810, Loss2:-0.050046, Current Best Accuracy:0.9186, Accuracy C1:0.9073, Accuracy C2:0.9098, Accuracy Ensemble:0.9097
+Test Epoch_source_testSet:198	Loss1:-0.053633, Loss2:-0.052894, Current Best Accuracy:0.9720, Accuracy C1:0.9624, Accuracy C2:0.9613, Accuracy Ensemble:0.9634
+Test Epoch_target_testSet:199	Loss1:-0.049696, Loss2:-0.049475, Current Best Accuracy:0.9186, Accuracy C1:0.9069, Accuracy C2:0.9083, Accuracy Ensemble:0.9098
+Test Epoch_source_testSet:199	Loss1:-0.054575, Loss2:-0.053466, Current Best Accuracy:0.9720, Accuracy C1:0.9645, Accuracy C2:0.9629, Accuracy Ensemble:0.9629
+Test Epoch_target_testSet:200	Loss1:-0.049747, Loss2:-0.049651, Current Best Accuracy:0.9186, Accuracy C1:0.9069, Accuracy C2:0.9054, Accuracy Ensemble:0.9079
+Test Epoch_source_testSet:200	Loss1:-0.053827, Loss2:-0.052994, Current Best Accuracy:0.9720, Accuracy C1:0.9522, Accuracy C2:0.9462, Accuracy Ensemble:0.9489

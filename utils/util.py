@@ -137,30 +137,43 @@ class GaussianNoise(torch.nn.Module):
         return x + self.noise
 
 
+def adr_discrepancy(out1, out2):
+    entropy, use_abs_diff = False, False
+    if not entropy:
+        out2_t = out2.clone()
+        out2_t = out2_t.detach()
+        out1_t = out1.clone()
+        out1_t = out1_t.detach()
+        if not use_abs_diff:
+            return (F.kl_div(F.log_softmax(out1), out2_t) + F.kl_div(F.log_softmax(out2), out1_t)) / 2
+        else:
+            return torch.mean(torch.abs(out1-out2))
+    else:
+        return entropy_loss(out1)
+
+
 def calculate_grl_coefficient(epoch_num, epoch_total=100.0, high=1.0, low=0.0, alpha=10.0):
     coefficient = np.float(2.0 * (high - low) / (1.0 + np.exp(-alpha * epoch_num / float(epoch_total)))
                            - (high - low) + low)
     return coefficient
 
 
-def adjust_learning_rate(optimizer, lr, epoch_num, epoch_total, weight_decay=0.0005):
+def update_optimizer(optimizer=None, lr=0.01, epoch_num=0, epoch_total=1, gamma=10, power=0.75, weight_decay=0.0005):
     """
     Decay learning rate by a factor of 0.1 every lr_decay_epoch epochs.
     :param optimizer:
     :param lr:
     :param epoch_num:
-    :param epoch_total:
+    :param gamma:
+    :param power:
     :param weight_decay:
     :return:
     """
-    power = 0.75
-    gamma = 10
-    lr = lr * (1 + gamma * float(epoch_num) / epoch_total) ** (-power)
-    i = 0
+    # gamma, power = 10, 0.75
+    lr = lr * (1 + gamma * (epoch_num / epoch_total)) ** (-power)
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr * param_group['lr_mult']
         param_group['weight_decay'] = weight_decay * param_group['decay_mult']
-        i += 1
 
     return optimizer
 
@@ -243,3 +256,29 @@ def get_loader(domain, method, config):
         dataloader_train, dataloader_test = domain.get_loader_normal(config=config, domain=specific_domain)
 
     return dataloader_train, dataloader_test
+
+
+def filter_data_index(index_list=None, real_label=None, predict_c1=None, predict_c2=None):
+    """
+    标签过滤
+    :param index_list:
+    :param real_label:
+    :param predict_c1:
+    :param predict_c2:
+    :return: consistensy_index_dict —> (index, real_label, predict_c1)
+            inconsistency_index_dict —> (index, real_label, predict_c1, predict_c2)
+    """
+    consistensy_index_dict, inconsistency_index_dict = {}, {}
+    for index in range(len(index_list)):
+        id_value = index_list[index]
+        if predict_c1[index] == predict_c2[index]:
+            consistensy_index_dict[id_value] = (int(index_list[index]), int(real_label[index]),
+                                                int(predict_c1[index]))
+        else:
+            inconsistency_index_dict[id_value] = (int(index_list[index]), int(real_label[index]),
+                                                  int(predict_c1[index]), int(predict_c2[index]))
+
+    return consistensy_index_dict, inconsistency_index_dict
+
+
+

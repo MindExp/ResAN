@@ -91,20 +91,21 @@ def alexnet(pretrained=False, **kwargs):
     return model
 
 
-# convnet without the last layer
+# TODO 修复 F、C 结构设计
 class AlexNet_F(nn.Module):
     def __init__(self):
         super(AlexNet_F, self).__init__()
         model_alexnet = alexnet(pretrained=True)
         self.features = model_alexnet.features
-        self.classifier = nn.Sequential()
-        for i in range(6):
-            self.classifier.add_module("classifier" + str(i), model_alexnet.classifier[i])
+        self.__in_features = model_alexnet.classifier[0].in_features
+        # self.classifier = nn.Sequential()
+        # for i in range(6):
+        #     self.classifier.add_module("classifier" + str(i), model_alexnet.classifier[i])
 
     def forward(self, x):
         x = self.features(x)
         x = x.view(x.size(0), -1)
-        x = self.classifier(x)
+        # x = self.classifier(x)
         return x
 
     def get_output_features(self):
@@ -117,25 +118,37 @@ class AlexNet_F(nn.Module):
 
 
 class AlexNet_C(nn.Module):
-    def __init__(self, netF, use_bottleneck=True, bottleneck_dim=256, new_class=False, class_num=1000):
+    def __init__(self, netF, use_bottleneck=True, bottleneck_dim=256, new_class=True, class_num=1000):
         super(AlexNet_C, self).__init__()
         self.in_features, self.use_bottleneck, self.new_class = netF.get_output_features(), use_bottleneck, new_class
+        self.classifier = nn.Sequential(
+            nn.Linear(self.in_features, 4096),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Linear(4096, 4096),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            # nn.Linear(4096, class_num),
+        )
+        self.in_features = self.classifier[3].out_features
         if self.new_class:
             if self.use_bottleneck:
                 self.bottleneck = nn.Linear(self.in_features, bottleneck_dim)
                 self.fc = nn.Linear(bottleneck_dim, class_num)
-                self.bottleneck.apply(util.init_weights)
-                self.fc.apply(util.init_weights)
+                # self.bottleneck.apply(util.init_weights)
+                # self.fc.apply(util.init_weights)
             else:
                 self.fc = nn.Linear(self.in_features, class_num)
-                self.fc.apply(util.init_weights)
+                # self.fc.apply(util.init_weights)
         else:
-            self.fc = netF.classifier[6]
+            self.fc = nn.Linear(self.in_features, class_num)
 
     def forward(self, x, reverse=False, grl_coefficient=1.0):
         if reverse:
             # x.register_hook(grl_hook(grl_coefficient))
             x = grad_reverse(x, grl_coefficient)
+
+        x = self.classifier(x)
         if self.use_bottleneck and self.new_class:
             x = self.bottleneck(x)
         y = self.fc(x)
@@ -157,8 +170,9 @@ resnet_dict = {"resnet18": resnet.resnet18, "resnet34": resnet.resnet34, "resnet
                "resnet101": resnet.resnet101, "resnet152": resnet.resnet152}
 
 
+# TODO 修复 F、C 结构设计
 class ResNet_F(nn.Module):
-    def __init__(self, resnet_name, use_bottleneck=True, bottleneck_dim=256, new_class=False, class_num=1000):
+    def __init__(self, resnet_name, use_bottleneck=True, bottleneck_dim=256):
         super(ResNet_F, self).__init__()
         model_resnet = resnet_dict[resnet_name](pretrained=True, online=False)
         self.conv1 = model_resnet.conv1
@@ -170,154 +184,135 @@ class ResNet_F(nn.Module):
         self.layer3 = model_resnet.layer3
         self.layer4 = model_resnet.layer4
         self.avgpool = model_resnet.avgpool
-        self.feature_layers = nn.Sequential(self.conv1, self.bn1, self.relu, self.maxpool,
-                                            self.layer1, self.layer2, self.layer3, self.layer4, self.avgpool)
+        self.fc = model_resnet.fc
 
+        self.feature_layer = nn.Sequential(
+            self.conv1, self.bn1, self.relu, self.maxpool,
+            self.layer1, self.layer2, self.layer3, self.layer4,
+            self.avgpool)
         self.use_bottleneck = use_bottleneck
-        self.new_class = new_class
-        if new_class:
-            if self.use_bottleneck:
-                self.bottleneck = nn.Linear(model_resnet.fc.in_features, bottleneck_dim)
-                self.fc = nn.Linear(bottleneck_dim, class_num)
-                self.bottleneck.apply(util.init_weights)
-                self.fc.apply(util.init_weights)
-                self.__in_features = bottleneck_dim
-            else:
-                self.fc = nn.Linear(model_resnet.fc.in_features, class_num)
-                self.fc.apply(util.init_weights)
-                self.__in_features = model_resnet.fc.in_features
+        if self.use_bottleneck:
+            self.bottleneck_layer = nn.Linear(model_resnet.fc.in_features, bottleneck_dim)
+            self.__out_features = bottleneck_dim
         else:
-            self.fc = model_resnet.fc
-            self.__in_features = model_resnet.fc.in_features
+            self.__out_features = model_resnet.fc.in_features
 
     def forward(self, x):
-        x = self.feature_layers(x)
+        x = self.feature_layer(x)
         x = x.view(x.size(0), -1)
-        # if self.use_bottleneck and self.new_class:
-        #     x = self.bottleneck(x)
-        # y = self.fc(x)
+        if self.use_bottleneck:
+            x = self.bottleneck_layer(x)
         return x
 
     def get_output_features(self):
-        return self.__in_features
+        return self.__out_features
 
     def get_parameters(self):
-        # if self.new_class:
-        #     if self.use_bottleneck:
-        #         parameter_list = [{"params": self.feature_layers.parameters(), "lr_mult": 1, 'decay_mult': 2},
-        #                           {"params": self.bottleneck.parameters(), "lr_mult": 10, 'decay_mult': 2},
-        #                           {"params": self.fc.parameters(), "lr_mult": 10, 'decay_mult': 2}]
-        #     else:
-        #         parameter_list = [{"params": self.feature_layers.parameters(), "lr_mult": 1, 'decay_mult': 2},
-        #                           {"params": self.fc.parameters(), "lr_mult": 10, 'decay_mult': 2}]
-        # else:
-        #     parameter_list = [{"params": self.parameters(), "lr_mult": 1, 'decay_mult': 2}]
-        parameter_list = [{"params": self.parameters(), "lr_mult": 1, 'decay_mult': 2}]
+        if self.use_bottleneck:
+            parameter_list = [{"params": self.feature_layer.parameters(), "lr_mult": 1, 'decay_mult': 2},
+                              {"params": self.bottleneck_layer.parameters(), "lr_mult": 10, 'decay_mult': 2}]
+        else:
+            parameter_list = [{"params": self.feature_layer.parameters(), "lr_mult": 1, 'decay_mult': 2}]
         return parameter_list
 
 
 class ResNet_C(nn.Module):
-    def __init__(self, netF, use_bottleneck=True, bottleneck_dim=256, new_class=False, class_num=1000):
+    def __init__(self, netF, new_class=True, class_num=1000):
         super(ResNet_C, self).__init__()
-        self.in_features, self.use_bottleneck, self.new_class = netF.get_output_features(), use_bottleneck, new_class
-        self.dropout = nn.Dropout(p=0.3)
-        self.relu = nn.ReLU()
+        self.out_features, self.new_class = netF.get_output_features(), new_class
+
         if self.new_class:
-            if self.use_bottleneck:
-                self.bottleneck = nn.Linear(self.in_features, bottleneck_dim)
-                self.fc = nn.Linear(bottleneck_dim, class_num)
-                self.bottleneck.apply(util.init_weights)
-                self.fc.apply(util.init_weights)
-            else:
-                self.fc = nn.Linear(self.in_features, class_num)
-                self.fc.apply(util.init_weights)
-        else:
-            self.fc = netF.fc
+            mlp_out_units = self.out_features // 2
+            self.classifier_layer = nn.Sequential(
+                nn.Linear(self.out_features, mlp_out_units),
+                nn.BatchNorm1d(mlp_out_units),
+                nn.ReLU(inplace=True),
+
+                nn.Linear(mlp_out_units, class_num)
+            )
 
     def forward(self, x, reverse=False, grl_coefficient=1.0):
         if reverse:
             # x.register_hook(grl_hook(grl_coefficient))
             x = grad_reverse(x, grl_coefficient)
-        x = self.relu(x)
-        x = self.dropout(x)
-        if self.use_bottleneck and self.new_class:
-            x = self.bottleneck(x)
-            # consider to delete
-            # x = self.relu(x)
-            # x = self.dropout(x)
-        y = self.fc(x)
-        return y
+        if self.new_class:
+            x = self.classifier_layer(x)
+        else:
+            x = self.out_features
+
+        return x
 
     def get_parameters(self):
         if self.new_class:
-            if self.use_bottleneck:
-                parameter_list = [{"params": self.bottleneck.parameters(), "lr_mult": 10, 'decay_mult': 2},
-                                  {"params": self.fc.parameters(), "lr_mult": 10, 'decay_mult': 2}]
-            else:
-                parameter_list = [{"params": self.fc.parameters(), "lr_mult": 10, 'decay_mult': 2}]
+            parameter_list = [{"params": self.classifier_layer.parameters(), "lr_mult": 10, 'decay_mult': 2}]
         else:
-            parameter_list = [{"params": self.fc.parameters(), "lr_mult": 1, 'decay_mult': 2}]
+            parameter_list = [{"params": None, "lr_mult": 1, 'decay_mult': 2}]
         return parameter_list
 
 
 class EfficientNet_F(nn.Module):
-    def __init__(self, efficientnet_name, use_bottleneck=True, bottleneck_dim=256, new_class=False, class_num=31):
+    def __init__(self, efficientnet_name, new_class=False, use_bottleneck=True, bottleneck_dim=256):
         super(EfficientNet_F, self).__init__()
-        self.model = EfficientNet.from_pretrained(efficientnet_name, online=False)
-        self.__in_features = self.model._fc.in_features
+        self.new_class = new_class
+        self.use_bottleneck = use_bottleneck
+        self.model_efficientnet = EfficientNet.from_pretrained(efficientnet_name, online=False)
+
+        if self.new_class and self.use_bottleneck:
+            self.bottleneck_layer = nn.Linear(self.model_efficientnet._fc.out_features, bottleneck_dim)
+            self.__out_features = bottleneck_dim
+        else:
+            self.__out_features = self.model_efficientnet._fc.out_features
 
     def forward(self, x):
         # x = self.model.extract_features(x)
-        x = self.model(x)
+        x = self.model_efficientnet(x)
+        if self.new_class and self.use_bottleneck:
+            x = self.bottleneck_layer(x)
         x = x.view(x.size(0), -1)
         return x
 
     def get_output_features(self):
-        return self.__in_features
+        return self.__out_features
 
     def get_parameters(self):
-        parameter_list = [{"params": self.parameters(), "lr_mult": 1, 'decay_mult': 2}]
+        if self.use_bottleneck:
+            parameter_list = [{"params": self.model_efficientnet.parameters(), "lr_mult": 1, 'decay_mult': 2},
+                              {"params": self.bottleneck_layer.parameters(), "lr_mult": 10, 'decay_mult': 2}]
+        else:
+            parameter_list = [{"params": self.model_efficientnet.parameters(), "lr_mult": 1, 'decay_mult': 2}]
         return parameter_list
 
 
 class EfficientNet_C(nn.Module):
-    def __init__(self, netF, use_bottleneck=True, bottleneck_dim=256, new_class=False, class_num=1000):
+    def __init__(self, netF, new_class=True, class_num=1000):
         super(EfficientNet_C, self).__init__()
-        self.in_features, self.use_bottleneck, self.new_class = netF.get_output_features(), use_bottleneck, new_class
-        self.dropout = nn.Dropout(p=0.3)
-        self.relu = nn.ReLU()
+        self.out_features, self.new_class = netF.get_output_features(), new_class
+
         if self.new_class:
-            if self.use_bottleneck:
-                self.bottleneck = nn.Linear(self.in_features, bottleneck_dim)
-                self.fc = nn.Linear(bottleneck_dim, class_num)
-                self.bottleneck.apply(util.init_weights)
-                self.fc.apply(util.init_weights)
-            else:
-                self.fc = nn.Linear(self.in_features, class_num)
-                self.fc.apply(util.init_weights)
-        else:
-            self.fc = netF._fc
+            self.classifier_layer = nn.Sequential(
+                nn.Linear(self.out_features, self.out_features),
+                nn.BatchNorm1d(self.out_features),
+                nn.ReLU(inplace=True),
+
+                nn.Linear(self.out_features, class_num)
+            )
 
     def forward(self, x, reverse=False, grl_coefficient=1.0):
         if reverse:
             # x.register_hook(grl_hook(grl_coefficient))
             x = grad_reverse(x, grl_coefficient)
-        x = self.dropout(x)
-        if self.use_bottleneck and self.new_class:
-            x = self.bottleneck(x)
-            x = self.relu(x)
-        y = self.fc(x)
-        return y
+        if self.new_class:
+            x = self.classifier_layer(x)
+        else:
+            x = self.out_features
+
+        return x
 
     def get_parameters(self):
         if self.new_class:
-            if self.use_bottleneck:
-                parameter_list = [{"params": self.bottleneck.parameters(), "lr_mult": 10, 'decay_mult': 2},
-                                  {"params": self.fc.parameters(), "lr_mult": 10, 'decay_mult': 2}]
-            else:
-                parameter_list = [{"params": self.fc.parameters(), "lr_mult": 10, 'decay_mult': 2}]
+            parameter_list = [{"params": self.classifier_layer.parameters(), "lr_mult": 10, 'decay_mult': 2}]
         else:
-            parameter_list = [{"params": self.fc.parameters(), "lr_mult": 1, 'decay_mult': 2}]
+            parameter_list = [{"params": None, "lr_mult": 1, 'decay_mult': 2}]
         return parameter_list
 
 
@@ -370,7 +365,6 @@ class AdversarialNetwork(nn.Module):
     def forward(self, x):
         if self.training:
             self.iter_num += 1
-        # grl_coefficient = util.calculate_grl_coefficient(self.iter_num, self.high, self.low, self.alpha, self.max_iter)
         x = x * 1.0
         # method 2: implementation of GRL
         # x.register_hook(grl_hook(grl_coefficient))
@@ -398,28 +392,25 @@ class AdversarialNetwork(nn.Module):
         return [{"params": self.parameters(), "lr_mult": 10, 'decay_mult': 2}]
 
 
-def get_netF(base_network=None):
-    if base_network == 'alexnet':
+def get_netF(backbone=None):
+    if backbone == 'alexnet':
         netF = AlexNet_F()
-    elif 'resnet'in base_network:
-        netF = ResNet_F(resnet_name=base_network, use_bottleneck=True, bottleneck_dim=256, new_class=False, class_num=31)
-    elif 'efficientnet'in base_network:
-        netF = EfficientNet_F(efficientnet_name=base_network, use_bottleneck=True, bottleneck_dim=256, new_class=False, class_num=31)
+    elif 'resnet'in backbone:
+        netF = ResNet_F(resnet_name=backbone, use_bottleneck=True, bottleneck_dim=1024)
+    elif 'efficientnet'in backbone:
+        netF = EfficientNet_F(efficientnet_name=backbone, use_bottleneck=True, bottleneck_dim=256)
     else:
         raise ValueError("Invalid feature extractor base network.")
     return netF
 
 
-def get_netC(base_network=None, use_bottleneck=True, bottleneck_dim=256, new_class=True, class_num=31):
-    if base_network.__class__.__name__ == 'AlexNet_F':
-        netC = AlexNet_C(base_network, use_bottleneck=use_bottleneck, bottleneck_dim=bottleneck_dim,
-                         new_class=new_class, class_num=class_num)
-    elif base_network.__class__.__name__ == 'ResNet_F':
-        netC = ResNet_C(base_network, use_bottleneck=use_bottleneck, bottleneck_dim=bottleneck_dim,
-                        new_class=new_class, class_num=class_num)
-    elif base_network.__class__.__name__ == 'EfficientNet_F':
-        netC = EfficientNet_C(base_network, use_bottleneck=use_bottleneck, bottleneck_dim=bottleneck_dim,
-                              new_class=new_class, class_num=class_num)
+def get_netC(backbone=None, new_class=True, class_num=31):
+    if backbone.__class__.__name__ == 'AlexNet_F':
+        netC = AlexNet_C(backbone, new_class=new_class, class_num=class_num)
+    elif backbone.__class__.__name__ == 'ResNet_F':
+        netC = ResNet_C(backbone, new_class=new_class, class_num=class_num)
+    elif backbone.__class__.__name__ == 'EfficientNet_F':
+        netC = EfficientNet_C(backbone, new_class=new_class, class_num=class_num)
     else:
         raise ValueError("Invalid base network parameter.")
     return netC

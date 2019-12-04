@@ -6,7 +6,7 @@ import torch
 import os
 import torch.backends.cudnn as cudnn
 
-from solver import Solver
+from solver_fixed import Solver
 from utils import util
 
 # Training settings
@@ -62,6 +62,10 @@ parser.add_argument('--ensemble_alpha', type=float, metavar='N', required=True,
                     help='initial weight of ensemble output')
 parser.add_argument('--rampup_length', type=int, default=80, metavar='N',
                     help='ramp-up length of weight consistency loss')
+parser.add_argument('--grl_coefficient_upper', type=float, default=1.0, metavar='N',
+                    help='gradient reverse layer coefficient upper bound')
+parser.add_argument('--weight_consistency', type=float, default=1.0, metavar='N',
+                    help='weight of consistency loss upper bound')
 parser.add_argument('--weight_consistency_upper', type=float, default=1.0, metavar='N',
                     help='weight of consistency loss upper bound')
 parser.add_argument('--weight_discrepancy_upper', type=float, default=1.0, metavar='N',
@@ -106,4 +110,23 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    source_domains, target_domains = ['W', 'D'], ['W', 'D']
+    for source_domain in source_domains:
+        for target_domain in target_domains:
+            config.source, config.target = source_domain, target_domain
+            if config.source == config.target:
+                continue
+            if (config.source == 'A' and config.target == 'D') or (config.source == 'D' and config.target == 'W'):
+                config.lr = 0.0003
+            else:
+                config.lr = 0.001
+            weight_consistencies, weight_consistency_uppers, weight_discrepancy_uppers = [0.0, 0.1, 1.0], [0.0, 1.0], [
+                0.0, 1.0]
+            for weight_consistency in weight_consistencies:
+                for weight_consistency_upper in weight_consistency_uppers:
+                    for weight_discrepancy_upper in weight_discrepancy_uppers:
+                        config.weight_consistency, config.weight_consistency_upper, config.weight_discrepancy_upper = \
+                            weight_consistency, weight_consistency_upper, weight_discrepancy_upper
+                        main()
+    # weight_consistencies, weight_consistency_uppers, weight_discrepancy_uppers = 1.0, 1.0, 1.0
+    # main()

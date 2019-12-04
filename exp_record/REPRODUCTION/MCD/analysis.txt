@@ -1,0 +1,37 @@
+MCD:
+E:\ProgramFiles\Anaconda3\python.exe E:/Projects/Python/Anon/exp_record/exp_process.py --algorithm=MCD --process_task=synsig_gtsrb --all_use --supplementary_info=
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31\A_D_alluse_True_onestep_False_record_num_0_test.txt
+source: (0.9959, 0.00204), target: (0.8104, 0.00164)
+best target acc:((0.8104, 0.00164), 'E:\\Projects\\Python\\Anon\\exp_record\\REPRODUCTION/MCD\\office_31\\A_D_alluse_True_onestep_False_record_num_0_test.txt')
+
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31\A_W_alluse_True_onestep_False_record_num_0_test.txt
+source: (0.9949, 0.00475), target: (0.8143, 0.01249)
+best target acc:((0.8143, 0.01249), 'E:\\Projects\\Python\\Anon\\exp_record\\REPRODUCTION/MCD\\office_31\\A_W_alluse_True_onestep_False_record_num_0_test.txt')
+
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31\W_A_alluse_True_onestep_False_record_num_0_test.txt
+source: (1.0, 0.0), target: (0.6768, 0.0013)
+best target acc:((0.6768, 0.0013), 'E:\\Projects\\Python\\Anon\\exp_record\\REPRODUCTION/MCD\\office_31\\W_A_alluse_True_onestep_False_record_num_0_test.txt')
+
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31\W_D_alluse_True_onestep_False_record_num_0_test.txt
+source: (1.0, 0.0), target: (0.996, 0.0)
+best target acc:((0.996, 0.0), 'E:\\Projects\\Python\\Anon\\exp_record\\REPRODUCTION/MCD\\office_31\\W_D_alluse_True_onestep_False_record_num_0_test.txt')
+
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31\D_A_alluse_True_onestep_False_record_num_0_test.txt
+source: (1.0, 0.0), target: (0.687, 0.00195)
+best target acc:((0.687, 0.00195), 'E:\\Projects\\Python\\Anon\\exp_record\\REPRODUCTION/MCD\\office_31\\D_A_alluse_True_onestep_False_record_num_0_test.txt')
+
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION/MCD\office_31\D_W_alluse_True_onestep_False_record_num_0_test.txt
+source: (1.0, 0.0), target: (0.9816, 0.00127)
+best target acc:((0.9816, 0.00127), 'E:\\Projects\\Python\\Anon\\exp_record\\REPRODUCTION/MCD\\office_31\\D_W_alluse_True_onestep_False_record_num_0_test.txt')
+
+
+Process finished with exit code 0
+
+
+

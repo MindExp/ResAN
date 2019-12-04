@@ -22,15 +22,17 @@ class Office(torch.utils.data.Dataset):
     def __getitem__(self, index):
         image_name, label = self.mapping[index]
         image = self.transform(Image.open(image_name).convert('RGB'))
-        return image, label
+        return index, image, label
 
 
 def get_loader_normal(config, domain):
     dataset_train, dataset_test = load_office_normal(config, domain)
-    dataloader_trainset = torch.utils.data.DataLoader(dataset=dataset_train, batch_size=config.batch_size,
-                                                      shuffle=True, drop_last=True)
-    dataloader_testset = torch.utils.data.DataLoader(dataset=dataset_test, batch_size=config.batch_size,
-                                                     shuffle=False, drop_last=False)
+    dataloader_trainset = torch.utils.data.DataLoader(
+        dataset=dataset_train, batch_size=config.batch_size, shuffle=True, drop_last=True,
+    )
+    dataloader_testset = torch.utils.data.DataLoader(
+        dataset=dataset_test, batch_size=config.batch_size, shuffle=False, drop_last=False,
+    )
 
     return dataloader_trainset, dataloader_testset
 

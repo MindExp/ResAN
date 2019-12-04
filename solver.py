@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torch.autograd import Variable
+import numpy as np
 
 from datasets.utils import dataset_loader
 from models.init_model import InitModel
@@ -32,6 +32,8 @@ class Solver(object):
         self.all_use = config.all_use
         self.ensemble_alpha = config.ensemble_alpha
         self.rampup_length = config.rampup_length
+        self.grl_coefficient_upper = config.grl_coefficient_upper
+        self.weight_consistency = config.weight_consistency
         self.weight_consistency_upper = config.weight_consistency_upper
         self.weight_discrepancy_upper = config.weight_discrepancy_upper
         self.mixup_beta = config.mixup_beta
@@ -53,9 +55,9 @@ class Solver(object):
 
         model = InitModel().init(source_domain=self.source, target_domain=self.target)
 
-        self.netF = model.get_netF(config=config)
-        self.netC1 = model.get_netC(config=config)
-        self.netC2 = model.get_netC(config=config)
+        self.netF = model.get_netF(backbone=self.backbone)
+        self.netC1 = model.get_netC(backbone=self.netF)
+        self.netC2 = model.get_netC(backbone=self.netF)
 
         if config.resume_epoch or config.eval_only:
             self.netF = torch.load('%s/%s_to_%s_model_epoch%s_F.pt' %
@@ -64,11 +66,6 @@ class Solver(object):
                                     (self.checkpoint_dir, self.source, self.target, self.resume_epoch))
             self.netC2 = torch.load('%s/%s_to_%s_model_epoch%s_C2.pt' %
                                     (self.checkpoint_dir, self.source, self.target, self.resume_epoch))
-        else:
-            pass
-            # self.netF.apply(utils.weights_init)
-            # self.netC1.apply(utils.weights_init)
-            # self.netC2.apply(utils.weights_init)
 
         self.netF.cuda()
         self.netC1.cuda()
@@ -80,13 +77,13 @@ class Solver(object):
 
     def set_optimizer(self, which_opt='sgd', lr=0.001, momentum=0.9):
         if which_opt == 'sgd':
-            self.opt_g = optim.SGD(self.netF.parameters(), lr=lr, weight_decay=0.0005, momentum=momentum)
-            self.opt_c1 = optim.SGD(self.netC1.parameters(), lr=lr, weight_decay=0.0005, momentum=momentum)
-            self.opt_c2 = optim.SGD(self.netC2.parameters(), lr=lr, weight_decay=0.0005, momentum=momentum)
+            self.opt_g = optim.SGD(self.netF.get_parameters(), lr=lr, weight_decay=0.0005, momentum=momentum)
+            self.opt_c1 = optim.SGD(self.netC1.get_parameters(), lr=lr, weight_decay=0.0005, momentum=momentum)
+            self.opt_c2 = optim.SGD(self.netC2.get_parameters(), lr=lr, weight_decay=0.0005, momentum=momentum)
         if which_opt == 'adam':
-            self.opt_g = optim.Adam(self.netF.parameters(), lr=lr, weight_decay=0.0005)
-            self.opt_c1 = optim.Adam(self.netC1.parameters(), lr=lr, weight_decay=0.0005)
-            self.opt_c2 = optim.Adam(self.netC2.parameters(), lr=lr, weight_decay=0.0005)
+            self.opt_g = optim.Adam(self.netF.get_parameters(), lr=lr, weight_decay=0.0005)
+            self.opt_c1 = optim.Adam(self.netC1.get_parameters(), lr=lr, weight_decay=0.0005)
+            self.opt_c2 = optim.Adam(self.netC2.get_parameters(), lr=lr, weight_decay=0.0005)
 
     def reset_grad(self):
         self.opt_g.zero_grad()
@@ -167,16 +164,15 @@ class Solver(object):
         torch.cuda.manual_seed(1)
 
         grl_coeff = util.calculate_grl_coefficient(epoch_num=self.epoch_num, epoch_total=self.epoch_total,
-                                                   high=1.0, low=0.0, alpha=10.0)
+                                                   high=self.grl_coefficient_upper, low=0.0, alpha=10.0)
 
         weight_consistency = temporal_ensemble.get_current_consistency_weight(
             self.weight_consistency_upper, epoch, self.rampup_length)
-        weight_consistency = torch.from_numpy(weight_consistency).cuda()
-        weight_consistency.requires_grad = False
+        weight_consistency = torch.from_numpy(np.array([weight_consistency], dtype=np.float32)).cuda()
         weight_discrepancy_resample = temporal_ensemble.get_current_consistency_weight(
             self.weight_discrepancy_upper, epoch, self.rampup_length)
-        weight_discrepancy_resample = torch.from_numpy(weight_discrepancy_resample).cuda()
-        weight_discrepancy_resample.requires_grad = False
+        weight_discrepancy_resample = torch.from_numpy(np.array([weight_discrepancy_resample], dtype=np.float32)).cuda()
+
         # TODO 研究点：重新设计 dataloader_target_resample， 采用样本 id 信息
         dataloader_target_resample = inconsistency_target_sampler.re_sample_inconsistency_target(
             list(self.inconsistency_index_set), self.dataloader_target_train, self.batch_size)
@@ -195,9 +191,9 @@ class Solver(object):
             if iteration_resample and batch_idx % iteration_resample == 0:
                 iter_dataloader_target_resample = iter(dataloader_target_resample)
 
-            img_s, label_s = iter_dataloader_source_train.next()
-            img_t, _ = iter_dataloader_target_train.next()
-            (img_r, _) = iter_dataloader_target_resample.next() if iteration_resample else (None, None)
+            index_s, img_s, label_s = iter_dataloader_source_train.next()
+            index_t, img_t, _ = iter_dataloader_target_train.next()
+            (index_r, img_r, _) = iter_dataloader_target_resample.next() if iteration_resample else (None, None, None)
             if iteration_resample == 0 or img_r.shape[0] == 1:
                 resample_consideration = False
 
@@ -221,16 +217,15 @@ class Solver(object):
             loss_source = loss_s1 + loss_s2
 
             feat_t = self.netF(img_t)
-            # TODO GRL方案选择 {method 1, method 2}
+            # TODO GRL方案选择 {method_1, method_2}
             output_t1 = self.netC1(feat_t, reverse=True, grl_coefficient=4.0)
             output_t2 = self.netC2(feat_t, reverse=True, grl_coefficient=4.0)
 
             inconsistency_index = torch.nonzero(
                 torch.ne(output_t1.data.max(1)[1], output_t2.data.max(1)[1])).view(-1)
-            inconsistency_index.requires_grad = False
             consistency_index = torch.nonzero(
                 torch.eq(output_t1.data.max(1)[1], output_t2.data.max(1)[1])).view(-1)
-            consistency_index.requires_grad = False
+            # FIXME 直接使用以下策略效果也 ok, 但是部分逻辑问题
             self.inconsistency_index_set.update({start + i for i in inconsistency_index})
             self.inconsistency_index_set.difference_update({start + i for i in consistency_index})
             # TODO 研究点：自定义 discrepancy loss, e.g., symmetric_mse_loss.
@@ -239,7 +234,7 @@ class Solver(object):
             loss_consistency_output_t1 = temporal_ensemble.loss_softmax_mse(output_t1, correction_output_t1)
             loss_consistency_output_t2 = temporal_ensemble.loss_softmax_mse(output_t2, correction_output_t2)
 
-            loss_discrepancy_resample = 0
+            loss_discrepancy_resample = 0.0
             if resample_consideration:
                 img_r = img_r.cuda()
                 feat_r = self.netF(img_r)
@@ -251,7 +246,7 @@ class Solver(object):
             self.current_output_t1[start: end] = output_t1.data
             self.current_output_t2[start: end] = output_t2.data
 
-            loss = loss_source - loss_discrepancy + \
+            loss = loss_source - self.weight_consistency * loss_discrepancy + \
                    weight_consistency * (loss_consistency_output_t1 + loss_consistency_output_t2) + \
                    weight_discrepancy_resample * loss_discrepancy_resample
             loss.backward()
@@ -266,10 +261,10 @@ class Solver(object):
                     loss_discrepancy.data.item())
                 train_info = '\tConsistency weight:{:.6f}\tConsistency loss_t1:{:.6f}\tConsistency loss_t2:{:.6f}' \
                              '\tDiscrepancy_Resample Weight:{:.6f}\tResample Discrepancy{:.6f}\tResample Pool Num:{}' \
-                    .format(weight_consistency.data.item(),
+                    .format(weight_consistency.item(),
                             loss_consistency_output_t1.data.item(),
                             loss_consistency_output_t2.data.item(),
-                            weight_discrepancy_resample.data.item(),
+                            weight_discrepancy_resample.item(),
                             loss_discrepancy_resample,
                             len(self.inconsistency_index_set))
                 # string concatenate
@@ -305,20 +300,20 @@ class Solver(object):
             raise ValueError('Invalid test domain, expected to must be source or target testSet')
 
         for batch_idx, data in enumerate(dataloader_test):
-            img, label = data
+            index, img, label = data
             img, label = img.cuda(), label.long().cuda()
             feat = self.netF(img)
             output_c1 = self.netC1(feat)
             output_c2 = self.netC2(feat)
-            test_loss_c1 += F.nll_loss(output_c1, label).data.item()
-            test_loss_c2 += F.nll_loss(output_c2, label).data.item()
+            test_loss_c1 += F.nll_loss(output_c1, label).item()
+            test_loss_c2 += F.nll_loss(output_c2, label).item()
             predict_c1 = output_c1.data.max(1)[1]
             predict_c2 = output_c2.data.max(1)[1]
             predict_ensemble = (output_c1 + output_c2).data.max(1)[1]
             k = label.data.size()[0]
-            correct_c1 += predict_c1.eq(label.data).cpu().sum()
-            correct_c2 += predict_c2.eq(label.data).cpu().sum()
-            correct_ensemble += predict_ensemble.eq(label.data).cpu().sum()
+            correct_c1 += predict_c1.eq(label.data).sum()
+            correct_c2 += predict_c2.eq(label.data).sum()
+            correct_ensemble += predict_ensemble.eq(label.data).sum()
             size += k
         test_loss_c1 = test_loss_c1 / size
         test_loss_c2 = test_loss_c2 / size

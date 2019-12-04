@@ -17,15 +17,11 @@ class UnalignedDataLoader:
         dataset_train = Dataset(train_set['imgs'], train_set['labels'], transform=transform)
         dataset_test = Dataset(test_set['imgs'], test_set['labels'], transform=transform)
         self.dataloader_train = torch.utils.data.DataLoader(
-            dataset_train,
-            batch_size=batch_size,
-            shuffle=True,
-            num_workers=0)
+            dataset_train, batch_size=batch_size, shuffle=True, drop_last=False,
+            num_workers=4, pin_memory=True)
         self.dataloader_test = torch.utils.data.DataLoader(
-            dataset_test,
-            batch_size=batch_size,
-            shuffle=True,
-            num_workers=0)
+            dataset_test, batch_size=batch_size, shuffle=True, drop_last=False,
+            num_workers=4, pin_memory=True)
 
     def name(self):
         return 'UnalignedDataLoader'

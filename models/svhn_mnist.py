@@ -32,6 +32,9 @@ class _netF(nn.Module):
         x = self.bottleneck(x.view(x.size(0), 8192))
         return x
 
+    def get_parameters(self):
+        return self.parameters()
+
 
 class _netC(nn.Module):
     def __init__(self):
@@ -50,6 +53,9 @@ class _netC(nn.Module):
             x = grad_reverse(x, grl_coefficient)
         x = self.classifier(x)
         return x
+
+    def get_parameters(self):
+        return self.parameters()
 
 
 def get_netF(backbone=None):

@@ -9,7 +9,7 @@ from scipy.io import loadmat
 from datasets.utils.unaligned_data_loader import UnalignedDataLoader
 from utils import util
 
-file_path_datasets_root = 'D:\Exp_HZH\dataset'
+file_path_datasets_root = 'E:\Projects\dataset'
 file_path_svhn_train_mcd = os.path.join(file_path_datasets_root, 'svhn\\train_32x32.mat')
 file_path_svhn_test_mcd = os.path.join(file_path_datasets_root, 'svhn\\test_32x32.mat')
 file_path_svhn_train_gta = os.path.join(file_path_datasets_root, 'svhn\\trainset')
@@ -40,6 +40,7 @@ def get_loader_mcd(config):
     return dataloader_trainset, dataloader_testset
 
 
+# TODO 自定义返回 id 信息 ImageFolder, def __getitem__(self, index):
 def load_svhn_gta(config):
     file_path_trainset = file_path_svhn_train_gta
     file_path_testset = file_path_svhn_test_gta
