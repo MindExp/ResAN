@@ -43,13 +43,15 @@ def dense_to_one_hot(labels_dense):
 
 
 def init_record_directory(config):
-    svhn_mnist, mnist_usps, synsig_gtsrb, office_31, officeHome = \
-        ['svhn', 'mnist'], ['mnist', 'usps'], ['synsig', 'gtsrb'], ['A', 'W', 'D'], ['A', 'C', 'P', 'R']
+    svhn_mnist, mnist_usps, synsig_gtsrb, office_31, officeHome, visda = \
+        ['svhn', 'mnist'], ['mnist', 'usps'], ['synsig', 'gtsrb'], ['A', 'W', 'D'], ['A', 'C', 'P', 'R'], \
+        ['visda_train', 'visda_validation']
     record_directory = 'svhn_mnist' if config.source in svhn_mnist and config.target in svhn_mnist \
         else 'mnist_usps' if config.source in mnist_usps and config.target in mnist_usps \
         else 'synsig_gtsrb' if config.source in synsig_gtsrb and config.target in synsig_gtsrb \
         else 'office_31' if config.source in office_31 and config.target in office_31\
-        else 'officeHome' if config.source in officeHome and config.target in officeHome else None
+        else 'officeHome' if config.source in officeHome and config.target in officeHome \
+        else 'visda' if config.source in visda and config.target in visda else None
     record_directory = f'{record_directory}{"_all_use"}' if record_directory == 'mnist_usps' and config.all_use \
         else f'{record_directory}{"_not_all"}' if record_directory == 'mnist_usps' and not config.all_use \
         else record_directory
@@ -119,6 +121,7 @@ def record_log(record_file_path, info):
     """
     with open(record_file_path, 'a') as f:
         f.write(info)
+        f.flush()
 
 
 class GaussianNoise(torch.nn.Module):
@@ -137,17 +140,17 @@ class GaussianNoise(torch.nn.Module):
         return x + self.noise
 
 
-def adr_discrepancy(out1, out2):
-    entropy, use_abs_diff = False, False
+def adr_discrepancy(out1, out2, use_abs_diff):
+    entropy, use_abs_diff = False, use_abs_diff
     if not entropy:
         out2_t = out2.clone()
         out2_t = out2_t.detach()
         out1_t = out1.clone()
         out1_t = out1_t.detach()
         if not use_abs_diff:
-            return (F.kl_div(F.log_softmax(out1), out2_t) + F.kl_div(F.log_softmax(out2), out1_t)) / 2
+            return (F.kl_div(F.log_softmax(out1, dim=1), out2_t) + F.kl_div(F.log_softmax(out2, dim=1), out1_t)) / 2
         else:
-            return torch.mean(torch.abs(out1-out2))
+            return torch.mean(torch.abs(F.softmax(out1, dim=1) - F.softmax(out2, dim=1)))
     else:
         return entropy_loss(out1)
 

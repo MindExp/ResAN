@@ -70,6 +70,8 @@ parser.add_argument('--weight_consistency_upper', type=float, default=1.0, metav
                     help='weight of consistency loss upper bound')
 parser.add_argument('--weight_discrepancy_upper', type=float, default=1.0, metavar='N',
                     help='weight of discrepancy loss upper bound')
+parser.add_argument('--weight_entropy_loss', type=float, default=0.0, metavar='N',
+                    help='weight of entropy loss')
 parser.add_argument('--mixup_beta', type=float, metavar='N', required=True,
                     help='initial weight of ensemble output')
 parser.add_argument('--supplementary_info', type=str, default=None, metavar='N',
@@ -83,9 +85,22 @@ if config.cuda:
     cudnn.benchmark = True
 
 
+def t_sne_visualization():
+    config.eval_only = True
+    config.batch_size = 100
+    record_directory = util.init_record_directory(config)
+    config.checkpoint_dir = os.path.join(record_directory, config.checkpoint)
+
+    solver = Solver(config)
+    solver.t_sne()
+
+
 def main():
     record_directory, record_train_file_path, record_test_file_path = util.init_record_file_name(config)
     config.checkpoint_dir = os.path.join(record_directory, config.checkpoint)
+    # record_train_file_path, record_test_file_path = \
+    #     '{}_{}.txt'.format(record_train_file_path.split('.txt')[0], config.backbone), \
+    #     '{}_{}.txt'.format(record_test_file_path.split('.txt')[0], config.backbone)
     util.record_log(record_train_file_path, '{}\n'.format(config))
     util.record_log(record_test_file_path, '{}\n'.format(config))
 
@@ -110,23 +125,24 @@ def main():
 
 
 if __name__ == '__main__':
-    source_domains, target_domains = ['W', 'D'], ['W', 'D']
-    for source_domain in source_domains:
-        for target_domain in target_domains:
-            config.source, config.target = source_domain, target_domain
-            if config.source == config.target:
-                continue
-            if (config.source == 'A' and config.target == 'D') or (config.source == 'D' and config.target == 'W'):
-                config.lr = 0.0003
-            else:
-                config.lr = 0.001
-            weight_consistencies, weight_consistency_uppers, weight_discrepancy_uppers = [0.0, 0.1, 1.0], [0.0, 1.0], [
-                0.0, 1.0]
-            for weight_consistency in weight_consistencies:
-                for weight_consistency_upper in weight_consistency_uppers:
-                    for weight_discrepancy_upper in weight_discrepancy_uppers:
-                        config.weight_consistency, config.weight_consistency_upper, config.weight_discrepancy_upper = \
-                            weight_consistency, weight_consistency_upper, weight_discrepancy_upper
-                        main()
+    # source_domains, target_domains = ['W', 'D'], ['W', 'D']
+    # for source_domain in source_domains:
+    #     for target_domain in target_domains:
+    #         config.source, config.target = source_domain, target_domain
+    #         if config.source == config.target:
+    #             continue
+    #         if (config.source == 'A' and config.target == 'D') or (config.source == 'D' and config.target == 'W'):
+    #             config.lr = 0.0003
+    #         else:
+    #             config.lr = 0.001
+    #         weight_consistencies, weight_consistency_uppers, weight_discrepancy_uppers = \
+    #             [0.0, 0.1, 1.0], [0.0, 1.0], [0.0, 1.0]
+    #         for weight_consistency in weight_consistencies:
+    #             for weight_consistency_upper in weight_consistency_uppers:
+    #                 for weight_discrepancy_upper in weight_discrepancy_uppers:
+    #                     config.weight_consistency, config.weight_consistency_upper, config.weight_discrepancy_upper = \
+    #                         weight_consistency, weight_consistency_upper, weight_discrepancy_upper
+    #                     main()
     # weight_consistencies, weight_consistency_uppers, weight_discrepancy_uppers = 1.0, 1.0, 1.0
     # main()
+    t_sne_visualization()

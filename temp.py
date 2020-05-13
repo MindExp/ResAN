@@ -213,6 +213,10 @@ inconsistency_index = np.union1d(inconsistency_index, current_inconsistency_inde
 print(inconsistency_index)
 """
 
+"""
+from torch.optim import lr_scheduler
+lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
+"""
 
 # data_set = set((1, 2, 3, 4, 2))
 # print(data_set)

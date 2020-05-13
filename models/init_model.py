@@ -4,6 +4,7 @@ from models import svhn_mnist, mnist_usps, office_31, synsig_gtsrb
 class InitModel:
     def __init__(self):
         self.model = None
+        self.visda_domain = ['visda_train', 'visda_validation']
 
     def init(self, source_domain, target_domain):
         if source_domain in ['svhn', 'mnist'] and target_domain in ['svhn', 'mnist']:
@@ -13,6 +14,9 @@ class InitModel:
         elif source_domain in ['synsig', 'gtsrb'] and target_domain in ['synsig', 'gtsrb']:
             self.model = synsig_gtsrb
         elif source_domain in ['A', 'W', 'D'] and target_domain in ['A', 'W', 'D']:
+            self.model = office_31
+        elif source_domain in self.visda_domain and target_domain in self.visda_domain:
+            # applying shared network architecture
             self.model = office_31
         else:
             raise ValueError('invalid source domain or target domain parameter!')

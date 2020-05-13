@@ -167,13 +167,11 @@ class Solver(object):
             output1 = self.netC1(feat)
             output1_s = output1[:self.batch_size, :]
             output1_t = output1[self.batch_size:, :]
-            output1_t = F.softmax(output1_t)
 
             output2 = self.netC1(feat)
             output2_t = output2[self.batch_size:, :]
-            output2_t = F.softmax(output2_t)
             loss = criterion(output1_s, label_s)
-            loss_dis = util.adr_discrepancy(output1_t, output2_t)
+            loss_dis = util.adr_discrepancy(output1_t, output2_t, use_abs_diff=self.use_abs_diff)
             loss -= loss_dis
             loss.backward()
             self.opt_c1.step()
@@ -184,9 +182,7 @@ class Solver(object):
 
                 output1_t = self.netC1(feat_t)
                 output2_t = self.netC1(feat_t)
-                output1_t = F.softmax(output1_t)
-                output2_t = F.softmax(output2_t)
-                loss_dis = util.adr_discrepancy(output1_t, output2_t)
+                loss_dis = util.adr_discrepancy(output1_t, output2_t, use_abs_diff=self.use_abs_diff)
                 G_loss = loss_dis
                 G_loss.backward()
                 self.opt_g.step()
@@ -194,19 +190,15 @@ class Solver(object):
             output = self.netF(img_s)
             output1_s = self.netC1(output)
             output2_s = self.netC1(output)
-            output1_s = F.softmax(output1_s)
-            output2_s = F.softmax(output2_s)
 
             output = self.netF(img_t)
             output1_t = self.netC1(output)
             output2_t = self.netC1(output)
-            output1_t = F.softmax(output1_t)
-            output2_t = F.softmax(output2_t)
 
-            loss_dis = util.adr_discrepancy(output1_t, output2_t)
+            loss_dis = util.adr_discrepancy(output1_t, output2_t, use_abs_diff=self.use_abs_diff)
             entropy = util.entropy_loss(output1_t).detach()
             loss_dis = loss_dis.detach()
-            loss_dis_s = util.adr_discrepancy(output1_s, output2_s)
+            loss_dis_s = util.adr_discrepancy(output1_s, output2_s, use_abs_diff=self.use_abs_diff)
             loss_dis_s = loss_dis_s.detach()
 
             if batch_idx % self.batch_interval == 0:

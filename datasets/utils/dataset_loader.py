@@ -1,4 +1,4 @@
-from datasets import svhn, mnist, usps, synsig, gtsrb, office_31, office_home
+from datasets import svhn, mnist, usps, synsig, gtsrb, office_31, office_home, visda
 
 
 def get_dataloader(domain, method, config):
@@ -13,10 +13,11 @@ def get_dataloader(domain, method, config):
     """
     office_31_domain = ['A', 'W', 'D']
     office_home_domain = ['Ar', 'Cl', 'Pr', 'Rw']
+    visda_domain = ['visda_train', 'visda_validation']
 
     dataset = svhn if domain == 'svhn' else mnist if domain == 'mnist' else usps if domain == 'usps' \
         else synsig if domain == 'synsig' else gtsrb if domain == 'gtsrb' else office_31 if domain in office_31_domain\
-        else office_home if domain in office_home_domain else None
+        else office_home if domain in office_home_domain else visda if domain in visda_domain else None
     if not dataset:
         raise ValueError('invalid domain parameter, not in expected datasets!')
 

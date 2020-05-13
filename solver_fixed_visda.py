@@ -1,12 +1,14 @@
 from __future__ import print_function
 
+import functools
+import os
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-import numpy as np
 
-from torch.utils.tensorboard import SummaryWriter
 from datasets.utils import dataset_loader
 from models.init_model import InitModel
 from utils import util, temporal_ensemble, inconsistency_target_sampler
@@ -37,6 +39,7 @@ class Solver(object):
         self.weight_consistency = config.weight_consistency
         self.weight_consistency_upper = config.weight_consistency_upper
         self.weight_discrepancy_upper = config.weight_discrepancy_upper
+        self.weight_entropy_loss = config.weight_entropy_loss
         self.mixup_beta = config.mixup_beta
         self.inconsistency_index_set = np.array([], dtype=np.int64)
         self.epoch_num, self.iter_num = 0, 0
@@ -58,16 +61,16 @@ class Solver(object):
         model = InitModel().init(source_domain=self.source, target_domain=self.target)
 
         self.netF = model.get_netF(backbone=self.backbone)
-        self.netC1 = model.get_netC(backbone=self.netF)
-        self.netC2 = model.get_netC(backbone=self.netF)
+        self.netC1 = model.get_netC(backbone=self.netF, class_num=12)
+        self.netC2 = model.get_netC(backbone=self.netF, class_num=12)
 
         if config.resume_epoch or config.eval_only:
-            self.netF = torch.load('%s/%s_to_%s_model_F.pt' %
-                                   (self.checkpoint_dir, self.source, self.target))
-            self.netC1 = torch.load('%s/%s_to_%s_model_C1.pt' %
-                                    (self.checkpoint_dir, self.source, self.target))
-            self.netC2 = torch.load('%s/%s_to_%s_model_C2.pt' %
-                                    (self.checkpoint_dir, self.source, self.target))
+            self.netF = torch.load('%s/%s_to_%s_model_epoch%s_F.pt' %
+                                   (self.checkpoint_dir, self.source, self.target, self.resume_epoch))
+            self.netC1 = torch.load('%s/%s_to_%s_model_epoch%s_C1.pt' %
+                                    (self.checkpoint_dir, self.source, self.target, self.resume_epoch))
+            self.netC2 = torch.load('%s/%s_to_%s_model_epoch%s_C2.pt' %
+                                    (self.checkpoint_dir, self.source, self.target, self.resume_epoch))
 
         self.netF.cuda()
         self.netC1.cuda()
@@ -108,31 +111,6 @@ class Solver(object):
         self.opt_c1.zero_grad()
         self.opt_c2.zero_grad()
 
-    def t_sne(self):
-        self.netF.eval()
-        self.netC1.eval()
-        self.netC2.eval()
-
-        iter_dataloader_source_train, iter_dataloader_target_train = \
-            iter(self.dataloader_source_train), iter(self.dataloader_target_train)
-        index_s, img_s, label_s = iter_dataloader_source_train.next()
-        index_t, img_t, label_t = iter_dataloader_target_train.next()
-
-        img_s, label_s = img_s.cuda(), label_s.long().cuda()
-        img_t, label_t = img_t.cuda(), label_t.long().cuda()
-        label_source_domain, label_target_domain = torch.zeros([self.batch_size]), torch.ones([self.batch_size])
-        label_source_domain, label_target_domain = label_source_domain.long().cuda(), label_target_domain.long().cuda()
-        label_domains = torch.cat((label_source_domain, label_target_domain), dim=0)
-
-        # embedding_s, embedding_t = self.netF(img_s), self.netF(img_t)
-        embedding_s, embedding_t = self.netF(img_s), self.netF(img_t)
-        embedding_domains = torch.cat((self.netC1(embedding_s), self.netC1(embedding_t)), dim=0)
-
-        # Writer will output to ./runs/ directory by default
-        writer = SummaryWriter()
-        writer.add_embedding(mat=embedding_domains, metadata=label_domains, tag='{}_{}'.format(self.source, self.target))
-        writer.close()
-
     # TODO: update for fair comparison. --> FINISHED
     def train(self, epoch, file_path_record=None):
         criterion = nn.CrossEntropyLoss().cuda()
@@ -143,8 +121,11 @@ class Solver(object):
 
         # TODO update optimizer dynamically --> FINISHED
         # --> previous experimental results did not update optimizer in digit experiments
-        office31_domains = ['A', 'W', 'D']
-        if self.source in office31_domains and self.target in office31_domains:
+        office31_domain, visda_domain = ['A', 'W', 'D'], ['visda_train', 'visda_validation']
+        domains = [office31_domain, visda_domain]
+        if functools.reduce(lambda domain_i, domain_j:
+                            (self.source in domain_i and self.target in domain_i) or
+                            (self.source in domain_j and self.target in domain_j), domains):
             self.update_optimizer()
 
         iteration_source, iteration_target = len(self.dataloader_source_train), len(self.dataloader_target_train)
@@ -222,8 +203,11 @@ class Solver(object):
 
         # TODO update optimizer dynamically --> FINISHED
         # --> previous experimental results did not update optimizer in digit experiments
-        office31_domains = ['A', 'W', 'D']
-        if self.source in office31_domains and self.target in office31_domains:
+        office31_domain, visda_domain = ['A', 'W', 'D'], ['visda_train', 'visda_validation']
+        domains = [office31_domain, visda_domain]
+        if functools.reduce(lambda domain_i, domain_j:
+                            (self.source in domain_i and self.target in domain_i) or
+                            (self.source in domain_j and self.target in domain_j), domains):
             self.update_optimizer()
 
         grl_coeff = util.calculate_grl_coefficient(epoch_num=self.epoch_num, epoch_total=self.epoch_total,
@@ -237,14 +221,15 @@ class Solver(object):
         weight_discrepancy_resample = torch.from_numpy(np.array([weight_discrepancy_resample], dtype=np.float32)).cuda()
 
         # TODO 研究点：重新设计 dataloader_target_resample， 采用样本 id 信息 --> FINISHED
-        # FIXME self.inconsistency_index_set --> self.inconsistency_index_set.astype(np.int64)
+        # FIXME self.inconsistency_index_set --> self.inconsistency_index_set.astype(np.int64) --> FINISHED
         self.inconsistency_index_set = self.inconsistency_index_set.astype(np.int64)
         dataloader_target_resample = inconsistency_target_sampler.re_sample_inconsistency_target(
             list(self.inconsistency_index_set), self.dataloader_target_train, self.batch_size)
 
         iteration_source, iteration_target, iteration_resample = \
             len(self.dataloader_source_train), len(self.dataloader_target_train), len(dataloader_target_resample)
-        iteration_total = iteration_source if iteration_source > iteration_target else iteration_target
+        # epoch referred to target domain
+        iteration_total = iteration_source if iteration_source < iteration_target else iteration_target
         iter_dataloader_source_train, iter_dataloader_target_train, iter_dataloader_target_resample = None, None, None
 
         for batch_idx in range(iteration_total):
@@ -305,6 +290,7 @@ class Solver(object):
             loss_consistency_output_t2 = temporal_ensemble.loss_softmax_mse(output_t2, correction_output_t2)
 
             loss_discrepancy_resample = 0.0
+            loss_entropy, loss_entropy_r1, loss_entropy_r2 = 0.0, 0.0, 0.0
             if resample_consideration:
                 img_r = img_r.cuda()
                 feat_r = self.netF(img_r)
@@ -312,13 +298,17 @@ class Solver(object):
                 output_r1 = self.netC1(feat_r, reverse=False, grl_coefficient=4.0)
                 output_r2 = self.netC2(feat_r, reverse=False, grl_coefficient=4.0)
                 loss_discrepancy_resample = util.loss_discrepancy(output_r1, output_r2)
+                loss_entropy_r1 = - torch.mean(torch.log(torch.mean(F.softmax(output_r1, dim=1), 0) + 1e-6))
+                loss_entropy_r2 = - torch.mean(torch.log(torch.mean(F.softmax(output_r1, dim=1), 0) + 1e-6))
+                # TODO: loss_entropy = max(loss_entropy_r1, loss_entropy_r2)
+                loss_entropy = (loss_entropy_r1 + loss_entropy_r2)
 
             self.current_output_t1[start: end] = output_t1.data
             self.current_output_t2[start: end] = output_t2.data
 
             loss = loss_source - self.weight_consistency * loss_discrepancy + \
                    weight_consistency * (loss_consistency_output_t1 + loss_consistency_output_t2) + \
-                   weight_discrepancy_resample * loss_discrepancy_resample
+                   weight_discrepancy_resample * loss_discrepancy_resample + self.weight_entropy_loss * loss_entropy
             loss.backward()
             self.opt_c1.step()
             self.opt_c2.step()
@@ -326,14 +316,17 @@ class Solver(object):
             self.reset_grad()
 
             if batch_idx % self.batch_interval == 0:
-                record_info = 'Train Epoch:{} [batch_index:{}/{}]\tLoss1:{:.6f}\tLoss2:{:.6f}\tDiscrepancy:{:.6f}'.format(
-                    epoch + 1, batch_idx, iteration_total, loss_s1.data.item(), loss_s2.data.item(),
-                    loss_discrepancy.data.item())
+                record_info = 'Train Epoch:{} [batch_index:{}/{}]\tLoss1:{:.6f}\tLoss2:{:.6f}\tDiscrepancy:{:.6f}'\
+                    .format(epoch + 1, batch_idx, iteration_total, loss_s1.data.item(), loss_s2.data.item(),
+                            loss_discrepancy.data.item())
                 train_info = '\tConsistency weight:{:.6f}\tConsistency loss_t1:{:.6f}\tConsistency loss_t2:{:.6f}' \
+                             '\tEntropy loss_r1:{:.6f}\tEntropy loss_r2:{:.6f}' \
                              '\tDiscrepancy_Resample Weight:{:.6f}\tResample Discrepancy{:.6f}\tResample Pool Num:{}' \
                     .format(weight_consistency.item(),
                             loss_consistency_output_t1.data.item(),
                             loss_consistency_output_t2.data.item(),
+                            loss_entropy_r1,
+                            loss_entropy_r2,
                             weight_discrepancy_resample.item(),
                             loss_discrepancy_resample,
                             len(self.inconsistency_index_set))
@@ -369,6 +362,8 @@ class Solver(object):
         else:
             raise ValueError('Invalid test domain, expected to must be source or target testSet')
 
+        visda_source_results = os.path.join(record_file_path, 'source_results.txt')
+        visda_adaptation_results = os.path.join(record_file_path, 'adaptation_results.txt')
         for batch_idx, data in enumerate(dataloader_test):
             index, img, label = data
             img, label = img.cuda(), label.long().cuda()
@@ -385,6 +380,9 @@ class Solver(object):
             correct_c2 += predict_c2.eq(label.data).sum()
             correct_ensemble += predict_ensemble.eq(label.data).sum()
             size += k
+
+            util.record_log(record_file_path=visda_source_results, )
+            util.record_log(record_file_path=visda_adaptation_results, )
         test_loss_c1 = test_loss_c1 / size
         test_loss_c2 = test_loss_c2 / size
 
