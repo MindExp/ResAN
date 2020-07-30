@@ -216,16 +216,10 @@ class ProcessAnon(ProcessMCD):
         self.dir_path = self.ancestor_path
 
 
-class ProcessADR(ProcessAlgorithm):
+class ProcessADR(ProcessMCD):
     def __init__(self, config):
-        ProcessAlgorithm.__init__(self, config=config)
-        self.dir_path = os.path.join(dir_path_reproduction, 'ADR')
-
-    def get_acc_list(self):
-        """
-
-        :return:
-        """
+        ProcessMCD.__init__(self, config=config)
+        self.ancestor_path = os.path.join(dir_path_reproduction, 'ADR')
 
 
 class ProcessCDAN(ProcessAlgorithm):

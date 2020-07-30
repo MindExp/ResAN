@@ -501,3 +501,35 @@ processing: E:\Projects\Python\Anon\exp_record\synsig_gtsrb
 processing: E:\Projects\Python\Anon\exp_record\synsig_gtsrb\synsig_gtsrb_alluse_True_onestep_True_record_num_11_test.txt
 target domain:(0.9184, 0.0024)
 synsig_gtsrb best exp setting mean:0.9755
+
+
+E:\ProgramFiles\Anaconda3\python.exe E:/Projects/Python/Anon/exp_record/exp_process.py --algorithm=MCD --process_task=synsig_gtsrb --specific_task=A_W --all_use --supplementary_info=
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31\A_D_alluse_True_onestep_False_record_num_0_test.txt
+target domain:(0.7932, 0.0)
+A_D best exp setting mean:0.7932
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31\A_W_alluse_True_onestep_False_record_num_0_test.txt
+target domain:(0.8179, 0.00052)
+A_W best exp setting mean:0.8179
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31\D_A_alluse_True_onestep_False_record_num_0_test.txt
+target domain:(0.5629, 0.01035)
+D_A best exp setting mean:0.5629
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31\D_W_alluse_True_onestep_False_record_num_0_test.txt
+target domain:(0.9809, 0.00093)
+D_W best exp setting mean:0.9809
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31\W_A_alluse_True_onestep_False_record_num_0_test.txt
+target domain:(0.6013, 0.00365)
+W_A best exp setting mean:0.6013
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31
+processing: E:\Projects\Python\Anon\exp_record\REPRODUCTION\ADR\office_31\W_D_alluse_True_onestep_False_record_num_0_test.txt
+target domain:(1.0, 0.0)
+W_D best exp setting mean:1.0
+office_31 average mean:0.7927
+
+Process finished with exit code 0
+
+
